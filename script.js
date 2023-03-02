@@ -162,142 +162,337 @@ const radToDegree = function (angle) {
 let loadLayer = async (layer, faceNumber, preview) => {
   let { backgroundUrl, frameUrl } = layer;
 
-  let bgDim = layer.dimensions;
-  const canvas = new fabric.Canvas(document.querySelector('#fCanvas'), bgDim);
-
-  canvas.selectionColor = 'rgba(100, 100, 255, 0.3)';
-  canvas.hoverCursor = 'move';
-
-  fabric.Object.prototype.toObject = (function (toObject) {
-    return function (properties) {
-      return fabric.util.object.extend(toObject.call(this, properties), {
-        name: this.name,
-        userUploaded: this.userUploaded,
-        imgToZoneId: this.imgToZoneId,
-        userAddedPhotoId: this.userAddedPhotoId,
-      });
-    };
-  })(fabric.Object.prototype.toObject);
-
-  await loadImage('backgroundImage', canvas, {
-    image: {
-      left: 0,
-      top: 0,
-      scaleX: 1,
-      scaleY: 1,
-      width: canvas.width,
-      height: canvas.height,
+  let canvasJson = {
+    version: '3.6.6',
+    objects: [],
+    backgroundImage: {
+      type: 'image',
+      version: '3.6.6',
       originX: 'left',
       originY: 'top',
+      left: 0,
+      top: 0,
+      width: layer.dimensions.width,
+      height: layer.dimensions.height,
+      fill: 'transparent',
+      stroke: null,
+      strokeWidth: 0,
+      strokeDashArray: null,
+      strokeLineCap: 'butt',
+      strokeDashOffset: 0,
+      strokeLineJoin: 'miter',
+      strokeUniform: false,
+      strokeMiterLimit: 4,
+      scaleX: 1,
+      scaleY: 1,
+      angle: 0,
+      flipX: false,
+      flipY: false,
+      opacity: 1,
+      shadow: null,
+      visible: true,
+      backgroundColor: '',
+      fillRule: 'nonzero',
+      paintFirst: 'fill',
+      globalCompositeOperation: 'source-over',
+      skewX: 0,
+      skewY: 0,
+      cropX: 0,
+      cropY: 0,
+      lockScalingFlip: false,
+      selectable: true,
+      lockMovementX: false,
+      lockMovementY: false,
+      cornerColor: 'rgb(178,204,255)',
+      borderDashArray: null,
+      evented: true,
+      hoverCursor: null,
+      lockRotation: false,
+      src: backgroundUrl,
+      crossOrigin: 'anonymous',
+      filters: [],
     },
-    url: backgroundUrl,
-  });
+    selectionColor: 'rgba(100, 100, 255, 0.3)',
+    hoverCursor: 'move',
+  };
 
   const userImages = [];
   await Promise.all(
     layer.photoZones.map((d) => {
       d.imageId && userImages.push(d.imageId);
-      // const calImageAngle =  (d.image.angle || 0) > 0 ? d.image.angle * 180 : (360 - ((d.image.angle || 0) * 180))
-      return loadImage('imagePhotozoneDefaultSettings', canvas, {
-        image: {
-          left: (d.image.insideWidth || 0) + d.left || 0,
-          top: d.top || 0,
-          scaleX: d.image.scale || 1,
-          scaleY: d.image.scale || 1,
-          userAddedPhotoId: d.image.imageId,
-          angle: radToDegree(d.image.angle),
-          originX: 'left',
-          originY: 'top',
-          centeredRotation: d.userDefined || false,
-          clipPath:
-            d.userDefined || false
-              ? new fabric.Rect({
-                  left: d.left || 0,
-                  top: d.top || 0,
-                  width: d.width || canvas.width,
-                  height: d.height || canvas.height,
-                  angle: radToDegree(d.angle),
-                  absolutePositioned: true,
-                })
-              : undefined,
-        },
-        url: d.image.uri,
-        left: d.left || 0,
-        top: d.top || 0,
-        width: d.width || canvas.width,
-        height: d.height || canvas.height,
-        angle: radToDegree(d.angle),
-        userDefined: d.userDefined || false,
+      let scaleX = d.image.scale,
+        scaleY = d.image.scale,
+        left = (d.image.insideWidth || 0) + d.left || 0,
+        top = d.top || 0;
+      if (typeof d.userDefined === 'undefined') {
+        const canvasWidth = d.width || layer.dimensions.width,
+          canvasHeight = d.height || layer.dimensions.height,
+          isCustomWidthDefined = d.width ? true : false,
+          isCustomHeightDefined = d.height ? true : false;
+
+        if (d.image.width * scaleX < canvasWidth) {
+          scaleX = scaleY = canvasWidth / (d.image.width * scaleX);
+        } else {
+          if (d.image.width * scaleX > d.image.height * scaleY) {
+            scaleX = scaleY = canvasHeight / (d.image.height * scaleY);
+          } else {
+            scaleX = scaleY = canvasWidth / (d.image.width * scaleX);
+          }
+        }
+        if (d.image.height * scaleY < canvasHeight) {
+          scaleX = scaleY = canvasHeight / (d.image.height * scaleY);
+        } else {
+          if (d.image.width * scaleX > d.image.height * scaleY) {
+            scaleX = scaleY = canvasHeight / (d.image.height * scaleY);
+          } else {
+            scaleX = scaleY = canvasWidth / (d.image.width * scaleX);
+          }
+        }
+        if (isCustomWidthDefined && isCustomHeightDefined) {
+          if (d.image.width * scaleX > canvasWidth) {
+            left = left - (d.image.width * scaleX - canvasWidth) / 2;
+          } else {
+            top = top - (d.image.height * scaleY - canvasHeight) / 2;
+          }
+        } else {
+          left = (canvasWidth - d.image.width * scaleX) / 2;
+          top = (canvasHeight - d.image.height * scaleY) / 2;
+        }
+      }
+      canvasJson.objects.push({
+        type: 'image',
+        version: '3.6.6',
+        left: left,
+        top: top,
+        scaleX: scaleX || 1,
+        scaleY: scaleY || 1,
+        userAddedPhotoId: d.image.imageId,
+        angle: radToDegree(d.image.angle),
+        originX: 'left',
+        originY: 'top',
+        centeredRotation: d.userDefined || false,
+        width: d.image.width,
+        height: d.image.height,
+        fill: 'rgb(0,0,0)',
+        stroke: null,
+        strokeWidth: 0,
+        strokeDashArray: null,
+        strokeLineCap: 'butt',
+        strokeDashOffset: 0,
+        strokeLineJoin: 'miter',
+        strokeUniform: false,
+        strokeMiterLimit: 4,
+        flipX: false,
+        flipY: false,
+        opacity: 1,
+        shadow: null,
+        visible: true,
+        backgroundColor: '',
+        fillRule: 'nonzero',
+        paintFirst: 'fill',
+        globalCompositeOperation: 'source-over',
+        skewX: 0,
+        skewY: 0,
+        cropX: 0,
+        cropY: 0,
+        name: 'userUploadedImage',
+        userUploaded: true,
+        selectable: false,
+        evented: false,
+        lockScalingFlip: true,
+        src: d.image.uri,
+        crossOrigin: 'anonymous',
+        filters: [],
+        clipPath:
+          d.userDefined || false
+            ? {
+                type: 'rect',
+                version: '3.6.6',
+                left: d.left || 0,
+                top: d.top || 0,
+                width: d.width || layer.dimensions.width,
+                height: d.height || layer.dimensions.height,
+                angle: radToDegree(d.angle),
+                fill: 'rgb(0,0,0)',
+                stroke: null,
+                strokeWidth: 1,
+                strokeDashArray: null,
+                strokeLineCap: 'butt',
+                strokeDashOffset: 0,
+                strokeLineJoin: 'miter',
+                strokeUniform: false,
+                strokeMiterLimit: 4,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                backgroundColor: '',
+                fillRule: 'nonzero',
+                paintFirst: 'fill',
+                globalCompositeOperation: 'source-over',
+                skewX: 0,
+                skewY: 0,
+                rx: 0,
+                ry: 0,
+                inverted: false,
+                absolutePositioned: true,
+              }
+            : undefined,
       });
     })
   );
 
   layer.photoZones.forEach((d) => {
     if (typeof d.userDefined === 'undefined') {
-      const rect = new fabric.Rect(
-        Object.assign(
-          {},
-          configStore.photozoneDefaultSettings,
-          {
-            height: d.height || canvas.height,
-            left: d.left || 0,
-            angle: radToDegree(d.angle),
-            top: d.top || 0,
-            width: d.width || canvas.width,
-            fill: 'transparent',
-          },
-          {
-            strokeWidth: 0,
-            stroke: null,
-          }
-        )
+      canvasJson.objects.push(
+        Object.assign({}, configStore.photozoneDefaultSettings, {
+          type: 'rect',
+          version: '3.6.6',
+          left: d.left || 0,
+          top: d.top || 0,
+          width: d.width || layer.dimensions.width,
+          height: d.height || layer.dimensions.height,
+          angle: radToDegree(d.angle),
+          fill: 'rgb(0,0,0)',
+          stroke: null,
+          strokeWidth: 1,
+          strokeDashArray: null,
+          strokeLineCap: 'butt',
+          strokeDashOffset: 0,
+          strokeLineJoin: 'miter',
+          strokeUniform: false,
+          strokeMiterLimit: 4,
+          angle: 0,
+          flipX: false,
+          flipY: false,
+          opacity: 1,
+          shadow: null,
+          visible: true,
+          backgroundColor: '',
+          fillRule: 'nonzero',
+          paintFirst: 'fill',
+          globalCompositeOperation: 'source-over',
+          skewX: 0,
+          skewY: 0,
+          rx: 0,
+          ry: 0,
+          inverted: false,
+        })
       );
-      canvas.add(rect);
     }
   });
 
   if (frameUrl) {
-    await loadImage('overlayImageDefaultSettings', canvas, {
-      image: {
-        width: canvas.width,
-        height: canvas.height,
+    canvasJson.objects.push(
+      Object.assign({}, configStore.overlayImageDefaultSettings, {
+        type: 'image',
+        version: '3.6.6',
+        left: 0,
+        top: 0,
+        scaleX: 1,
+        scaleY: 1,
+        angle: 0,
         originX: 'left',
         originY: 'top',
+        width: layer.dimensions.width,
+        height: layer.dimensions.height,
         fill: 'transparent',
-      },
-      url: frameUrl,
-    });
+        stroke: null,
+        strokeWidth: 0,
+        strokeDashArray: null,
+        strokeLineCap: 'butt',
+        strokeDashOffset: 0,
+        strokeLineJoin: 'miter',
+        strokeUniform: false,
+        strokeMiterLimit: 4,
+        flipX: false,
+        flipY: false,
+        opacity: 1,
+        shadow: null,
+        visible: true,
+        backgroundColor: '',
+        fillRule: 'nonzero',
+        paintFirst: 'fill',
+        globalCompositeOperation: 'source-over',
+        skewX: 0,
+        skewY: 0,
+        cropX: 0,
+        cropY: 0,
+        selectable: false,
+        evented: false,
+        lockScalingFlip: true,
+        src: frameUrl,
+        crossOrigin: 'anonymous',
+        filters: [],
+      })
+    );
   }
 
   layer.texts.forEach((d) => {
-    d.fill = d.textColor;
-    d.fontSize = d.fontSize * 4;
-    d.fontFamily = `Times New Roman`;
-    const text = new fabric.Textbox(
-      d.text,
-      Object.assign({}, configStore.textDefaultSettings, d)
+    canvasJson.objects.push(
+      Object.assign({}, configStore.textDefaultSettings, {
+        type: 'textbox',
+        version: '3.6.6',
+        originX: 'left',
+        originY: 'center',
+        left: d.left || 0,
+        top: d.top || 0,
+        width: d.width,
+        height: d.height,
+        fill: d.textColor,
+        stroke: null,
+        strokeWidth: 1,
+        strokeDashArray: null,
+        strokeLineCap: 'butt',
+        strokeDashOffset: 0,
+        strokeLineJoin: 'miter',
+        strokeUniform: false,
+        strokeMiterLimit: 4,
+        scaleX: 1,
+        scaleY: 1,
+        angle: 0,
+        flipX: false,
+        flipY: false,
+        opacity: 1,
+        shadow: null,
+        visible: true,
+        backgroundColor: 'transparent',
+        fillRule: 'nonzero',
+        paintFirst: 'fill',
+        globalCompositeOperation: 'source-over',
+        skewX: 0,
+        skewY: 0,
+        fontFamily: `fontid-${d.fontId}`,
+        fontWeight: 'normal',
+        fontSize: d.fontSize * 4,
+        text: d.text,
+        underline: false,
+        overline: false,
+        linethrough: false,
+        textAlign: d.textAlign,
+        fontStyle: 'normal',
+        lineHeight: 1.16,
+        textBackgroundColor: '',
+        charSpacing: 0,
+        styles: {},
+        direction: 'ltr',
+        path: null,
+        pathStartOffset: 0,
+        pathSide: 'left',
+        pathAlign: 'baseline',
+        minWidth: 20,
+        splitByGrapheme: false,
+      })
     );
-    canvas.add(text);
   });
-
-  canvas.renderAll();
-
-  let ImagePreview = canvas.toDataURL({
-    format: 'jpeg',
-    quality: 0.5,
-  });
-
-  if (!preview) {
-    ImagePreview = ImagePreview.replace('data:image/jpeg;base64,', '');
-  }
 
   return {
-    CanvasJson: canvas.toJSON(),
-    PrintJson: canvas.toJSON(),
+    canvasJson,
     UserImages: userImages,
     FaceId: faceNumber,
     FaceNumber: faceNumber,
-    ImagePreview,
   };
 };
 
