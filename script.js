@@ -1,9 +1,12 @@
 const configStore = (function () {
   // general default stuff that will help us set some options
-  var spacingUnit = 20; // this is the old textPadding
+  const spacingUnit = 20; // this is the old textPadding
 
-  var defaultFont = 'fontid-107'; // Annette Print ("Hey sunshine")
-  var piBy2 = Math.PI * 2;
+  const defaultFont = 'fontid-107'; // Annette Print ("Hey sunshine")
+  const piBy2 = Math.PI * 2;
+  const bleedInMM = 3,
+    mmInPixels = 11.811,
+    scalingFactor = 2;
 
   return {
     spacingUnit: spacingUnit,
@@ -45,7 +48,7 @@ const configStore = (function () {
       strokeLineCap: 'round',
       fill: 'rgba(237, 141, 56, 0.2)',
       isModified: false,
-      selectable: true,
+      selectable: false,
       eventable: false,
       lockMovementX: true,
       lockMovementY: true,
@@ -58,13 +61,13 @@ const configStore = (function () {
       fill: '#562B9D',
       originX: 'top',
       originY: 'left',
-      selectable: true,
+      selectable: false,
       eventable: false,
     },
     // editable area button with icon group settings
     editableAreaButtonGroupDefault: {
       name: 'areaButton',
-      selectable: true,
+      selectable: false,
       eventable: true,
       lockMovementX: true,
       lockMovementY: true,
@@ -84,7 +87,7 @@ const configStore = (function () {
       lockMovementX: true,
       lockMovementY: true,
       lockRotation: true,
-      selectable: true,
+      selectable: false,
       eventable: false,
       originX: 'center',
       originY: 'center',
@@ -97,7 +100,7 @@ const configStore = (function () {
       fontSize: 32,
       fontFamily: 'Poppins',
       fill: '#562B9D',
-      selectable: true,
+      selectable: false,
       eventable: false,
       originX: 'center',
       originY: 'top',
@@ -132,7 +135,7 @@ const configStore = (function () {
       fill: 'transparent',
       hoverCursor: 'pointer',
       strokeWidth: 0,
-      selectable: true,
+      selectable: false,
       evented: true,
       lockMovementX: true,
       lockMovementY: true,
@@ -142,7 +145,7 @@ const configStore = (function () {
     imagePhotozoneDefaultSettings: {
       name: 'userUploadedImage',
       userUploaded: true,
-      selectable: true,
+      selectable: false,
       evented: false,
       lockScalingFlip: true,
       angle: 0,
@@ -151,7 +154,7 @@ const configStore = (function () {
     overlayImageDefaultSettings: {
       name: 'overlayImg',
       evented: false,
-      selectable: true,
+      selectable: false,
     },
     cos: function (angle) {
       if (angle === 0) {
@@ -198,20 +201,103 @@ const configStore = (function () {
       }
       return Math.sin(angle);
     },
+    radToDegree: function (angle) {
+      return (angle || 0) * 57.2958;
+    },
+    calcPointRotationTransform: function (point, angle) {
+      if (angle) {
+        const t = [this.cos(a), this.sin(a), -this.sin(a), this.cos(a), 0, 0];
+        return {
+          x: t[0] * point.x + t[2] * point.y + t[4],
+          y: t[1] * point.x + t[3] * point.y + t[5],
+        };
+      }
+      return point;
+    },
+    helperSettings: {
+      bleedInMM,
+      mmInPixels,
+      scalingFactor,
+    },
   };
 })();
 
-const radToDegree = function (angle) {
-  return (angle || 0) * 57.2958;
+const deepCopy = (inObject) => {
+  if (typeof inObject !== 'object' || inObject === null) {
+    return inObject;
+  }
+
+  const outObject = Array.isArray(inObject) ? [] : {};
+
+  Object.keys(inObject).forEach((key) => {
+    const val = inObject[`${key}`];
+    outObject[`${key}`] = deepCopy(val);
+  });
+
+  return outObject;
 };
 
-let loadLayer = async (layer, faceNumber, preview) => {
+const printJsonConversion = (canvasJson) => {
+  const printJSON = deepCopy(canvasJson);
+  const scalingFactor = configStore.helperSettings.scalingFactor;
+  const bleedInPixels =
+    (configStore.helperSettings.bleedInMM *
+      configStore.helperSettings.mmInPixels) /
+    configStore.helperSettings.scalingFactor;
+  if (printJSON.backgroundImage) {
+    printJSON.backgroundImage.width *=
+      scalingFactor * printJSON.backgroundImage.scaleX;
+    printJSON.backgroundImage.height *=
+      scalingFactor * printJSON.backgroundImage.scaleY;
+
+    printJSON.backgroundImage.left = 0;
+    printJSON.backgroundImage.top = 0;
+    const imgSrc = printJSON.backgroundImage.src.split('?w=')[0];
+    printJSON.backgroundImage.src = `${imgSrc}?w=${printJSON.backgroundImage.width}`;
+  }
+  printJSON.objects = printJSON.objects.map((canvasObject) => {
+    if (canvasObject.type === 'textbox') {
+      canvasObject.fontSize *= scalingFactor;
+      canvasObject.width *= scalingFactor;
+      canvasObject.height *= scalingFactor;
+    } else {
+      canvasObject.scaleX *= scalingFactor;
+      canvasObject.scaleY *= scalingFactor;
+
+      if (canvasObject.src) {
+        /* eslint prefer-destructuring: ["error", {AssignmentExpression: {array: false}}] */
+        canvasObject.src = canvasObject.src.split('?w=')[0];
+      }
+    }
+
+    if (canvasObject.clipPath) {
+      canvasObject.clipPath.scaleX *= scalingFactor;
+      canvasObject.clipPath.scaleY *= scalingFactor;
+      canvasObject.clipPath.left =
+        (canvasObject.clipPath.left + bleedInPixels) * scalingFactor;
+      canvasObject.clipPath.top =
+        (canvasObject.clipPath.top + bleedInPixels) * scalingFactor;
+    }
+
+    canvasObject.left = (canvasObject.left + bleedInPixels) * scalingFactor;
+    canvasObject.top = (canvasObject.top + bleedInPixels) * scalingFactor;
+    return canvasObject;
+  });
+  return printJSON;
+};
+
+const loadLayer = async (layer, faceNumber, preview) => {
   let { backgroundUrl, frameUrl } = layer;
 
   let canvasJson = {
     version: '3.6.6',
     objects: [],
-    backgroundImage: {
+    selectionColor: 'rgba(100, 100, 255, 0.3)',
+    hoverCursor: 'move',
+  };
+
+  if (backgroundUrl) {
+    canvasJson.backgroundImage = {
       type: 'image',
       version: '3.6.6',
       originX: 'left',
@@ -257,157 +343,160 @@ let loadLayer = async (layer, faceNumber, preview) => {
       src: backgroundUrl,
       crossOrigin: 'anonymous',
       filters: [],
-    },
-    selectionColor: 'rgba(100, 100, 255, 0.3)',
-    hoverCursor: 'move',
-  };
+    };
+  }
 
   const userImages = [];
   await Promise.all(
     layer.photoZones.map((d) => {
-      d.image.imageId && userImages.push(d.image.imageId);
-      let scaleX = 1,
-        scaleY = 1,
-        iScaleX = d.image.scaleX || 1,
-        iScaleY = d.image.scaleY || 1,
-        left = 0,
-        top = 0,
-        imageWidth = d.image?.cropRect?.width || d.image?.width || 0,
-        imageHeight = d.image?.cropRect?.height || d.image?.height || 0;
-      console.log(
-        typeof d.userDefined === 'undefined' &&
-          typeof d.image.scaleX === 'undefined' &&
-          typeof d.image.scaleY === 'undefined'
-      );
-      if (typeof d.userDefined === 'undefined') {
-        const canvasWidth = d.width || layer.dimensions.width,
-          canvasHeight = d.height || layer.dimensions.height,
-          isCustomWidthDefined = d.width ? true : false,
-          isCustomHeightDefined = d.height ? true : false;
+      if (d.image && d.image.uri) {
+        d.image.imageId && userImages.push(d.image.imageId);
+        let scaleX = 1,
+          scaleY = 1,
+          iScaleX = d.image.scaleX || 1,
+          iScaleY = d.image.scaleY || 1,
+          left = (d.image?.insideWidth || 0) + d.left || 0,
+          top = d.top || 0,
+          cropRectWidth =
+            d.image && d.image.cropRect && d.image.cropRect.width
+              ? d.image.cropRect.width
+              : undefined,
+          cropReactHeight =
+            d.image && d.image.cropRect && d.image.cropRect.height
+              ? d.image.cropRect.height
+              : undefined,
+          imageWidth = cropRectWidth || d.image.width || 0,
+          imageHeight = cropReactHeight || d.image.height || 0;
+        if (typeof d.userDefined === 'undefined') {
+          const canvasWidth = d.width || layer.dimensions.width,
+            canvasHeight = d.height || layer.dimensions.height,
+            isCustomWidthDefined = d.width ? true : false,
+            isCustomHeightDefined = d.height ? true : false;
 
-        if (imageWidth * scaleX > imageHeight * scaleY) {
-          scaleX = scaleY = canvasHeight / (imageHeight * scaleY);
-        }
-        if (imageWidth * scaleX < imageHeight * scaleY) {
-          scaleX = scaleY = canvasWidth / (imageWidth * scaleX);
-        }
-        if (imageWidth * scaleX < canvasWidth) {
-          scaleX = scaleY = canvasWidth / (imageWidth * scaleX);
-        }
-        if (imageHeight * scaleY < canvasHeight) {
-          scaleX = scaleY = canvasHeight / (imageHeight * scaleY);
-        }
-
-        scaleX = scaleX * iScaleX;
-        scaleY = scaleY * iScaleY;
-        if (isCustomWidthDefined && isCustomHeightDefined) {
-          if (imageWidth * scaleX > canvasWidth) {
-            left = left - (imageWidth * scaleX - canvasWidth) / 2;
-            top = top - (imageHeight * scaleY - canvasHeight) / 2;
-          } else {
-            top = top - (imageHeight * scaleY - canvasHeight) / 2;
-            left = left - (imageWidth * scaleX - canvasWidth) / 2;
+          if (imageWidth * scaleX > imageHeight * scaleY) {
+            scaleX = scaleY = canvasHeight / (imageHeight * scaleY);
           }
-        } else {
-          left = (canvasWidth - imageWidth * scaleX) / 2;
-          top = (canvasHeight - imageHeight * scaleY) / 2;
+          if (imageWidth * scaleX < imageHeight * scaleY) {
+            scaleX = scaleY = canvasWidth / (imageWidth * scaleX);
+          }
+          if (imageWidth * scaleX < canvasWidth) {
+            scaleX = scaleY = canvasWidth / (imageWidth * scaleX);
+          }
+          if (imageHeight * scaleY < canvasHeight) {
+            scaleX = scaleY = canvasHeight / (imageHeight * scaleY);
+          }
+
+          scaleX = scaleX * iScaleX;
+          scaleY = scaleY * iScaleY;
+          if (isCustomWidthDefined && isCustomHeightDefined) {
+            if (imageWidth * scaleX > canvasWidth) {
+              left = left - (imageWidth * scaleX - canvasWidth) / 2;
+              top = top - (imageHeight * scaleY - canvasHeight) / 2;
+            } else {
+              top = top - (imageHeight * scaleY - canvasHeight) / 2;
+              left = left - (imageWidth * scaleX - canvasWidth) / 2;
+            }
+          } else {
+            left = (canvasWidth - imageWidth * scaleX) / 2;
+            top = (canvasHeight - imageHeight * scaleY) / 2;
+          }
         }
+
+        left += d.image.left || 0;
+        top += d.image.top || 0;
+        let point = {
+          x: left,
+          y: top,
+        };
+
+        canvasJson.objects.push({
+          type: 'image',
+          version: '3.6.6',
+          left: point.x,
+          top: point.y,
+          scaleX: scaleX || 1,
+          scaleY: scaleY || 1,
+          userAddedPhotoId: d.image.imageId,
+          angle: configStore.radToDegree(d.image.angle),
+          originX: 'left',
+          originY: 'top',
+          centeredRotation: true,
+          width: imageWidth,
+          height: imageHeight,
+          fill: 'rgb(0,0,0)',
+          stroke: null,
+          strokeWidth: 0,
+          strokeDashArray: null,
+          strokeLineCap: 'butt',
+          strokeDashOffset: 0,
+          strokeLineJoin: 'miter',
+          strokeUniform: false,
+          strokeMiterLimit: 4,
+          flipX: false,
+          flipY: false,
+          opacity: 1,
+          shadow: null,
+          visible: true,
+          backgroundColor: '',
+          fillRule: 'nonzero',
+          paintFirst: 'fill',
+          globalCompositeOperation: 'source-over',
+          skewX: 0,
+          skewY: 0,
+          cropX: 0,
+          cropY: 0,
+          name: 'userUploadedImage',
+          userUploaded: true,
+          selectable: false,
+          evented: false,
+          lockScalingFlip: true,
+          src: d.image.uri,
+          crossOrigin: 'anonymous',
+          filters: [],
+          clipPath:
+            typeof d.userDefined === 'undefined'
+              ? {
+                  type: 'rect',
+                  version: '3.6.6',
+                  left: d.left || 0,
+                  top: d.top || 0,
+                  width: d.width || layer.dimensions.width,
+                  height: d.height || layer.dimensions.height,
+                  angle: configStore.radToDegree(d.angle),
+                  fill: 'rgb(0,0,0)',
+                  stroke: null,
+                  strokeWidth: 1,
+                  strokeDashArray: null,
+                  strokeLineCap: 'butt',
+                  strokeDashOffset: 0,
+                  strokeLineJoin: 'miter',
+                  strokeUniform: false,
+                  strokeMiterLimit: 4,
+                  angle: 0,
+                  flipX: false,
+                  flipY: false,
+                  opacity: 1,
+                  shadow: null,
+                  visible: true,
+                  backgroundColor: '',
+                  fillRule: 'nonzero',
+                  paintFirst: 'fill',
+                  globalCompositeOperation: 'source-over',
+                  skewX: 0,
+                  skewY: 0,
+                  rx: 0,
+                  ry: 0,
+                  inverted: false,
+                  absolutePositioned: true,
+                }
+              : undefined,
+        });
       }
-
-      left = d.image.left / 0.255 || 0 || 0;
-      top = d.image.top / 0.255 || 0 || 0;
-
-      let point = {
-        x: left,
-        y: top,
-      };
-      canvasJson.objects.push({
-        type: 'image',
-        version: '3.6.6',
-        left: point.x,
-        top: point.y,
-        scaleX: scaleX || 1,
-        scaleY: scaleY || 1,
-        userAddedPhotoId: d.image.imageId,
-        angle: radToDegree(d.image.angle),
-        originX: 'left',
-        originY: 'top',
-        centeredRotation: true,
-        width: imageWidth,
-        height: imageHeight,
-        fill: 'rgb(0,0,0)',
-        stroke: null,
-        strokeWidth: 0,
-        strokeDashArray: null,
-        strokeLineCap: 'butt',
-        strokeDashOffset: 0,
-        strokeLineJoin: 'miter',
-        strokeUniform: false,
-        strokeMiterLimit: 4,
-        flipX: false,
-        flipY: false,
-        opacity: 1,
-        shadow: null,
-        visible: true,
-        backgroundColor: '',
-        fillRule: 'nonzero',
-        paintFirst: 'fill',
-        globalCompositeOperation: 'source-over',
-        skewX: 0,
-        skewY: 0,
-        cropX: 0,
-        cropY: 0,
-        name: 'userUploadedImage',
-        userUploaded: true,
-        selectable: true,
-        evented: false,
-        lockScalingFlip: true,
-        src: d.image.uri,
-        crossOrigin: 'anonymous',
-        filters: [],
-        clipPath:
-          typeof d.userDefined === 'undefined'
-            ? {
-                type: 'rect',
-                version: '3.6.6',
-                left: d.left || 0,
-                top: d.top || 0,
-                width: d.width || layer.dimensions.width,
-                height: d.height || layer.dimensions.height,
-                angle: radToDegree(d.angle),
-                fill: 'rgb(0,0,0)',
-                stroke: null,
-                strokeWidth: 1,
-                strokeDashArray: null,
-                strokeLineCap: 'butt',
-                strokeDashOffset: 0,
-                strokeLineJoin: 'miter',
-                strokeUniform: false,
-                strokeMiterLimit: 4,
-                angle: 0,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                backgroundColor: '',
-                fillRule: 'nonzero',
-                paintFirst: 'fill',
-                globalCompositeOperation: 'source-over',
-                skewX: 0,
-                skewY: 0,
-                rx: 0,
-                ry: 0,
-                inverted: false,
-                absolutePositioned: true,
-              }
-            : undefined,
-      });
     })
   );
 
   layer.photoZones.forEach((d) => {
-    if (typeof d.userDefined === 'undefined') {
+    if (typeof d.userDefined === 'undefined' && d.image && d.image.uri) {
       canvasJson.objects.push(
         Object.assign({}, configStore.photozoneDefaultSettings, {
           type: 'rect',
@@ -416,7 +505,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
           top: d.top || 0,
           width: d.width || layer.dimensions.width,
           height: d.height || layer.dimensions.height,
-          angle: radToDegree(d.angle),
+          angle: configStore.radToDegree(d.angle),
           fill: 'transparent',
           stroke: null,
           strokeWidth: 1,
@@ -482,7 +571,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
         skewY: 0,
         cropX: 0,
         cropY: 0,
-        selectable: true,
+        selectable: false,
         evented: false,
         lockScalingFlip: true,
         src: frameUrl,
@@ -526,7 +615,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
         globalCompositeOperation: 'source-over',
         skewX: 0,
         skewY: 0,
-        fontFamily: 'Times New Roman' || `fontid-${d.fontId}`,
+        fontFamily: `fontid-${d.fontId}`,
         fontWeight: 'normal',
         fontSize: d.fontSize * 4,
         text: d.text,
@@ -552,7 +641,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
 
   return {
     CanvasJson: canvasJson,
-    PrintJson: canvasJson,
+    PrintJson: printJsonConversion(canvasJson),
     UserImages: userImages,
     FaceId: faceNumber,
     FaceNumber: faceNumber,
