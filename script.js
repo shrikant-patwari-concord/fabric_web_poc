@@ -45,7 +45,7 @@ const configStore = (function () {
       strokeLineCap: 'round',
       fill: 'rgba(237, 141, 56, 0.2)',
       isModified: false,
-      selectable: false,
+      selectable: true,
       eventable: false,
       lockMovementX: true,
       lockMovementY: true,
@@ -58,13 +58,13 @@ const configStore = (function () {
       fill: '#562B9D',
       originX: 'top',
       originY: 'left',
-      selectable: false,
+      selectable: true,
       eventable: false,
     },
     // editable area button with icon group settings
     editableAreaButtonGroupDefault: {
       name: 'areaButton',
-      selectable: false,
+      selectable: true,
       eventable: true,
       lockMovementX: true,
       lockMovementY: true,
@@ -84,7 +84,7 @@ const configStore = (function () {
       lockMovementX: true,
       lockMovementY: true,
       lockRotation: true,
-      selectable: false,
+      selectable: true,
       eventable: false,
       originX: 'center',
       originY: 'center',
@@ -97,7 +97,7 @@ const configStore = (function () {
       fontSize: 32,
       fontFamily: 'Poppins',
       fill: '#562B9D',
-      selectable: false,
+      selectable: true,
       eventable: false,
       originX: 'center',
       originY: 'top',
@@ -132,7 +132,7 @@ const configStore = (function () {
       fill: 'transparent',
       hoverCursor: 'pointer',
       strokeWidth: 0,
-      selectable: false,
+      selectable: true,
       evented: true,
       lockMovementX: true,
       lockMovementY: true,
@@ -142,7 +142,7 @@ const configStore = (function () {
     imagePhotozoneDefaultSettings: {
       name: 'userUploadedImage',
       userUploaded: true,
-      selectable: false,
+      selectable: true,
       evented: false,
       lockScalingFlip: true,
       angle: 0,
@@ -151,7 +151,7 @@ const configStore = (function () {
     overlayImageDefaultSettings: {
       name: 'overlayImg',
       evented: false,
-      selectable: false,
+      selectable: true,
     },
     cos: function (angle) {
       if (angle === 0) {
@@ -266,59 +266,61 @@ let loadLayer = async (layer, faceNumber, preview) => {
   await Promise.all(
     layer.photoZones.map((d) => {
       d.image.imageId && userImages.push(d.image.imageId);
-      let scaleX = d.image.scale,
-        scaleY = d.image.scale,
-        left = (d.image.insideWidth || 0) + d.left || 0,
-        top = d.top || 0;
+      let scaleX = 1,
+        scaleY = 1,
+        iScaleX = d.image.scaleX || 1,
+        iScaleY = d.image.scaleY || 1,
+        left = 0,
+        top = 0,
+        imageWidth = d.image?.cropRect?.width || d.image?.width || 0,
+        imageHeight = d.image?.cropRect?.height || d.image?.height || 0;
+      console.log(
+        typeof d.userDefined === 'undefined' &&
+          typeof d.image.scaleX === 'undefined' &&
+          typeof d.image.scaleY === 'undefined'
+      );
       if (typeof d.userDefined === 'undefined') {
         const canvasWidth = d.width || layer.dimensions.width,
           canvasHeight = d.height || layer.dimensions.height,
           isCustomWidthDefined = d.width ? true : false,
           isCustomHeightDefined = d.height ? true : false;
 
-        if (d.image.width * scaleX > d.image.height * scaleY) {
-          scaleX = scaleY = canvasHeight / (d.image.height * scaleY);
+        if (imageWidth * scaleX > imageHeight * scaleY) {
+          scaleX = scaleY = canvasHeight / (imageHeight * scaleY);
         }
-        if (d.image.width * scaleX < d.image.height * scaleY) {
-          scaleX = scaleY = canvasWidth / (d.image.width * scaleX);
+        if (imageWidth * scaleX < imageHeight * scaleY) {
+          scaleX = scaleY = canvasWidth / (imageWidth * scaleX);
         }
-        if (d.image.width * scaleX < canvasWidth) {
-          scaleX = scaleY = canvasWidth / (d.image.width * scaleX);
+        if (imageWidth * scaleX < canvasWidth) {
+          scaleX = scaleY = canvasWidth / (imageWidth * scaleX);
         }
-        if (d.image.height * scaleY < canvasHeight) {
-          scaleX = scaleY = canvasHeight / (d.image.height * scaleY);
+        if (imageHeight * scaleY < canvasHeight) {
+          scaleX = scaleY = canvasHeight / (imageHeight * scaleY);
         }
 
+        scaleX = scaleX * iScaleX;
+        scaleY = scaleY * iScaleY;
         if (isCustomWidthDefined && isCustomHeightDefined) {
-          if (d.image.width * scaleX > canvasWidth) {
-            left = left - (d.image.width * scaleX - canvasWidth) / 2;
+          if (imageWidth * scaleX > canvasWidth) {
+            left = left - (imageWidth * scaleX - canvasWidth) / 2;
+            top = top - (imageHeight * scaleY - canvasHeight) / 2;
           } else {
-            top = top - (d.image.height * scaleY - canvasHeight) / 2;
+            top = top - (imageHeight * scaleY - canvasHeight) / 2;
+            left = left - (imageWidth * scaleX - canvasWidth) / 2;
           }
         } else {
-          left = (canvasWidth - d.image.width * scaleX) / 2;
-          top = (canvasHeight - d.image.height * scaleY) / 2;
+          left = (canvasWidth - imageWidth * scaleX) / 2;
+          top = (canvasHeight - imageHeight * scaleY) / 2;
         }
       }
+
+      left = d.image.left / 0.255 || 0 || 0;
+      top = d.image.top / 0.255 || 0 || 0;
+
       let point = {
         x: left,
         y: top,
       };
-      if (d.image.angle) {
-        const a = d.image.angle;
-        const t = [
-          configStore.cos(a),
-          configStore.sin(a),
-          -configStore.sin(a),
-          configStore.cos(a),
-          0,
-          0,
-        ];
-        point = {
-          x: t[0] * point.x + t[2] * point.y + t[4],
-          y: t[1] * point.x + t[3] * point.y + t[5],
-        };
-      }
       canvasJson.objects.push({
         type: 'image',
         version: '3.6.6',
@@ -331,8 +333,8 @@ let loadLayer = async (layer, faceNumber, preview) => {
         originX: 'left',
         originY: 'top',
         centeredRotation: true,
-        width: d.image.width,
-        height: d.image.height,
+        width: imageWidth,
+        height: imageHeight,
         fill: 'rgb(0,0,0)',
         stroke: null,
         strokeWidth: 0,
@@ -357,7 +359,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
         cropY: 0,
         name: 'userUploadedImage',
         userUploaded: true,
-        selectable: false,
+        selectable: true,
         evented: false,
         lockScalingFlip: true,
         src: d.image.uri,
@@ -480,7 +482,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
         skewY: 0,
         cropX: 0,
         cropY: 0,
-        selectable: false,
+        selectable: true,
         evented: false,
         lockScalingFlip: true,
         src: frameUrl,
@@ -496,7 +498,7 @@ let loadLayer = async (layer, faceNumber, preview) => {
         type: 'textbox',
         version: '3.6.6',
         originX: 'left',
-        originY: 'center',
+        originY: 'top',
         left: d.left || 0,
         top: d.top || 0,
         width: d.width,
@@ -558,18 +560,18 @@ let loadLayer = async (layer, faceNumber, preview) => {
 };
 
 const jsonData = {
-  project_id: '13e7c8ba-3614-4083-be72-d7e3b4a53af3',
+  project_id: 'cbddd9ba-65fa-43b8-884a-c20fb4bebbf9',
   account_id: '2125448473',
   name: 'test',
-  product_id: '2PGM1207',
-  scan_code: '0002385818',
+  product_id: '2PGM1285',
+  scan_code: '0002387123',
   version: 1,
   is_digital_fulfillment: false,
-  expiration_date: '2023-03-10T13:41:54.826991043Z',
+  expiration_date: '2023-03-16T13:25:25.552494976Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-03-03T13:41:54.827024535Z',
-  last_updated_at: '2023-03-03T13:41:54.827025507Z',
+  created_at: '2023-03-09T13:25:25.552517619Z',
+  last_updated_at: '2023-03-09T13:25:25.552520175Z',
   font_collection: {
     default_size: 55,
     default_color: '#000000',
@@ -722,9 +724,9 @@ const jsonData = {
     ],
   },
   product: {
-    product_id: '2PGM1207',
-    template_id: 'PGM1207',
-    product_name: 'Personalized Full Photo Birthday Photo Card, 5x7 Vertical',
+    product_id: '2PGM1285',
+    template_id: 'PGM1285',
+    product_name: 'Personalized Elegant Merry Christmas Photo Card',
     vendor_lead_time: 1,
     envelope_color: '#FFFFF',
   },
@@ -741,7 +743,7 @@ const jsonData = {
       faces: [
         {
           backgroundUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Background.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -750,56 +752,55 @@ const jsonData = {
           editableAreas: [],
           faceId: 1,
           frameUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Frame.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Frame.png',
           isEditable: true,
           overlayBackgroundUrl: '',
           photoZones: [
             {
-              height: 1951.7098,
-              left: 21.259802,
+              height: 1547.4347,
+              left: -47.244,
               angle: 0,
-              top: 45.70975,
-              width: 1363.6118,
+              top: -50.7873,
+              width: 1504.7214,
               image: {
                 playableDuration: null,
                 height: 4032,
                 width: 3024,
-                filename: 'IMG_5345.JPG',
+                filename: 'IMG_4064.JPG',
                 extension: 'jpg',
-                fileSize: 2110350,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/44e462fa-b215-48eb-bb63-d44c4153f1a3198614094973075395.JPG',
+                fileSize: 2236627,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/c511dd40-84fb-4085-bede-ee414f1987856848489594515705305.JPG',
                 type: 'image',
-                translateX: 182.33334350585938,
-                localUrl: 'ph://F0CB0481-DF03-4CB1-BA18-CE04B49722B3/L0/001',
-                imageId: '8d55aaa6-48f6-41eb-8511-79f73095991f',
-                photoTrayId: 'd4f9102e-1953-4bd6-a90e-f98901fcd1c3',
+                translateX: 188.5,
+                localUrl: 'ph://AA015AF0-608C-433B-B8BB-034C514EF87D/L0/001',
+                imageId: 'ca7a2949-1bb1-4a32-8e39-43febf8a69a4',
+                photoTrayId: '16eaa86d-29e7-4eda-a054-0c6a7eba5288',
                 sliderIndex: 0,
-                scaleX: 0.6357615894039735,
-                scaleY: 0.6357615894039735,
-                scale: 1,
-                angle: 1.6580627893946132,
+                left: 34.5,
+                top: 37,
+                angle: 0,
               },
             },
           ],
           previewUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Preview.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Preview.png',
           replaceBackgroundUrl: '',
           texts: [
             {
-              fontFamily: 'OMG Hi',
-              fontId: 120,
-              fontSize: 26,
-              height: 184.72404,
+              fontFamily: 'Sincerely',
+              fontId: 124,
+              fontSize: 18,
+              height: 145.86702,
               isFixed: true,
               isHybrid: false,
               isMultiline: false,
-              left: 170.5662,
+              left: 743.5659,
               angle: 0,
-              text: 'RYLEIGH',
+              text: 'Cameron',
               textAlign: 'center',
-              textColor: '#FFFFFF',
-              top: 1693.4612,
-              width: 1063.9987,
+              textColor: '#A48A47',
+              top: 1780.8751,
+              width: 575.99884,
             },
           ],
           type: 'front',
@@ -808,7 +809,7 @@ const jsonData = {
         },
         {
           backgroundUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Background.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P2-3_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -819,88 +820,18 @@ const jsonData = {
           frameUrl: '',
           isEditable: true,
           overlayBackgroundUrl: '',
-          photoZones: [
-            {
-              left: 40.99995422363281,
-              top: 36.66668701171875,
-              image: {
-                playableDuration: null,
-                height: 4032,
-                width: 3024,
-                filename: 'IMG_5345.JPG',
-                extension: 'jpg',
-                fileSize: 2110350,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/f00ab951-6feb-4f88-aa98-3a84f2aca6378982474844503167665.JPG',
-                type: 'image',
-                translateX: 182.33334350585938,
-                localUrl: 'ph://F0CB0481-DF03-4CB1-BA18-CE04B49722B3/L0/001',
-                imageId: 'a82ae146-ada6-40d0-b22b-160c7e3b0e9d',
-                photoTrayId: 'a655bda0-d77f-47e5-953e-d5af097140b0',
-                sliderIndex: 1,
-                scaleX: 0.46799120366178604,
-                scaleY: 0.46799120366178604,
-                scale: 0.3335714315934751 / 3,
-                insideWidth: 0,
-                angle: 0,
-              },
-              userDefined: true,
-            },
-            {
-              left: 82.33334350585938,
-              top: 128.00001017252603,
-              image: {
-                playableDuration: null,
-                height: 4032,
-                width: 3024,
-                filename: 'IMG_5347.JPG',
-                extension: 'jpg',
-                fileSize: 2456630,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/7a14ca8f-0760-4698-89b5-0c4320008a531960528713598030433.JPG',
-                type: 'image',
-                translateX: 182.33334350585938,
-                localUrl: 'ph://6A798E40-E215-42B6-9C37-25A3E05AA759/L0/001',
-                imageId: 'cb5e36bc-43fb-462c-aaaf-f318619999c7',
-                photoTrayId: '0e16a477-6715-46f5-8dd0-687bda84c924',
-                sliderIndex: 2,
-                scaleX: 0.6467990496300704,
-                scaleY: 0.6467990496300704,
-                scale: 0.3335714315934751 / 3,
-                insideWidth: 1435,
-                angle: -0.5410520681182421,
-              },
-              userDefined: true,
-            },
-          ],
+          photoZones: [],
           previewUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Preview.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P2-3_Preview.png',
           replaceBackgroundUrl: '',
-          texts: [
-            {
-              fontFamily: 'Just a Note',
-              fontId: 125,
-              fontSize: 16,
-              height: 311.47611254366086,
-              isFixed: false,
-              isHybrid: false,
-              isMultiline: true,
-              left: 1439.2237090846681,
-              angle: 0,
-              text: 'Add your text here dhdjjd',
-              textAlign: 'left',
-              textColor: '#595959',
-              top: 1119.7662661246604,
-              width: 961.5235484554499,
-              userDefined: true,
-              sliderIndex: 2,
-            },
-          ],
+          texts: [],
           type: 'inside',
           userImages: null,
           userTextZones: [],
         },
         {
           backgroundUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Background.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P4_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -913,7 +844,7 @@ const jsonData = {
           overlayBackgroundUrl: '',
           photoZones: [],
           previewUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Preview.png',
+            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P4_Preview.png',
           replaceBackgroundUrl: '',
           texts: [],
           type: 'back',
@@ -921,7 +852,7 @@ const jsonData = {
           userTextZones: [],
         },
       ],
-      name: 'PGM1207',
+      name: 'PGM1285',
       openOrientation: 'right',
       parentDimensions: {
         height: 179,
@@ -931,18 +862,28 @@ const jsonData = {
   },
 };
 
-const canvas = new fabric.Canvas(
-  document.querySelector('#fCanvas'),
-  jsonData.variables.template_data.faces[0].dimensions
-);
-
-const finalJson = await loadLayer(
-  jsonData.variables.template_data.faces[0],
-  1,
-  false
-);
-console.log(finalJson);
-canvas.loadFromJSON(finalJson.canvasJson, () => {
-  console.log(canvas);
-  canvas.renderAll.bind(canvas);
+jsonData.variables.template_data.faces.forEach(async (face, index) => {
+  const finalJson = await loadLayer(face, index + 1, false);
+  if (index == 0) {
+    const fcanvas = new fabric.Canvas(
+      document.querySelector('#fCanvas'),
+      face.dimensions
+    );
+    console.log(finalJson);
+    fcanvas.loadFromJSON(finalJson.CanvasJson, () => {
+      console.log(fcanvas);
+      fcanvas.renderAll.bind(fcanvas);
+    });
+  }
+  if (index == 1) {
+    const icanvas = new fabric.Canvas(
+      document.querySelector('#iCanvas'),
+      face.dimensions
+    );
+    console.log(finalJson);
+    icanvas.loadFromJSON(finalJson.CanvasJson, () => {
+      console.log(icanvas);
+      icanvas.renderAll.bind(icanvas);
+    });
+  }
 });
