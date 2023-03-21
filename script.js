@@ -3,13 +3,25 @@ const configStore = (function () {
   const spacingUnit = 20; // this is the old textPadding
 
   const defaultFont = 'fontid-107'; // Annette Print ("Hey sunshine")
-  const piBy2 = Math.PI * 2;
+  const piBy2 = Math.PI / 2;
+  const piBy180 = Math.PI / 180;
+  const originXOffset = {
+      left: -0.5,
+      center: 0,
+      right: 0.5,
+    },
+    originYOffset = {
+      top: -0.5,
+      center: 0,
+      bottom: 0.5,
+    };
   const bleedInMM = 3,
     mmInPixels = 11.811,
-    scalingFactor = 2;
+    scalingFactor = 1;
 
   return {
     spacingUnit: spacingUnit,
+    defaultUserPhotozoneImageWidth: 200,
     // the defaults are used on front and back of the cards
     textDefaultSettings: {
       name: 'userText',
@@ -201,16 +213,283 @@ const configStore = (function () {
       }
       return Math.sin(angle);
     },
-    radToDegree: function (angle) {
-      return (angle || 0) * 57.2958;
+    radToDegree: function (rad) {
+      return (rad || 0) / piBy180;
+    },
+    degreesToRadians: function (deg) {
+      return (deg || 0) * piBy180;
+    },
+    getNonTransformedDimensions: function (obj) {
+      var strokeWidth = obj.strokeWidth,
+        w = obj.width + strokeWidth,
+        h = obj.height + strokeWidth;
+      return { x: w, y: h };
+    },
+    finalizeDimensions: function (obj, width, height) {
+      return obj.strokeUniform
+        ? { x: width + obj.strokeWidth, y: height + obj.strokeWidth }
+        : { x: width, y: height };
+    },
+    multiplyTransformMatrices: function (a, b, is2x2) {
+      // Matrix multiply a * b
+      return [
+        a[0] * b[0] + a[2] * b[1],
+        a[1] * b[0] + a[3] * b[1],
+        a[0] * b[2] + a[2] * b[3],
+        a[1] * b[2] + a[3] * b[3],
+        is2x2 ? 0 : a[0] * b[4] + a[2] * b[5] + a[4],
+        is2x2 ? 0 : a[1] * b[4] + a[3] * b[5] + a[5],
+      ];
+    },
+    calcDimensionsMatrix: function (options) {
+      var scaleX = typeof options.scaleX === 'undefined' ? 1 : options.scaleX,
+        scaleY = typeof options.scaleY === 'undefined' ? 1 : options.scaleY,
+        scaleMatrix = [
+          options.flipX ? -scaleX : scaleX,
+          0,
+          0,
+          options.flipY ? -scaleY : scaleY,
+          0,
+          0,
+        ],
+        multiply = this.multiplyTransformMatrices,
+        degreesToRadians = this.degreesToRadians;
+      if (options.skewX) {
+        scaleMatrix = multiply(
+          scaleMatrix,
+          [1, 0, Math.tan(degreesToRadians(options.skewX)), 1],
+          true
+        );
+      }
+      if (options.skewY) {
+        scaleMatrix = multiply(
+          scaleMatrix,
+          [1, Math.tan(degreesToRadians(options.skewY)), 0, 1],
+          true
+        );
+      }
+      return scaleMatrix;
+    },
+    transformPoint: function (p, t, ignoreOffset) {
+      if (ignoreOffset) {
+        return { x: t[0] * p.x + t[2] * p.y, y: t[1] * p.x + t[3] * p.y };
+      }
+      return {
+        x: t[0] * p.x + t[2] * p.y + t[4],
+        y: t[1] * p.x + t[3] * p.y + t[5],
+      };
+    },
+    arrayFind: function (array, byProperty, condition) {
+      if (!array || array.length === 0) {
+        return;
+      }
+      var i = array.length - 1,
+        result = byProperty ? array[i][byProperty] : array[i];
+      if (byProperty) {
+        while (i--) {
+          if (condition(array[i][byProperty], result)) {
+            result = array[i][byProperty];
+          }
+        }
+      } else {
+        while (i--) {
+          if (condition(array[i], result)) {
+            result = array[i];
+          }
+        }
+      }
+      return result;
+    },
+    arrayMax: function (array, byProperty) {
+      return this.arrayFind(array, byProperty, function (value1, value2) {
+        return value1 >= value2;
+      });
+    },
+    arrayMin: function (array, byProperty) {
+      return this.arrayFind(array, byProperty, function (value1, value2) {
+        return value1 < value2;
+      });
+    },
+    makeBoundingBoxFromPoints: function (points, transform) {
+      if (transform) {
+        for (var i = 0; i < points.length; i++) {
+          points[i] = this.transformPoint(points[i], transform);
+        }
+      }
+      var xPoints = [points[0].x, points[1].x, points[2].x, points[3].x],
+        minX = this.arrayMin(xPoints),
+        maxX = this.arrayMax(xPoints),
+        width = maxX - minX,
+        yPoints = [points[0].y, points[1].y, points[2].y, points[3].y],
+        minY = this.arrayMin(yPoints),
+        maxY = this.arrayMax(yPoints),
+        height = maxY - minY;
+      return {
+        left: minX,
+        top: minY,
+        width: width,
+        height: height,
+      };
+    },
+    sizeAfterTransform: function (width, height, options) {
+      var dimX = width / 2,
+        dimY = height / 2,
+        points = [
+          {
+            x: -dimX,
+            y: -dimY,
+          },
+          {
+            x: dimX,
+            y: -dimY,
+          },
+          {
+            x: -dimX,
+            y: dimY,
+          },
+          {
+            x: dimX,
+            y: dimY,
+          },
+        ],
+        transformMatrix = this.calcDimensionsMatrix(options),
+        bbox = this.makeBoundingBoxFromPoints(points, transformMatrix);
+      return {
+        x: bbox.width,
+        y: bbox.height,
+      };
+    },
+    getTransformedDimensions: function (obj, skewX, skewY) {
+      if (typeof skewX === 'undefined') {
+        skewX = obj.skewX;
+      }
+      if (typeof skewY === 'undefined') {
+        skewY = obj.skewY;
+      }
+      var dimensions,
+        dimX,
+        dimY,
+        noSkew = skewX === 0 && skewY === 0;
+      if (obj.strokeUniform) {
+        dimX = obj.width;
+        dimY = obj.height;
+      } else {
+        dimensions = this.getNonTransformedDimensions(obj);
+        dimX = dimensions.x;
+        dimY = dimensions.y;
+      }
+      if (noSkew) {
+        return this.finalizeDimensions(
+          obj,
+          dimX * obj.scaleX,
+          dimY * obj.scaleY
+        );
+      }
+      var bbox = this.sizeAfterTransform(dimX, dimY, {
+        scaleX: obj.scaleX,
+        scaleY: obj.scaleY,
+        skewX: skewX,
+        skewY: skewY,
+      });
+      return this.finalizeDimensions(obj, bbox.x, bbox.y);
+    },
+    translateToGivenOrigin: function (
+      point,
+      fromOriginX,
+      fromOriginY,
+      toOriginX,
+      toOriginY,
+      obj
+    ) {
+      var x = point.x,
+        y = point.y,
+        offsetX,
+        offsetY,
+        dim;
+      if (typeof fromOriginX === 'string') {
+        fromOriginX = originXOffset[fromOriginX];
+      } else {
+        fromOriginX -= 0.5;
+      }
+      if (typeof toOriginX === 'string') {
+        toOriginX = originXOffset[toOriginX];
+      } else {
+        toOriginX -= 0.5;
+      }
+      offsetX = toOriginX - fromOriginX;
+      if (typeof fromOriginY === 'string') {
+        fromOriginY = originYOffset[fromOriginY];
+      } else {
+        fromOriginY -= 0.5;
+      }
+      if (typeof toOriginY === 'string') {
+        toOriginY = originYOffset[toOriginY];
+      } else {
+        toOriginY -= 0.5;
+      }
+      offsetY = toOriginY - fromOriginY;
+      if (offsetX || offsetY) {
+        dim = this.getTransformedDimensions(obj);
+        x = point.x + offsetX * dim.x;
+        y = point.y + offsetY * dim.y;
+      }
+      return { x, y };
+    },
+    rotateVector: function (vector, radians) {
+      var sin = this.sin(radians),
+        cos = this.cos(radians),
+        rx = vector.x * cos - vector.y * sin,
+        ry = vector.x * sin + vector.y * cos;
+      return {
+        x: rx,
+        y: ry,
+      };
+    },
+    rotatePoint: function (point, origin, radians) {
+      var newPoint = { x: point.x - origin.x, y: point.y - origin.y },
+        v = this.rotateVector(newPoint, radians);
+      return { x: v.x + origin.x, y: v.y + origin.y };
+    },
+    translateToCenterPoint: function (point, originX, originY, obj) {
+      var p = this.translateToGivenOrigin(
+        point,
+        originX,
+        originY,
+        'center',
+        'center',
+        obj
+      );
+      if (obj.angle) {
+        return this.rotatePoint(p, point, this.degreesToRadians(obj.angle));
+      }
+      return p;
+    },
+    getCenterPoint: function (obj) {
+      var leftTop = { x: obj.left, y: obj.top };
+      return this.translateToCenterPoint(
+        leftTop,
+        obj.originX,
+        obj.originY,
+        obj
+      );
+    },
+    calcRotateMatrix: function (obj) {
+      if (!obj.angle) {
+        return [1, 0, 0, 1, 0, 0];
+      }
+      var theta = this.degreesToRadians(obj.angle),
+        cos = this.cos(theta),
+        sin = this.sin(theta);
+      return [cos, sin, -sin, cos, 0, 0];
+    },
+    calcTranslateMatrix: function (obj) {
+      var center = this.getCenterPoint(obj);
+      return [1, 0, 0, 1, center.x, center.y];
     },
     calcPointRotationTransform: function (point, angle) {
       if (angle) {
-        const t = [this.cos(a), this.sin(a), -this.sin(a), this.cos(a), 0, 0];
-        return {
-          x: t[0] * point.x + t[2] * point.y + t[4],
-          y: t[1] * point.x + t[3] * point.y + t[5],
-        };
+        const t = this.calcRotateMatrix({ angle });
+        return this.transformPoint(point, t);
       }
       return point;
     },
@@ -218,6 +497,53 @@ const configStore = (function () {
       bleedInMM,
       mmInPixels,
       scalingFactor,
+    },
+    calcACoords: function (obj) {
+      var rotateMatrix = this.calcRotateMatrix(obj),
+        translateMatrix = this.calcTranslateMatrix(obj),
+        finalMatrix = this.multiplyTransformMatrices(
+          translateMatrix,
+          rotateMatrix
+        ),
+        dim = this.getTransformedDimensions(obj),
+        w = dim.x / 2,
+        h = dim.y / 2;
+      return {
+        // corners
+        tl: this.transformPoint({ x: -w, y: -h }, finalMatrix),
+        tr: this.transformPoint({ x: w, y: -h }, finalMatrix),
+        bl: this.transformPoint({ x: -w, y: h }, finalMatrix),
+        br: this.transformPoint({ x: w, y: h }, finalMatrix),
+      };
+    },
+    getBoundingRect: function (obj) {
+      var vpt = [1, 0, 0, 1, 0, 0],
+        padding = obj.padding || 0,
+        angle = this.degreesToRadians(obj.angle),
+        cos = this.cos(angle),
+        sin = this.sin(angle),
+        cosP = cos * padding,
+        sinP = sin * padding,
+        cosPSinP = cosP + sinP,
+        cosPMinusSinP = cosP - sinP,
+        aCoords = this.calcACoords(obj);
+      var lineCoords = {
+        tl: this.transformPoint(aCoords.tl, vpt),
+        tr: this.transformPoint(aCoords.tr, vpt),
+        bl: this.transformPoint(aCoords.bl, vpt),
+        br: this.transformPoint(aCoords.br, vpt),
+      };
+      if (padding) {
+        lineCoords.tl.x -= cosPMinusSinP;
+        lineCoords.tl.y -= cosPSinP;
+        lineCoords.tr.x += cosPSinP;
+        lineCoords.tr.y -= cosPMinusSinP;
+        lineCoords.bl.x -= cosPSinP;
+        lineCoords.bl.y += cosPMinusSinP;
+        lineCoords.br.x += cosPMinusSinP;
+        lineCoords.br.y += cosPSinP;
+      }
+      return lineCoords;
     },
   };
 })();
@@ -265,7 +591,6 @@ const printJsonConversion = (canvasJson) => {
       canvasObject.scaleY *= scalingFactor;
 
       if (canvasObject.src) {
-        /* eslint prefer-destructuring: ["error", {AssignmentExpression: {array: false}}] */
         canvasObject.src = canvasObject.src.split('?w=')[0];
       }
     }
@@ -404,8 +729,8 @@ const loadLayer = async (layer, faceNumber, preview) => {
           imageWidth = cropRectWidth || d.image.width || 0,
           imageHeight = cropReactHeight || d.image.height || 0;
         if (typeof d.userDefined === 'undefined') {
-          const canvasWidth = d.width || layer.dimensions.width,
-            canvasHeight = d.height || layer.dimensions.height,
+          const canvasWidth = d.width || layer.dimensions.width || 0,
+            canvasHeight = d.height || layer.dimensions.height || 0,
             isCustomWidthDefined = d.width ? true : false,
             isCustomHeightDefined = d.height ? true : false;
 
@@ -445,6 +770,9 @@ const loadLayer = async (layer, faceNumber, preview) => {
             17.7165 +
             (d.image.translateY || 0) / 2 / 0.26655629139072845;
         } else if (d.userDefined) {
+          // debugger;
+          const canvasWidth = layer.dimensions.width || 0,
+            canvasHeight = layer.dimensions.height || 0;
           scaleX = scaleY =
             (configStore.defaultUserPhotozoneImageWidth / imageWidth) *
             (1 / 0.266260162601626);
@@ -452,11 +780,10 @@ const loadLayer = async (layer, faceNumber, preview) => {
           scaleY = scaleY * iScaleY;
           left =
             (d.image.insideWidth || 0) +
-            left / 0.266260162601626 +
-            (d.image.translateX || 0) / 2 / 0.266260162601626;
-          top +=
-            top / 0.26655629139072845 +
-            (d.image.translateY || 0) / 2 / 0.26655629139072845;
+            (canvasWidth / 2 - imageWidth * scaleX) / 2;
+          top = (canvasHeight - imageHeight * scaleY) / 2;
+          left = left + (d.image.left || 0);
+          top = top + (d.image.top || 0);
         }
 
         let point = {
