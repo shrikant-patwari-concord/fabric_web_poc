@@ -349,13 +349,49 @@ const loadLayer = async (layer, faceNumber, preview) => {
   const userImages = [];
   await Promise.all(
     layer.photoZones.map((d) => {
+      if (typeof d.userDefined === 'undefined' || d.userDefined === false) {
+        canvasJson.objects.push(
+          Object.assign({}, configStore.photozoneDefaultSettings, {
+            type: 'rect',
+            version: '3.6.6',
+            left: (d.left || 0) + 17.7165,
+            top: (d.top || 0) + 17.7165,
+            width: (d.width || layer.dimensions.width) + 17.7165,
+            height: (d.height || layer.dimensions.height) + 17.7165,
+            angle: configStore.radToDegree(d.angle),
+            fill: configStore.rectFillColor,
+            stroke: null,
+            strokeWidth: 1,
+            strokeDashArray: null,
+            strokeLineCap: 'butt',
+            strokeDashOffset: 0,
+            strokeLineJoin: 'miter',
+            strokeUniform: false,
+            strokeMiterLimit: 4,
+            flipX: false,
+            flipY: false,
+            opacity: 1,
+            shadow: null,
+            visible: true,
+            backgroundColor: '',
+            fillRule: 'nonzero',
+            paintFirst: 'fill',
+            globalCompositeOperation: 'source-over',
+            skewX: 0,
+            skewY: 0,
+            rx: 0,
+            ry: 0,
+            inverted: false,
+          })
+        );
+      }
       if (d.image && d.image.uri) {
         d.image.imageId && userImages.push(d.image.imageId);
         let scaleX = 1,
           scaleY = 1,
           iScaleX = d.image.scaleX || 1,
           iScaleY = d.image.scaleY || 1,
-          left = (d.image?.insideWidth || 0) + d.left || 0,
+          left = d.left || 0,
           top = d.top || 0,
           cropRectWidth =
             d.image && d.image.cropRect && d.image.cropRect.width
@@ -400,14 +436,38 @@ const loadLayer = async (layer, faceNumber, preview) => {
             left = (canvasWidth - imageWidth * scaleX) / 2;
             top = (canvasHeight - imageHeight * scaleY) / 2;
           }
+          left +=
+            (d.image.left || 0) +
+            17.7165 +
+            (d.image.translateX || 0) / 2 / 0.266260162601626;
+          top +=
+            (d.image.top || 0) +
+            17.7165 +
+            (d.image.translateY || 0) / 2 / 0.26655629139072845;
+        } else if (d.userDefined) {
+          scaleX = scaleY =
+            (configStore.defaultUserPhotozoneImageWidth / imageWidth) *
+            (1 / 0.266260162601626);
+          scaleX = scaleX * iScaleX;
+          scaleY = scaleY * iScaleY;
+          left =
+            (d.image.insideWidth || 0) +
+            left / 0.266260162601626 +
+            (d.image.translateX || 0) / 2 / 0.266260162601626;
+          top +=
+            top / 0.26655629139072845 +
+            (d.image.translateY || 0) / 2 / 0.26655629139072845;
         }
 
-        left += d.image.left || 0;
-        top += d.image.top || 0;
         let point = {
           x: left,
           y: top,
         };
+
+        // point = this.calcPointRotationTransform(
+        //   point,
+        //   configStore.radToDegree(d.image.angle)
+        // );
 
         canvasJson.objects.push({
           type: 'image',
@@ -421,8 +481,8 @@ const loadLayer = async (layer, faceNumber, preview) => {
           originX: 'left',
           originY: 'top',
           centeredRotation: true,
-          width: imageWidth,
-          height: imageHeight,
+          width: imageWidth + 17.7165,
+          height: imageHeight + 17.7165,
           fill: 'rgb(0,0,0)',
           stroke: null,
           strokeWidth: 0,
@@ -458,10 +518,10 @@ const loadLayer = async (layer, faceNumber, preview) => {
               ? {
                   type: 'rect',
                   version: '3.6.6',
-                  left: d.left || 0,
-                  top: d.top || 0,
-                  width: d.width || layer.dimensions.width,
-                  height: d.height || layer.dimensions.height,
+                  left: (d.left || 0) + 17.7165,
+                  top: (d.top || 0) + 17.7165,
+                  width: (d.width || layer.dimensions.width) + 17.7165,
+                  height: (d.height || layer.dimensions.height) + 17.7165,
                   angle: configStore.radToDegree(d.angle),
                   fill: 'rgb(0,0,0)',
                   stroke: null,
@@ -472,7 +532,6 @@ const loadLayer = async (layer, faceNumber, preview) => {
                   strokeLineJoin: 'miter',
                   strokeUniform: false,
                   strokeMiterLimit: 4,
-                  angle: 0,
                   flipX: false,
                   flipY: false,
                   opacity: 1,
@@ -494,46 +553,6 @@ const loadLayer = async (layer, faceNumber, preview) => {
       }
     })
   );
-
-  layer.photoZones.forEach((d) => {
-    if (typeof d.userDefined === 'undefined' && d.image && d.image.uri) {
-      canvasJson.objects.push(
-        Object.assign({}, configStore.photozoneDefaultSettings, {
-          type: 'rect',
-          version: '3.6.6',
-          left: d.left || 0,
-          top: d.top || 0,
-          width: d.width || layer.dimensions.width,
-          height: d.height || layer.dimensions.height,
-          angle: configStore.radToDegree(d.angle),
-          fill: 'transparent',
-          stroke: null,
-          strokeWidth: 1,
-          strokeDashArray: null,
-          strokeLineCap: 'butt',
-          strokeDashOffset: 0,
-          strokeLineJoin: 'miter',
-          strokeUniform: false,
-          strokeMiterLimit: 4,
-          angle: 0,
-          flipX: false,
-          flipY: false,
-          opacity: 1,
-          shadow: null,
-          visible: true,
-          backgroundColor: '',
-          fillRule: 'nonzero',
-          paintFirst: 'fill',
-          globalCompositeOperation: 'source-over',
-          skewX: 0,
-          skewY: 0,
-          rx: 0,
-          ry: 0,
-          inverted: false,
-        })
-      );
-    }
-  });
 
   if (frameUrl) {
     canvasJson.objects.push(
@@ -582,17 +601,26 @@ const loadLayer = async (layer, faceNumber, preview) => {
   }
 
   layer.texts.forEach((d) => {
-    canvasJson.objects.push(
-      Object.assign({}, configStore.textDefaultSettings, {
+    if (typeof d.isDeleted === 'undefined' || d.isDeleted === false) {
+      let point = {
+        x:
+          (d.left || 0) + 17.7165 + (d.translateX || 0) / 2 / 0.266260162601626,
+        y:
+          (d.top || 0) +
+          17.7165 +
+          (d.translateY || 0) / 2 / 0.26655629139072845,
+      };
+      const textObj = Object.assign({}, configStore.textDefaultSettings, {
         type: 'textbox',
         version: '3.6.6',
         originX: 'left',
         originY: 'top',
-        left: d.left || 0,
-        top: d.top || 0,
-        width: d.width,
-        height: d.height,
+        left: point.x,
+        top: point.y,
+        width: d.width + 17.7165,
+        height: d.height + 17.7165,
         fill: d.textColor,
+        angle: d.angle,
         stroke: null,
         strokeWidth: 1,
         strokeDashArray: null,
@@ -603,7 +631,6 @@ const loadLayer = async (layer, faceNumber, preview) => {
         strokeMiterLimit: 4,
         scaleX: 1,
         scaleY: 1,
-        angle: 0,
         flipX: false,
         flipY: false,
         opacity: 1,
@@ -635,8 +662,16 @@ const loadLayer = async (layer, faceNumber, preview) => {
         pathAlign: 'baseline',
         minWidth: 20,
         splitByGrapheme: false,
-      })
-    );
+      });
+      // const boudingBox = configStore.getBoundingRect(textObj);
+      // console.log({ faceNumber, boudingBox });
+      // textObj.left = boudingBox.tl.x + (d.translateX || 0) / 0.266260162601626;
+      // textObj.top =
+      //   boudingBox.tl.y +
+      //   (boudingBox.bl.y - boudingBox.tl.y) +
+      //   (d.translateY || 0) / 0.26655629139072845;
+      canvasJson.objects.push(textObj);
+    }
   });
 
   return {
@@ -649,18 +684,18 @@ const loadLayer = async (layer, faceNumber, preview) => {
 };
 
 const jsonData = {
-  project_id: 'cbddd9ba-65fa-43b8-884a-c20fb4bebbf9',
-  account_id: '2125448473',
+  project_id: 'a509826f-cf0a-4994-b8fe-6a648caf6450',
+  account_id: '2125485512',
   name: 'test',
-  product_id: '2PGM1285',
-  scan_code: '0002387123',
+  product_id: '2PGM1207',
+  scan_code: '0002389409',
   version: 1,
   is_digital_fulfillment: false,
-  expiration_date: '2023-03-16T13:25:25.552494976Z',
+  expiration_date: '2023-03-27T14:15:49.139480467Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-03-09T13:25:25.552517619Z',
-  last_updated_at: '2023-03-09T13:25:25.552520175Z',
+  created_at: '2023-03-20T14:15:49.139500187Z',
+  last_updated_at: '2023-03-20T14:15:49.139501971Z',
   font_collection: {
     default_size: 55,
     default_color: '#000000',
@@ -813,9 +848,9 @@ const jsonData = {
     ],
   },
   product: {
-    product_id: '2PGM1285',
-    template_id: 'PGM1285',
-    product_name: 'Personalized Elegant Merry Christmas Photo Card',
+    product_id: '2PGM1207',
+    template_id: 'PGM1207',
+    product_name: 'Personalized Full Photo Birthday Photo Card, 5x7 Vertical',
     vendor_lead_time: 1,
     envelope_color: '#FFFFF',
   },
@@ -832,7 +867,7 @@ const jsonData = {
       faces: [
         {
           backgroundUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Background.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -841,55 +876,55 @@ const jsonData = {
           editableAreas: [],
           faceId: 1,
           frameUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Frame.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Frame.png',
           isEditable: true,
           overlayBackgroundUrl: '',
           photoZones: [
             {
-              height: 1547.4347,
-              left: -47.244,
+              height: 1951.7098,
+              left: 21.259802,
               angle: 0,
-              top: -50.7873,
-              width: 1504.7214,
+              top: 45.70975,
+              width: 1363.6118,
               image: {
                 playableDuration: null,
                 height: 4032,
                 width: 3024,
-                filename: 'IMG_4064.JPG',
+                filename: 'IMG_4072.JPG',
                 extension: 'jpg',
-                fileSize: 2236627,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/c511dd40-84fb-4085-bede-ee414f1987856848489594515705305.JPG',
+                fileSize: 1744579,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
                 type: 'image',
-                translateX: 188.5,
-                localUrl: 'ph://AA015AF0-608C-433B-B8BB-034C514EF87D/L0/001',
-                imageId: 'ca7a2949-1bb1-4a32-8e39-43febf8a69a4',
-                photoTrayId: '16eaa86d-29e7-4eda-a054-0c6a7eba5288',
+                localUrl: 'ph://CE01E3CA-F0E8-4B89-BA86-20DD4168590A/L0/001',
+                imageId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
+                photoTrayId: '6a835ed6-0749-4e9e-97c6-a280eadf61ca',
                 sliderIndex: 0,
-                left: 34.5,
-                top: 37,
+                scaleX: 1.533541341653666,
+                scaleY: 1.533541341653666,
+                scale: 0.7134649970499101,
                 angle: 0,
               },
             },
           ],
           previewUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Preview.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Preview.png',
           replaceBackgroundUrl: '',
           texts: [
             {
-              fontFamily: 'Sincerely',
-              fontId: 124,
-              fontSize: 18,
-              height: 145.86702,
+              fontFamily: 'OMG Hi',
+              fontId: 120,
+              fontSize: 26,
+              height: 184.72404,
               isFixed: true,
               isHybrid: false,
               isMultiline: false,
-              left: 743.5659,
+              left: 170.5662,
               angle: 0,
-              text: 'Cameron',
+              text: 'RYLEIGH',
               textAlign: 'center',
-              textColor: '#A48A47',
-              top: 1780.8751,
-              width: 575.99884,
+              textColor: '#FFFFFF',
+              top: 1693.4612,
+              width: 1063.9987,
             },
           ],
           type: 'front',
@@ -898,7 +933,7 @@ const jsonData = {
         },
         {
           backgroundUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P2-3_Background.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -909,18 +944,63 @@ const jsonData = {
           frameUrl: '',
           isEditable: true,
           overlayBackgroundUrl: '',
-          photoZones: [],
+          photoZones: [
+            {
+              left: 100.5,
+              top: 139.08333333333334,
+              image: {
+                playableDuration: null,
+                height: 4032,
+                width: 3024,
+                filename: 'IMG_4072.JPG',
+                extension: 'jpg',
+                fileSize: 1744579,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/e9ea8eaf-d3c8-4e7d-8342-19fee3da632c8268403247082337415.JPG',
+                type: 'image',
+                localUrl: 'ph://CE01E3CA-F0E8-4B89-BA86-20DD4168590A/L0/001',
+                imageId: '94104a05-68bc-4bc0-84c9-91044da6f42e',
+                photoTrayId: '93fdbfee-f327-487a-95fb-5ba2b6f16012',
+                sliderIndex: 1,
+                scaleX: 0.4195753968286073,
+                scaleY: 0.4195753968286073,
+                left: -182.99999999999994,
+                top: 191.75000000000006,
+                angle: 0,
+              },
+              userDefined: true,
+            },
+          ],
           previewUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P2-3_Preview.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Preview.png',
           replaceBackgroundUrl: '',
-          texts: [],
+          texts: [
+            {
+              fontFamily: 'Just a Note',
+              fontId: 125,
+              fontSize: 16,
+              height: 162.53471,
+              isFixed: false,
+              isHybrid: false,
+              isMultiline: true,
+              left: 10,
+              angle: 0,
+              text: 'Add your text here',
+              textAlign: 'left',
+              textColor: '#595959',
+              top: 880.7581,
+              width: 900,
+              userDefined: true,
+              sliderIndex: 1,
+              isDeleted: true,
+            },
+          ],
           type: 'inside',
           userImages: null,
           userTextZones: [],
         },
         {
           backgroundUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P4_Background.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -933,7 +1013,7 @@ const jsonData = {
           overlayBackgroundUrl: '',
           photoZones: [],
           previewUrl:
-            'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P4_Preview.png',
+            'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Preview.png',
           replaceBackgroundUrl: '',
           texts: [],
           type: 'back',
@@ -941,7 +1021,7 @@ const jsonData = {
           userTextZones: [],
         },
       ],
-      name: 'PGM1285',
+      name: 'PGM1207',
       openOrientation: 'right',
       parentDimensions: {
         height: 179,
