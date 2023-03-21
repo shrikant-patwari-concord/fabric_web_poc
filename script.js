@@ -764,26 +764,38 @@ const loadLayer = async (layer, faceNumber, preview) => {
           left +=
             (d.image.left || 0) +
             17.7165 +
-            (d.image.translateX || 0) / 2 / 0.266260162601626;
+            (d.image.translateX || 0) / 2 / 0.2269647696476965;
           top +=
             (d.image.top || 0) +
             17.7165 +
-            (d.image.translateY || 0) / 2 / 0.26655629139072845;
+            (d.image.translateY || 0) / 2 / 0.21883468834688347;
         } else if (d.userDefined) {
           // debugger;
           const canvasWidth = layer.dimensions.width || 0,
             canvasHeight = layer.dimensions.height || 0;
           scaleX = scaleY =
             (configStore.defaultUserPhotozoneImageWidth / imageWidth) *
-            (1 / 0.266260162601626);
+            (1 / 0.2269647696476965);
+          console.log(JSON.stringify({ scaleX, scaleY }));
+          console.log(JSON.stringify({ iScaleX, iScaleY }));
           scaleX = scaleX * iScaleX;
           scaleY = scaleY * iScaleY;
+          console.log(JSON.stringify({ scaleX, scaleY }));
           left =
             (d.image.insideWidth || 0) +
             (canvasWidth / 2 - imageWidth * scaleX) / 2;
           top = (canvasHeight - imageHeight * scaleY) / 2;
-          left = left + (d.image.left || 0);
-          top = top + (d.image.top || 0);
+          console.log(
+            JSON.stringify({
+              left,
+              top,
+              translateX: (d.image.left || 0) / 0.2269647696476965,
+              translateY: (d.image.top || 0) / 0.21883468834688347,
+            })
+          );
+          left = left + (d.image.left || 0) / 0.2269647696476965;
+          top = top + (d.image.top || 0) / 0.21883468834688347;
+          console.log(JSON.stringify({ left, top }));
         }
 
         let point = {
@@ -808,6 +820,7 @@ const loadLayer = async (layer, faceNumber, preview) => {
           originX: 'left',
           originY: 'top',
           centeredRotation: true,
+          centeredScaling: true,
           width: imageWidth + 17.7165,
           height: imageHeight + 17.7165,
           fill: 'rgb(0,0,0)',
@@ -834,12 +847,18 @@ const loadLayer = async (layer, faceNumber, preview) => {
           cropY: 0,
           name: 'userUploadedImage',
           userUploaded: true,
-          selectable: false,
-          evented: false,
-          lockScalingFlip: true,
           src: d.image.uri,
           crossOrigin: 'anonymous',
           filters: [],
+          shadow:
+            typeof d.userDefined === 'boolean'
+              ? {
+                  color: 'rgba(0, 0, 0, 0.25)',
+                  blur: 50,
+                  offsetX: 0,
+                  offsetY: 15 / 0.21883468834688347,
+                }
+              : null,
           clipPath:
             typeof d.userDefined === 'undefined'
               ? {
@@ -931,11 +950,11 @@ const loadLayer = async (layer, faceNumber, preview) => {
     if (typeof d.isDeleted === 'undefined' || d.isDeleted === false) {
       let point = {
         x:
-          (d.left || 0) + 17.7165 + (d.translateX || 0) / 2 / 0.266260162601626,
-        y:
-          (d.top || 0) +
+          (d.left || 0) +
           17.7165 +
-          (d.translateY || 0) / 2 / 0.26655629139072845,
+          (d.translateX || 0) / 2 / 0.2269647696476965,
+        y:
+          (d.top || 0) + 17.7165 + (d.translateY || 0) / 2 / 0.2269647696476965,
       };
       const textObj = Object.assign({}, configStore.textDefaultSettings, {
         type: 'textbox',
@@ -992,11 +1011,11 @@ const loadLayer = async (layer, faceNumber, preview) => {
       });
       // const boudingBox = configStore.getBoundingRect(textObj);
       // console.log({ faceNumber, boudingBox });
-      // textObj.left = boudingBox.tl.x + (d.translateX || 0) / 0.266260162601626;
+      // textObj.left = boudingBox.tl.x + (d.translateX || 0) / 0.2269647696476965;
       // textObj.top =
       //   boudingBox.tl.y +
       //   (boudingBox.bl.y - boudingBox.tl.y) +
-      //   (d.translateY || 0) / 0.26655629139072845;
+      //   (d.translateY || 0) / 0.2269647696476965;
       canvasJson.objects.push(textObj);
     }
   });
@@ -1011,18 +1030,18 @@ const loadLayer = async (layer, faceNumber, preview) => {
 };
 
 const jsonData = {
-  project_id: 'a509826f-cf0a-4994-b8fe-6a648caf6450',
+  project_id: 'c0112438-5996-49a0-ae9d-0c2dba3fc6fd',
   account_id: '2125485512',
   name: 'test',
   product_id: '2PGM1207',
-  scan_code: '0002389409',
+  scan_code: '0002389580',
   version: 1,
   is_digital_fulfillment: false,
-  expiration_date: '2023-03-27T14:15:49.139480467Z',
+  expiration_date: '2023-03-28T14:11:21.613455763Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-03-20T14:15:49.139500187Z',
-  last_updated_at: '2023-03-20T14:15:49.139501971Z',
+  created_at: '2023-03-21T14:11:21.613479577Z',
+  last_updated_at: '2023-03-21T14:11:21.613481183Z',
   font_collection: {
     default_size: 55,
     default_color: '#000000',
@@ -1214,22 +1233,7 @@ const jsonData = {
               top: 45.70975,
               width: 1363.6118,
               image: {
-                playableDuration: null,
-                height: 4032,
-                width: 3024,
-                filename: 'IMG_4072.JPG',
-                extension: 'jpg',
-                fileSize: 1744579,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
-                type: 'image',
-                localUrl: 'ph://CE01E3CA-F0E8-4B89-BA86-20DD4168590A/L0/001',
-                imageId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
-                photoTrayId: '6a835ed6-0749-4e9e-97c6-a280eadf61ca',
-                sliderIndex: 0,
-                scaleX: 1.533541341653666,
-                scaleY: 1.533541341653666,
                 scale: 0.7134649970499101,
-                angle: 0,
               },
             },
           ],
@@ -1273,8 +1277,8 @@ const jsonData = {
           overlayBackgroundUrl: '',
           photoZones: [
             {
-              left: 100.5,
-              top: 139.08333333333334,
+              left: 72,
+              top: 98.33333333333334,
               image: {
                 playableDuration: null,
                 height: 4032,
@@ -1282,16 +1286,14 @@ const jsonData = {
                 filename: 'IMG_4072.JPG',
                 extension: 'jpg',
                 fileSize: 1744579,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/e9ea8eaf-d3c8-4e7d-8342-19fee3da632c8268403247082337415.JPG',
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/b266701c-8798-4b6a-9c12-f9871a4bed5d6678635559117836537.JPG',
                 type: 'image',
                 localUrl: 'ph://CE01E3CA-F0E8-4B89-BA86-20DD4168590A/L0/001',
-                imageId: '94104a05-68bc-4bc0-84c9-91044da6f42e',
-                photoTrayId: '93fdbfee-f327-487a-95fb-5ba2b6f16012',
+                imageId: 'abe953f6-2fe2-423e-9ea3-48cb854dc6dc',
+                photoTrayId: '197aefb8-9174-4ca7-ad02-d2f9ef38f748',
                 sliderIndex: 1,
-                scaleX: 0.4195753968286073,
-                scaleY: 0.4195753968286073,
-                left: -182.99999999999994,
-                top: 191.75000000000006,
+                left: 32,
+                top: 29,
                 angle: 0,
               },
               userDefined: true,
@@ -1300,27 +1302,7 @@ const jsonData = {
           previewUrl:
             'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Preview.png',
           replaceBackgroundUrl: '',
-          texts: [
-            {
-              fontFamily: 'Just a Note',
-              fontId: 125,
-              fontSize: 16,
-              height: 162.53471,
-              isFixed: false,
-              isHybrid: false,
-              isMultiline: true,
-              left: 10,
-              angle: 0,
-              text: 'Add your text here',
-              textAlign: 'left',
-              textColor: '#595959',
-              top: 880.7581,
-              width: 900,
-              userDefined: true,
-              sliderIndex: 1,
-              isDeleted: true,
-            },
-          ],
+          texts: [],
           type: 'inside',
           userImages: null,
           userTextZones: [],
