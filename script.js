@@ -22,6 +22,8 @@ const configStore = (function () {
   return {
     spacingUnit: spacingUnit,
     defaultUserPhotozoneImageWidth: 200,
+    multiplierWidth: 0.2269647696476965,
+    multiplierHeight: 0.22705771050141912,
     // the defaults are used on front and back of the cards
     textDefaultSettings: {
       name: 'userText',
@@ -517,33 +519,9 @@ const configStore = (function () {
       };
     },
     getBoundingRect: function (obj) {
-      var vpt = [1, 0, 0, 1, 0, 0],
-        padding = obj.padding || 0,
-        angle = this.degreesToRadians(obj.angle),
-        cos = this.cos(angle),
-        sin = this.sin(angle),
-        cosP = cos * padding,
-        sinP = sin * padding,
-        cosPSinP = cosP + sinP,
-        cosPMinusSinP = cosP - sinP,
-        aCoords = this.calcACoords(obj);
-      var lineCoords = {
-        tl: this.transformPoint(aCoords.tl, vpt),
-        tr: this.transformPoint(aCoords.tr, vpt),
-        bl: this.transformPoint(aCoords.bl, vpt),
-        br: this.transformPoint(aCoords.br, vpt),
-      };
-      if (padding) {
-        lineCoords.tl.x -= cosPMinusSinP;
-        lineCoords.tl.y -= cosPSinP;
-        lineCoords.tr.x += cosPSinP;
-        lineCoords.tr.y -= cosPMinusSinP;
-        lineCoords.bl.x -= cosPSinP;
-        lineCoords.bl.y += cosPMinusSinP;
-        lineCoords.br.x += cosPMinusSinP;
-        lineCoords.br.y += cosPSinP;
-      }
-      return lineCoords;
+      const aCoords = this.calcACoords(obj);
+      const coords = [aCoords.tl, aCoords.tr, aCoords.br, aCoords.bl];
+      return this.makeBoundingBoxFromPoints(coords);
     },
   };
 })();
@@ -764,23 +742,18 @@ const loadLayer = async (layer, faceNumber, preview) => {
           left +=
             (d.image.left || 0) +
             17.7165 +
-            (d.image.translateX || 0) / 2 / 0.2269647696476965;
+            (d.image.translateX || 0) / 2 / configStore.multiplierWidth;
           top +=
             (d.image.top || 0) +
             17.7165 +
-            (d.image.translateY || 0) / 2 / 0.21883468834688347;
+            (d.image.translateY || 0) / 2 / configStore.multiplierHeight;
         } else if (d.userDefined) {
           // debugger;
           const canvasWidth = layer.dimensions.width || 0,
             canvasHeight = layer.dimensions.height || 0;
           scaleX = scaleY =
             (configStore.defaultUserPhotozoneImageWidth / imageWidth) *
-            (1 / 0.2269647696476965);
-          console.log(JSON.stringify({ scaleX, scaleY }));
-          console.log(JSON.stringify({ iScaleX, iScaleY }));
-          scaleX = scaleX * iScaleX;
-          scaleY = scaleY * iScaleY;
-          console.log(JSON.stringify({ scaleX, scaleY }));
+            (1 / configStore.multiplierWidth);
           left =
             (d.image.insideWidth || 0) +
             (canvasWidth / 2 - imageWidth * scaleX) / 2;
@@ -789,12 +762,31 @@ const loadLayer = async (layer, faceNumber, preview) => {
             JSON.stringify({
               left,
               top,
-              translateX: (d.image.left || 0) / 0.2269647696476965,
-              translateY: (d.image.top || 0) / 0.21883468834688347,
+              translateX: (d.image.left || 0) / configStore.multiplierWidth,
+              translateY: (d.image.top || 0) / configStore.multiplierHeight,
             })
           );
-          left = left + (d.image.left || 0) / 0.2269647696476965;
-          top = top + (d.image.top || 0) / 0.21883468834688347;
+          console.log(JSON.stringify({ scaleX, scaleY }));
+          console.log(JSON.stringify({ iScaleX, iScaleY }));
+          scaleX = scaleX * iScaleX;
+          scaleY = scaleY * iScaleY;
+          left =
+            (d.image.insideWidth || 0) +
+            (canvasWidth / 2 - imageWidth * scaleX) / 2;
+          top = (canvasHeight - imageHeight * scaleY) / 2;
+          console.log(
+            JSON.stringify({
+              left,
+              top,
+              translateX: (d.image.left || 0) / configStore.multiplierWidth,
+              translateY: (d.image.top || 0) / configStore.multiplierHeight,
+            })
+          );
+
+          left = left + (d.image.left || 0) / configStore.multiplierWidth;
+          top = top - 40 + (d.image.top || 0) / configStore.multiplierHeight;
+
+          console.log(JSON.stringify({ scaleX, scaleY }));
           console.log(JSON.stringify({ left, top }));
         }
 
@@ -803,12 +795,7 @@ const loadLayer = async (layer, faceNumber, preview) => {
           y: top,
         };
 
-        // point = this.calcPointRotationTransform(
-        //   point,
-        //   configStore.radToDegree(d.image.angle)
-        // );
-
-        canvasJson.objects.push({
+        const fImageObj = {
           type: 'image',
           version: '3.6.6',
           left: point.x,
@@ -819,7 +806,7 @@ const loadLayer = async (layer, faceNumber, preview) => {
           angle: configStore.radToDegree(d.image.angle),
           originX: 'left',
           originY: 'top',
-          centeredRotation: true,
+          centeredRotation: false,
           centeredScaling: true,
           width: imageWidth + 17.7165,
           height: imageHeight + 17.7165,
@@ -856,7 +843,7 @@ const loadLayer = async (layer, faceNumber, preview) => {
                   color: 'rgba(0, 0, 0, 0.25)',
                   blur: 50,
                   offsetX: 0,
-                  offsetY: 15 / 0.21883468834688347,
+                  offsetY: 15 / configStore.multiplierHeight,
                 }
               : null,
           clipPath:
@@ -895,7 +882,18 @@ const loadLayer = async (layer, faceNumber, preview) => {
                   absolutePositioned: true,
                 }
               : undefined,
-        });
+        };
+
+        if (d.image.angle) {
+          const centerPoint = configStore.getCenterPoint(fImageObj);
+          // fImageObj.left = centerPoint.x;
+          // fImageObj.top = centerPoint.y;
+          console.log(centerPoint, point);
+          const boundingRect = configStore.getBoundingRect(fImageObj);
+          console.log(boundingRect);
+        }
+
+        canvasJson.objects.push(fImageObj);
       }
     })
   );
@@ -952,9 +950,11 @@ const loadLayer = async (layer, faceNumber, preview) => {
         x:
           (d.left || 0) +
           17.7165 +
-          (d.translateX || 0) / 2 / 0.2269647696476965,
+          (d.translateX || 0) / 2 / configStore.multiplierWidth,
         y:
-          (d.top || 0) + 17.7165 + (d.translateY || 0) / 2 / 0.2269647696476965,
+          (d.top || 0) +
+          17.7165 +
+          (d.translateY || 0) / 2 / configStore.multiplierWidth,
       };
       const textObj = Object.assign({}, configStore.textDefaultSettings, {
         type: 'textbox',
@@ -1011,11 +1011,11 @@ const loadLayer = async (layer, faceNumber, preview) => {
       });
       // const boudingBox = configStore.getBoundingRect(textObj);
       // console.log({ faceNumber, boudingBox });
-      // textObj.left = boudingBox.tl.x + (d.translateX || 0) / 0.2269647696476965;
+      // textObj.left = boudingBox.tl.x + (d.translateX || 0) / configStore.multiplierWidth;
       // textObj.top =
       //   boudingBox.tl.y +
       //   (boudingBox.bl.y - boudingBox.tl.y) +
-      //   (d.translateY || 0) / 0.2269647696476965;
+      //   (d.translateY || 0) / configStore.multiplierWidth;
       canvasJson.objects.push(textObj);
     }
   });
@@ -1030,18 +1030,18 @@ const loadLayer = async (layer, faceNumber, preview) => {
 };
 
 const jsonData = {
-  project_id: 'c0112438-5996-49a0-ae9d-0c2dba3fc6fd',
-  account_id: '2125485512',
+  project_id: '2e200f28-2463-400d-b1ba-2fe112e2a33d',
+  account_id: '2125483729',
   name: 'test',
   product_id: '2PGM1207',
-  scan_code: '0002389580',
+  scan_code: '0002390125',
   version: 1,
   is_digital_fulfillment: false,
-  expiration_date: '2023-03-28T14:11:21.613455763Z',
+  expiration_date: '2023-03-30T12:45:31.685672325Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-03-21T14:11:21.613479577Z',
-  last_updated_at: '2023-03-21T14:11:21.613481183Z',
+  created_at: '2023-03-23T12:45:31.685693951Z',
+  last_updated_at: '2023-03-23T12:45:31.685694946Z',
   font_collection: {
     default_size: 55,
     default_color: '#000000',
@@ -1277,24 +1277,26 @@ const jsonData = {
           overlayBackgroundUrl: '',
           photoZones: [
             {
-              left: 72,
-              top: 98.33333333333334,
+              left: 67.5,
+              top: 106.66666666666666,
               image: {
                 playableDuration: null,
                 height: 4032,
                 width: 3024,
-                filename: 'IMG_4072.JPG',
-                extension: 'jpg',
-                fileSize: 1744579,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/b266701c-8798-4b6a-9c12-f9871a4bed5d6678635559117836537.JPG',
+                filename: 'IMG_4235.HEIC',
+                extension: 'heic',
+                fileSize: 2566471,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/54b35e7b-147f-4826-b8d0-40ed3bd1371c4920953648907851390.JPEG',
                 type: 'image',
-                localUrl: 'ph://CE01E3CA-F0E8-4B89-BA86-20DD4168590A/L0/001',
-                imageId: 'abe953f6-2fe2-423e-9ea3-48cb854dc6dc',
-                photoTrayId: '197aefb8-9174-4ca7-ad02-d2f9ef38f748',
+                localUrl: 'ph://E256129C-5777-4643-8DD0-E7CEAA06D65C/L0/001',
+                imageId: 'ce159fe9-a75b-4cbb-ad37-eb5126d38a3e',
+                photoTrayId: 'dc1fe716-35b3-4382-bea9-fef1a06d4c21',
                 sliderIndex: 1,
-                left: 32,
-                top: 29,
-                angle: 0,
+                scaleX: 1.2620904836193447,
+                scaleY: 1.2620904836193447,
+                angle: 0.7155849933176751,
+                left: -15,
+                top: -50,
               },
               userDefined: true,
             },
