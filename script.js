@@ -7069,16 +7069,8 @@ const generateCanvasJSONUtil = (function () {
           y: activeObj.top,
         },
         {
-          x:
-            activeObj.left +
-            ((activeObj.width + (activeObj.userDefined ? 0 : 17.7165)) *
-              activeObj.scaleX) /
-              2,
-          y:
-            activeObj.top +
-            ((activeObj.height + (activeObj.userDefined ? 0 : 17.7165)) *
-              activeObj.scaleY) /
-              2,
+          x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
+          y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
         },
         config.angle
       );
@@ -7091,9 +7083,106 @@ const generateCanvasJSONUtil = (function () {
     }
   }
 
-  function applyScale() {}
+  function applyScale(
+    config = {
+      faceId: 1,
+      type: '',
+      objectName: null,
+      objectIndex: -1,
+      scaleX: 1,
+      scaleY: 1,
+    }
+  ) {
+    if (
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type === ''
+    ) {
+      return false;
+    }
+    const faceObj = projectObj.personalization[config.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let activeObj = null;
+    if (config.objectName) {
+      activeObj = canvasjson.objects.find(
+        (obj) => obj.name === config.objectName
+      );
+    } else if (config.objectIndex !== -1 && config.type == 'text') {
+      activeObj = canvasjson.objects.find(
+        (obj) =>
+          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+      );
+    }
+    if (activeObj) {
+      if (activeObj.type !== 'textbox') {
+        if (activeObj.isPannedByUser) {
+          activeObj.scaleX *= config.scaleX;
+          activeObj.scaleY *= config.scaleY;
+        } else {
+          const newScaleX = activeObj.scaleX * config.scaleX;
+          const newScaleY = activeObj.scaleY * config.scaleY;
+          const centerPoint = {
+            x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
+            y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
+          };
+          const newCenterPoint = {
+            x: activeObj.left + (activeObj.width * newScaleX) / 2,
+            y: activeObj.top + (activeObj.height * newScaleY) / 2,
+          };
+          activeObj.left -= newCenterPoint.x - centerPoint.x;
+          activeObj.top -= newCenterPoint.y - centerPoint.y;
+          activeObj.scaleX = newScaleX;
+          activeObj.scaleY = newScaleY;
+        }
+      } else {
+        activeObj.scaleX *= config.scaleX;
+        activeObj.scaleY *= config.scaleY;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-  function applyPan() {}
+  function applyPan(
+    config = {
+      faceId: 1,
+      type: '',
+      objectName: null,
+      objectIndex: -1,
+      translateX: 0,
+      translateY: 0,
+      multiplierX: 1,
+      multiplierY: 1,
+    }
+  ) {
+    if (
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type === ''
+    ) {
+      return false;
+    }
+    const faceObj = projectObj.personalization[config.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let activeObj = null;
+    if (config.objectName) {
+      activeObj = canvasjson.objects.find(
+        (obj) => obj.name === config.objectName
+      );
+    } else if (config.objectIndex !== -1 && config.type == 'text') {
+      activeObj = canvasjson.objects.find(
+        (obj) =>
+          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+      );
+    }
+    if (activeObj) {
+      activeObj.left += config.translateX / config.multiplierX;
+      activeObj.top += config.translateY / config.multiplierY;
+    } else {
+      return false;
+    }
+  }
 
   return {
     initializeProject,
