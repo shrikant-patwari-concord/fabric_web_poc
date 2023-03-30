@@ -6472,6 +6472,9 @@ const initialProjectData = {
 
 const generateCanvasJSONUtil = (function () {
   const projectObj = { personalization: [] };
+  const helperStore = (function () {
+    return {};
+  })();
   function initializeProject(initialData) {
     if (
       initialData &&
@@ -6688,14 +6691,139 @@ const generateCanvasJSONUtil = (function () {
         projectObj.personalization.push(personalizedFace);
       });
     }
-    function getProjectData() {}
   }
   function getProjectData() {
     return projectObj;
   }
+  function addImage(
+    imageConfig = {
+      faceId: 1,
+      photoZoneId: -1,
+      userDefined: false,
+      imageId: null,
+      config: {},
+    }
+  ) {
+    const canvasjson =
+      projectObj.personalization[imageConfig.faceId - 1].CanvasJson;
+    if (imageConfig.photoZoneId !== -1 && imageConfig.userDefined === false) {
+      const rectIndex = canvasjson.objects.findIndex(
+        (obj) => obj.name === `photozone-${imageConfig.photoZoneId}`
+      );
+      if (rectIndex !== -1) {
+        const photoZoneRect = canvasjson.objects[rectIndex];
+        const photoZoneWidth = photoZoneRect.width,
+          photoZoneHeight = photoZoneRect.height,
+          photoZoneAngle = photoZoneRect.angle,
+          imageWidth = imageConfig.config.width,
+          imageHeight = imageConfig.config.height;
+        let scaleX = 1,
+          scaleY = 1;
+        if (imageWidth * scaleX > imageHeight * scaleY) {
+          scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
+        }
+        if (imageWidth * scaleX < imageHeight * scaleY) {
+          scaleX = scaleY = photoZoneWidth / (imageWidth * scaleX);
+        }
+        if (imageWidth * scaleX < photoZoneWidth) {
+          scaleX = scaleY = photoZoneWidth / (imageWidth * scaleX);
+        }
+        if (imageHeight * scaleY < photoZoneHeight) {
+          scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
+        }
+        if (imageWidth * scaleX > photoZoneWidth) {
+          left = left - (imageWidth * scaleX - photoZoneWidth) / 2;
+          top = top - (imageHeight * scaleY - photoZoneHeight) / 2;
+        } else {
+          top = top - (imageHeight * scaleY - photoZoneHeight) / 2;
+          left = left - (imageWidth * scaleX - photoZoneWidth) / 2;
+        }
+        const imageObj = {
+          type: 'image',
+          version: '5.2.1',
+          originX: 'left',
+          originY: 'top',
+          left: left,
+          top: top,
+          width: imageWidth,
+          height: imageHeight,
+          fill: 'rgb(0,0,0)',
+          stroke: null,
+          strokeWidth: 0,
+          strokeDashArray: null,
+          strokeLineCap: 'butt',
+          strokeDashOffset: 0,
+          strokeLineJoin: 'miter',
+          strokeUniform: false,
+          strokeMiterLimit: 4,
+          scaleX: scaleX,
+          scaleY: scaleY,
+          angle: photoZoneAngle,
+          flipX: false,
+          flipY: false,
+          opacity: 1,
+          shadow: null,
+          visible: true,
+          backgroundColor: '',
+          fillRule: 'nonzero',
+          paintFirst: 'fill',
+          globalCompositeOperation: 'source-over',
+          skewX: 0,
+          skewY: 0,
+          clipPath: {
+            type: 'rect',
+            version: '5.2.1',
+            originX: 'left',
+            originY: 'top',
+            left: photoZoneRect.left,
+            top: photoZoneRect.top,
+            width: photoZoneRect.width,
+            height: photoZoneRect.height,
+            fill: 'rgb(0,0,0)',
+            stroke: null,
+            strokeWidth: 1,
+            strokeDashArray: null,
+            strokeLineCap: 'butt',
+            strokeDashOffset: 0,
+            strokeLineJoin: 'miter',
+            strokeUniform: false,
+            strokeMiterLimit: 4,
+            scaleX: photoZoneRect.scaleX,
+            scaleY: photoZoneRect.scaleY,
+            angle: photoZoneRect.angle,
+            flipX: false,
+            flipY: false,
+            opacity: 1,
+            shadow: null,
+            visible: true,
+            backgroundColor: '',
+            fillRule: 'nonzero',
+            paintFirst: 'fill',
+            globalCompositeOperation: 'source-over',
+            skewX: 0,
+            skewY: 0,
+            rx: 0,
+            ry: 0,
+            inverted: false,
+            absolutePositioned: true,
+          },
+          cropX: 0,
+          cropY: 0,
+          name: `${photoZoneRect.name}-${imageConfig.imageId}`,
+          src: imageConfig.url,
+          crossOrigin: 'anonymous',
+          filters: [],
+        };
+        canvasjson.objects.splice(rectIndex + 1, 0, imageObj);
+      }
+    }
+    if (imageConfig.userDefined) {
+    }
+  }
   return {
     initializeProject,
     getProjectData,
+    addImage,
   };
 })();
 
