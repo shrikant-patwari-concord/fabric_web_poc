@@ -6764,6 +6764,9 @@ const generateCanvasJSONUtil = (function () {
     return projectObj;
   }
 
+  /**
+   * function addImage
+   */
   function addImage(
     imageConfig = {
       faceId: 1,
@@ -6774,7 +6777,7 @@ const generateCanvasJSONUtil = (function () {
     }
   ) {
     if (imageConfig.objectId == null) {
-      return;
+      return null;
     }
     const faceObj = projectObj.personalization[imageConfig.faceId - 1];
     const canvasjson = faceObj.CanvasJson;
@@ -6888,8 +6891,12 @@ const generateCanvasJSONUtil = (function () {
           src: imageConfig.url,
           crossOrigin: 'anonymous',
           filters: [],
+          userDefined: false,
         };
         canvasjson.objects.splice(rectIndex + 1, 0, imageObj);
+        return imageObj.name;
+      } else {
+        return null;
       }
     }
     if (imageConfig.userDefined) {
@@ -6944,9 +6951,12 @@ const generateCanvasJSONUtil = (function () {
         src: imageConfig.url,
         crossOrigin: 'anonymous',
         filters: [],
+        userDefined: true,
       };
       canvasjson.objects.push(imageObj);
+      return imageObj.name;
     }
+    return null;
   }
 
   function addText(
@@ -6959,7 +6969,7 @@ const generateCanvasJSONUtil = (function () {
     }
   ) {
     if (textConfig.objectId == null) {
-      return;
+      return null;
     }
     const faceObj = projectObj.personalization[textConfig.faceId - 1];
     const canvasjson = faceObj.CanvasJson;
@@ -7023,11 +7033,63 @@ const generateCanvasJSONUtil = (function () {
       minWidth: 20,
       splitByGrapheme: false,
       name: `userTextbox-${faceObj.FaceId}-${textConfig.objectId}`,
+      userDefined: true,
     };
     canvasjson.objects.push(textObj);
+    return textObj.name;
   }
 
-  function applyRotation() {}
+  function applyRotation(
+    config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
+  ) {
+    if (
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type === ''
+    ) {
+      return false;
+    }
+    const faceObj = projectObj.personalization[config.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let activeObj = null;
+    if (config.objectName) {
+      activeObj = canvasjson.objects.find(
+        (obj) => obj.name === config.objectName
+      );
+    } else if (config.objectIndex !== -1 && config.type == 'text') {
+      activeObj = canvasjson.objects.find(
+        (obj) =>
+          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+      );
+    }
+    if (activeObj) {
+      const rotatePoint = helperStore.rotatePoint(
+        {
+          x: activeObj.left,
+          y: activeObj.top,
+        },
+        {
+          x:
+            activeObj.left +
+            ((activeObj.width + (activeObj.userDefined ? 0 : 17.7165)) *
+              activeObj.scaleX) /
+              2,
+          y:
+            activeObj.top +
+            ((activeObj.height + (activeObj.userDefined ? 0 : 17.7165)) *
+              activeObj.scaleY) /
+              2,
+        },
+        config.angle
+      );
+      activeObj.left = rotatePoint.x;
+      activeObj.top = rotatePoint.y;
+      activeObj.angle = helperStore.radToDegree(config.angle);
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function applyScale() {}
 
