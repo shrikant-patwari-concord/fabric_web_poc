@@ -6472,9 +6472,75 @@ const initialProjectData = {
 
 const generateCanvasJSONUtil = (function () {
   const projectObj = { personalization: [] };
+
   const helperStore = (function () {
-    return {};
+    const piBy2 = Math.PI / 2;
+    const piBy180 = Math.PI / 180;
+    const defaultUserDefinedImageWidth = 200;
+    return {
+      defaultUserDefinedImageWidth: defaultUserDefinedImageWidth,
+      cos: function (angle) {
+        if (angle === 0) {
+          return 1;
+        }
+        if (angle < 0) {
+          // cos(a) = cos(-a)
+          angle = -angle;
+        }
+        var angleSlice = angle / piBy2;
+        switch (angleSlice) {
+          case 1:
+          case 3:
+            return 0;
+          case 2:
+            return -1;
+        }
+        return Math.cos(angle);
+      },
+      sin: function (angle) {
+        if (angle === 0) {
+          return 0;
+        }
+        var angleSlice = angle / piBy2,
+          sign = 1;
+        if (angle < 0) {
+          // sin(-a) = -sin(a)
+          sign = -1;
+        }
+        switch (angleSlice) {
+          case 1:
+            return sign;
+          case 2:
+            return 0;
+          case 3:
+            return -sign;
+        }
+        return Math.sin(angle);
+      },
+      radToDegree: function (rad) {
+        return (rad || 0) / piBy180;
+      },
+      degreesToRadians: function (deg) {
+        return (deg || 0) * piBy180;
+      },
+      rotateVector: function (vector, radians) {
+        var sin = this.sin(radians),
+          cos = this.cos(radians),
+          rx = vector.x * cos - vector.y * sin,
+          ry = vector.x * sin + vector.y * cos;
+        return {
+          x: rx,
+          y: ry,
+        };
+      },
+      rotatePoint: function (point, origin, radians) {
+        var newPoint = { x: point.x - origin.x, y: point.y - origin.y },
+          v = this.rotateVector(newPoint, radians);
+        return { x: v.x + origin.x, y: v.y + origin.y };
+      },
+    };
   })();
+
   function initializeProject(initialData) {
     if (
       initialData &&
@@ -6505,6 +6571,7 @@ const generateCanvasJSONUtil = (function () {
             objects: [],
           },
           UserImages: [],
+          canvasDimensions: face.Dimensions,
         };
         if (face.BackgroundUrl) {
           personalizedFace.CanvasJson.backgroundImage = {
@@ -6692,20 +6759,28 @@ const generateCanvasJSONUtil = (function () {
       });
     }
   }
+
   function getProjectData() {
     return projectObj;
   }
+
   function addImage(
     imageConfig = {
       faceId: 1,
       photoZoneId: -1,
       userDefined: false,
-      imageId: null,
+      objectId: null,
       config: {},
     }
   ) {
-    const canvasjson =
-      projectObj.personalization[imageConfig.faceId - 1].CanvasJson;
+    if (imageConfig.objectId == null) {
+      return;
+    }
+    const faceObj = projectObj.personalization[imageConfig.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    faceObj.UserImages.push(imageConfig.objectId);
+    const imageWidth = imageConfig.config.width,
+      imageHeight = imageConfig.config.height;
     if (imageConfig.photoZoneId !== -1 && imageConfig.userDefined === false) {
       const rectIndex = canvasjson.objects.findIndex(
         (obj) => obj.name === `photozone-${imageConfig.photoZoneId}`
@@ -6714,11 +6789,11 @@ const generateCanvasJSONUtil = (function () {
         const photoZoneRect = canvasjson.objects[rectIndex];
         const photoZoneWidth = photoZoneRect.width,
           photoZoneHeight = photoZoneRect.height,
-          photoZoneAngle = photoZoneRect.angle,
-          imageWidth = imageConfig.config.width,
-          imageHeight = imageConfig.config.height;
+          photoZoneAngle = photoZoneRect.angle;
         let scaleX = 1,
-          scaleY = 1;
+          scaleY = 1,
+          left = 0,
+          top = 0;
         if (imageWidth * scaleX > imageHeight * scaleY) {
           scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
         }
@@ -6809,7 +6884,7 @@ const generateCanvasJSONUtil = (function () {
           },
           cropX: 0,
           cropY: 0,
-          name: `${photoZoneRect.name}-${imageConfig.imageId}`,
+          name: `${photoZoneRect.name}-${imageConfig.objectId}`,
           src: imageConfig.url,
           crossOrigin: 'anonymous',
           filters: [],
@@ -6818,12 +6893,154 @@ const generateCanvasJSONUtil = (function () {
       }
     }
     if (imageConfig.userDefined) {
+      const canvasWidth = faceObj.canvasDimensions.width || 0,
+        canvasHeight = faceObj.canvasDimensions.height || 0;
+      let scaleX = 1,
+        scaleY = 1,
+        left = 0,
+        top = 0;
+      scaleX = scaleY =
+        (helperStore.defaultUserDefinedImageWidth / imageWidth) *
+        (1 / imageConfig.config.multiplierWidth);
+      left =
+        (imageConfig.config.insideWidth || 0) +
+        (canvasWidth / 2 - imageWidth * scaleX) / 2;
+      top = (canvasHeight - imageHeight * scaleY) / 2;
+      const imageObj = {
+        type: 'image',
+        version: '5.2.1',
+        originX: 'left',
+        originY: 'top',
+        left: left,
+        top: top,
+        width: imageWidth,
+        height: imageHeight,
+        fill: 'rgb(0,0,0)',
+        stroke: null,
+        strokeWidth: 0,
+        strokeDashArray: null,
+        strokeLineCap: 'butt',
+        strokeDashOffset: 0,
+        strokeLineJoin: 'miter',
+        strokeUniform: false,
+        strokeMiterLimit: 4,
+        scaleX: scaleX,
+        scaleY: scaleY,
+        angle: imageConfig.config.angle || 0,
+        flipX: false,
+        flipY: false,
+        opacity: 1,
+        shadow: null,
+        visible: true,
+        backgroundColor: '',
+        fillRule: 'nonzero',
+        paintFirst: 'fill',
+        globalCompositeOperation: 'source-over',
+        skewX: 0,
+        skewY: 0,
+        cropX: 0,
+        cropY: 0,
+        name: `userImage-${imageConfig.faceId}-${imageConfig.objectId}`,
+        src: imageConfig.url,
+        crossOrigin: 'anonymous',
+        filters: [],
+      };
+      canvasjson.objects.push(imageObj);
     }
   }
+
+  function addText(
+    textConfig = {
+      faceId: 1,
+      photoZoneId: -1,
+      userDefined: true,
+      objectId: null,
+      config: {},
+    }
+  ) {
+    if (textConfig.objectId == null) {
+      return;
+    }
+    const faceObj = projectObj.personalization[textConfig.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let left = textConfig.left,
+      top = textConfig.top,
+      width = textConfig.width,
+      height = textConfig.height,
+      angle = textConfig.angle;
+    if (angle) {
+    }
+    const textObj = {
+      type: 'textbox',
+      version: '5.2.1',
+      originX: 'left',
+      originY: 'top',
+      left: left,
+      top: top,
+      width: width,
+      height: height,
+      fill: textConfig.textColor,
+      stroke: null,
+      strokeWidth: 1,
+      strokeDashArray: null,
+      strokeLineCap: 'butt',
+      strokeDashOffset: 0,
+      strokeLineJoin: 'miter',
+      strokeUniform: false,
+      strokeMiterLimit: 4,
+      scaleX: 1,
+      scaleY: 1,
+      angle: angle,
+      flipX: false,
+      flipY: false,
+      opacity: 1,
+      shadow: null,
+      visible: true,
+      backgroundColor: 'transparent',
+      fillRule: 'nonzero',
+      paintFirst: 'fill',
+      globalCompositeOperation: 'source-over',
+      skewX: 0,
+      skewY: 0,
+      fontFamily: `fontid-${textConfig.fontId}`,
+      fontWeight: 'normal',
+      fontSize: textConfig.fontSize * 4,
+      text: textConfig.text,
+      underline: false,
+      overline: false,
+      linethrough: false,
+      textAlign: textConfig.textAlign,
+      fontStyle: 'normal',
+      lineHeight: 1.16,
+      textBackgroundColor: '',
+      charSpacing: 0,
+      styles: {},
+      direction: 'ltr',
+      path: null,
+      pathStartOffset: 0,
+      pathSide: 'left',
+      pathAlign: 'baseline',
+      minWidth: 20,
+      splitByGrapheme: false,
+      name: `userTextbox-${faceObj.FaceId}-${textConfig.objectId}`,
+    };
+    canvasjson.objects.push(textObj);
+  }
+
+  function applyRotation() {}
+
+  function applyScale() {}
+
+  function applyPan() {}
+
   return {
     initializeProject,
     getProjectData,
     addImage,
+    addText,
+    applyPan,
+    applyScale,
+    applyRotation,
   };
 })();
 
