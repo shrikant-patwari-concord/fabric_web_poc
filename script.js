@@ -6471,7 +6471,7 @@ const initialProjectData = {
 };
 
 const generateCanvasJSONUtil = (function () {
-  const projectObj = { personalization: [] };
+  let projectObj = { personalization: [] };
 
   const helperStore = (function () {
     const piBy2 = Math.PI / 2;
@@ -6540,6 +6540,10 @@ const generateCanvasJSONUtil = (function () {
       },
     };
   })();
+
+  function cleanUp() {
+    projectObj = { personalization: [] };
+  }
 
   function initializeProject(initialData) {
     if (
@@ -6900,8 +6904,8 @@ const generateCanvasJSONUtil = (function () {
       }
     }
     if (imageConfig.userDefined) {
-      const canvasWidth = faceObj.canvasDimensions.width || 0,
-        canvasHeight = faceObj.canvasDimensions.height || 0;
+      const canvasWidth = faceObj.canvasDimensions.Width || 0,
+        canvasHeight = faceObj.canvasDimensions.Height || 0;
       let scaleX = 1,
         scaleY = 1,
         left = 0,
@@ -6973,11 +6977,11 @@ const generateCanvasJSONUtil = (function () {
     }
     const faceObj = projectObj.personalization[textConfig.faceId - 1];
     const canvasjson = faceObj.CanvasJson;
-    let left = textConfig.left,
-      top = textConfig.top,
-      width = textConfig.width,
-      height = textConfig.height,
-      angle = textConfig.angle;
+    let left = textConfig.config.left,
+      top = textConfig.config.top,
+      width = textConfig.config.width,
+      height = textConfig.config.height,
+      angle = textConfig.config.angle;
     if (angle) {
     }
     const textObj = {
@@ -6989,7 +6993,7 @@ const generateCanvasJSONUtil = (function () {
       top: top,
       width: width,
       height: height,
-      fill: textConfig.textColor,
+      fill: textConfig.config.textColor,
       stroke: null,
       strokeWidth: 1,
       strokeDashArray: null,
@@ -7012,14 +7016,14 @@ const generateCanvasJSONUtil = (function () {
       globalCompositeOperation: 'source-over',
       skewX: 0,
       skewY: 0,
-      fontFamily: `fontid-${textConfig.fontId}`,
+      fontFamily: `fontid-${textConfig.config.fontId}`,
       fontWeight: 'normal',
-      fontSize: textConfig.fontSize * 4,
-      text: textConfig.text,
+      fontSize: textConfig.config.fontSize * 4,
+      text: textConfig.config.text,
       underline: false,
       overline: false,
       linethrough: false,
-      textAlign: textConfig.textAlign,
+      textAlign: textConfig.config.textAlign,
       fontStyle: 'normal',
       lineHeight: 1.16,
       textBackgroundColor: '',
@@ -7038,6 +7042,22 @@ const generateCanvasJSONUtil = (function () {
     canvasjson.objects.push(textObj);
     return textObj.name;
   }
+
+  function updateTextProperties(
+    config = {
+      faceId: 1,
+      type: '',
+      objectName: null,
+      objectIndex: -1,
+      updateObj: {
+        textColor: null,
+        fontId: null,
+        fontSize: null,
+        text: null,
+        textAlign: null,
+      },
+    }
+  ) {}
 
   function applyRotation(
     config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
@@ -7192,6 +7212,7 @@ const generateCanvasJSONUtil = (function () {
     applyPan,
     applyScale,
     applyRotation,
+    cleanUp,
   };
 })();
 
