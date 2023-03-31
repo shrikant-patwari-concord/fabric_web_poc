@@ -46,6 +46,9 @@ h1 {
 }
 .canvas-container {
   position: relative;
+  display: block;
+  float: none;
+  margin: 10px 0px 20px 20px;
 }
 .divider {
   position: absolute;
@@ -55,6 +58,8 @@ h1 {
   height: 100%;
   border-right: 1px dashed #000;
 }
-#fCanvas {
+#fCanvas,
+#iCanvas,
+#bCanvas {
   border: 1px solid #000;
 }
