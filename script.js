@@ -590,9 +590,13 @@
         top = textConfig.config.top,
         width = textConfig.config.width,
         height = textConfig.config.height,
-        angle = textConfig.config.angle || 0;
-      if (angle) {
-      }
+        angle = textConfig.config.angle || 0,
+        scaleX = 1,
+        scaleY = 1;
+      const centerPoint = {
+        x: left + (width * scaleX) / 2,
+        y: top + (height * scaleY) / 2,
+      };
       const textObj = {
         type: 'textbox',
         version: '5.2.1',
@@ -611,8 +615,8 @@
         strokeLineJoin: 'miter',
         strokeUniform: false,
         strokeMiterLimit: 4,
-        scaleX: 1,
-        scaleY: 1,
+        scaleX: scaleX,
+        scaleY: scaleY,
         angle: angle,
         flipX: false,
         flipY: false,
@@ -647,6 +651,7 @@
         splitByGrapheme: false,
         name: `userTextbox-${faceObj.FaceId}-${textConfig.objectId}`,
         userDefined: true,
+        data: { scaleX, scaleY, centerPoint },
       };
       canvasjson.objects.push(textObj);
       if (imageObj.angle) {
