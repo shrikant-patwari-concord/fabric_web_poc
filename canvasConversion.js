@@ -131,7 +131,7 @@ export const generateCanvasJSONUtil = (function () {
             flipY: false,
             opacity: 1,
             shadow: null,
-            visible: false,
+            visible: true,
             backgroundColor: '',
             fillRule: 'nonzero',
             paintFirst: 'fill',
@@ -325,7 +325,7 @@ export const generateCanvasJSONUtil = (function () {
         const photoZoneRect = canvasjson.objects[rectIndex];
         const photoZoneWidth = photoZoneRect.width,
           photoZoneHeight = photoZoneRect.height,
-          photoZoneAngle = photoZoneRect.angle;
+          photoZoneAngle = photoZoneRect.angle || 0;
         let scaleX = 1,
           scaleY = 1,
           left = photoZoneRect.left,
@@ -427,6 +427,14 @@ export const generateCanvasJSONUtil = (function () {
           userDefined: false,
         };
         canvasjson.objects.splice(rectIndex + 1, 0, imageObj);
+        if (imageObj.angle) {
+          this.applyRotation({
+            faceId: imageConfig.faceId,
+            type: 'image',
+            objectName: imageObj.name,
+            angle: helperStore.degreesToRadians(imageObj.angle),
+          });
+        }
         return imageObj.name;
       } else {
         return null;
@@ -435,7 +443,7 @@ export const generateCanvasJSONUtil = (function () {
     if (imageConfig.userDefined) {
       console.log('faceObj', faceObj);
       const canvasWidth = faceObj.canvasDimensions.Width || 0,
-        canvasHeight = faceObj.canvasDimensions.Height || 0;
+            canvasHeight = faceObj.canvasDimensions.Height || 0;
       let scaleX = 1,
         scaleY = 1,
         left = 0,
@@ -489,6 +497,14 @@ export const generateCanvasJSONUtil = (function () {
         userDefined: true,
       };
       canvasjson.objects.push(imageObj);
+      if (imageObj.angle) {
+        this.applyRotation({
+          faceId: imageConfig.faceId,
+          type: 'image',
+          objectName: imageObj.name,
+          angle: helperStore.degreesToRadians(imageObj.angle),
+        });
+      }
       return imageObj.name;
     }
     return null;
@@ -512,7 +528,7 @@ export const generateCanvasJSONUtil = (function () {
       top = textConfig.config.top,
       width = textConfig.config.width,
       height = textConfig.config.height,
-      angle = textConfig.config.angle;
+      angle = textConfig.config.angle || 0;
     if (angle) {
     }
     const textObj = {
@@ -571,6 +587,14 @@ export const generateCanvasJSONUtil = (function () {
       userDefined: true,
     };
     canvasjson.objects.push(textObj);
+    if (imageObj.angle) {
+      this.applyRotation({
+        faceId: imageConfig.faceId,
+        type: 'text',
+        objectName: textObj.name,
+        angle: helperStore.degreesToRadians(textObj.angle),
+      });
+    }
     return textObj.name;
   }
 

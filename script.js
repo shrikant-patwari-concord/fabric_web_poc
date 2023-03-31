@@ -6470,7 +6470,7 @@ const initialProjectData = {
   },
 };
 
-const generateCanvasJSONUtil = (function () {
+export const generateCanvasJSONUtil = (function () {
   let projectObj = { personalization: [] };
 
   const helperStore = (function () {
@@ -6603,7 +6603,7 @@ const generateCanvasJSONUtil = (function () {
             flipY: false,
             opacity: 1,
             shadow: null,
-            visible: false,
+            visible: true,
             backgroundColor: '',
             fillRule: 'nonzero',
             paintFirst: 'fill',
@@ -6773,13 +6773,14 @@ const generateCanvasJSONUtil = (function () {
    */
   function addImage(
     imageConfig = {
-      faceId: 1,
-      photoZoneId: -1,
+      faceId: 1, //1,2,3
+      photoZoneId: -1, //0,1,2
       userDefined: false,
-      objectId: null,
-      config: {},
+      objectId: null, //imageId
+      config: {}, //width,height,angle,insideWidth,multiplierX,multiplierY
     }
   ) {
+    console.log('config from app', imageConfig);
     if (imageConfig.objectId == null) {
       return null;
     }
@@ -6796,11 +6797,11 @@ const generateCanvasJSONUtil = (function () {
         const photoZoneRect = canvasjson.objects[rectIndex];
         const photoZoneWidth = photoZoneRect.width,
           photoZoneHeight = photoZoneRect.height,
-          photoZoneAngle = photoZoneRect.angle;
+          photoZoneAngle = photoZoneRect.angle || 0;
         let scaleX = 1,
           scaleY = 1,
-          left = 0,
-          top = 0;
+          left = photoZoneRect.left,
+          top = photoZoneRect.top;
         if (imageWidth * scaleX > imageHeight * scaleY) {
           scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
         }
@@ -6892,27 +6893,37 @@ const generateCanvasJSONUtil = (function () {
           cropX: 0,
           cropY: 0,
           name: `${photoZoneRect.name}-${imageConfig.objectId}`,
-          src: imageConfig.url,
+          src: imageConfig.config.uri,
           crossOrigin: 'anonymous',
           filters: [],
           userDefined: false,
         };
         canvasjson.objects.splice(rectIndex + 1, 0, imageObj);
+        if (imageObj.angle) {
+          this.applyRotation({
+            faceId: imageConfig.faceId,
+            type: 'image',
+            objectName: imageObj.name,
+            angle: helperStore.degreesToRadians(imageObj.angle),
+          });
+        }
         return imageObj.name;
       } else {
         return null;
       }
     }
     if (imageConfig.userDefined) {
+      console.log('faceObj', faceObj);
       const canvasWidth = faceObj.canvasDimensions.Width || 0,
         canvasHeight = faceObj.canvasDimensions.Height || 0;
       let scaleX = 1,
         scaleY = 1,
         left = 0,
         top = 0;
+      console.log('helperstore', helperStore);
       scaleX = scaleY =
         (helperStore.defaultUserDefinedImageWidth / imageWidth) *
-        (1 / imageConfig.config.multiplierWidth);
+        (1 / imageConfig.config.multiplierX);
       left =
         (imageConfig.config.insideWidth || 0) +
         (canvasWidth / 2 - imageWidth * scaleX) / 2;
@@ -6952,12 +6963,20 @@ const generateCanvasJSONUtil = (function () {
         cropX: 0,
         cropY: 0,
         name: `userImage-${imageConfig.faceId}-${imageConfig.objectId}`,
-        src: imageConfig.url,
+        src: imageConfig.config.uri,
         crossOrigin: 'anonymous',
         filters: [],
         userDefined: true,
       };
       canvasjson.objects.push(imageObj);
+      if (imageObj.angle) {
+        this.applyRotation({
+          faceId: imageConfig.faceId,
+          type: 'image',
+          objectName: imageObj.name,
+          angle: helperStore.degreesToRadians(imageObj.angle),
+        });
+      }
       return imageObj.name;
     }
     return null;
@@ -6981,7 +7000,7 @@ const generateCanvasJSONUtil = (function () {
       top = textConfig.config.top,
       width = textConfig.config.width,
       height = textConfig.config.height,
-      angle = textConfig.config.angle;
+      angle = textConfig.config.angle || 0;
     if (angle) {
     }
     const textObj = {
@@ -7040,24 +7059,16 @@ const generateCanvasJSONUtil = (function () {
       userDefined: true,
     };
     canvasjson.objects.push(textObj);
+    if (imageObj.angle) {
+      this.applyRotation({
+        faceId: imageConfig.faceId,
+        type: 'text',
+        objectName: textObj.name,
+        angle: helperStore.degreesToRadians(textObj.angle),
+      });
+    }
     return textObj.name;
   }
-
-  function updateTextProperties(
-    config = {
-      faceId: 1,
-      type: '',
-      objectName: null,
-      objectIndex: -1,
-      updateObj: {
-        textColor: null,
-        fontId: null,
-        fontSize: null,
-        text: null,
-        textAlign: null,
-      },
-    }
-  ) {}
 
   function applyRotation(
     config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
@@ -7135,12 +7146,13 @@ const generateCanvasJSONUtil = (function () {
     }
     if (activeObj) {
       if (activeObj.type !== 'textbox') {
+        console.log('config Obj in scale', config);
         if (activeObj.isPannedByUser) {
-          activeObj.scaleX *= config.scaleX;
-          activeObj.scaleY *= config.scaleY;
+          activeObj.scaleX *= config.scaleX || 1;
+          activeObj.scaleY *= config.scaleY || 1;
         } else {
-          const newScaleX = activeObj.scaleX * config.scaleX;
-          const newScaleY = activeObj.scaleY * config.scaleY;
+          const newScaleX = activeObj.scaleX * (config.scaleX || 1);
+          const newScaleY = activeObj.scaleY * (config.scaleY || 1);
           const centerPoint = {
             x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
             y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
@@ -7155,8 +7167,8 @@ const generateCanvasJSONUtil = (function () {
           activeObj.scaleY = newScaleY;
         }
       } else {
-        activeObj.scaleX *= config.scaleX;
-        activeObj.scaleY *= config.scaleY;
+        activeObj.scaleX *= config.scaleX || 1;
+        activeObj.scaleY *= config.scaleY || 1;
       }
       return true;
     } else {
@@ -7199,6 +7211,76 @@ const generateCanvasJSONUtil = (function () {
     if (activeObj) {
       activeObj.left += config.translateX / config.multiplierX;
       activeObj.top += config.translateY / config.multiplierY;
+      activeObj.isPannedByUser = true;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function updateTextProperties(
+    config = {
+      faceId: 1,
+      type: '',
+      objectName: null,
+      objectIndex: -1,
+      updateObj: {
+        textColor: null,
+        fontId: null,
+        fontSize: null,
+        text: null,
+        textAlign: null,
+      },
+    }
+  ) {
+    if (
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type !== 'text'
+    ) {
+      return false;
+    }
+    const faceObj = projectObj.personalization[config.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let activeObj = null;
+    if (config.objectName) {
+      activeObj = canvasjson.objects.find(
+        (obj) => obj.name === config.objectName
+      );
+    } else if (config.objectIndex !== -1 && config.type == 'text') {
+      activeObj = canvasjson.objects.find(
+        (obj) =>
+          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+      );
+    }
+    if (activeObj) {
+      const updates = {};
+      for (const [key, value] of Object.entries(config.updateObj)) {
+        console.log(`${key}: ${value}`);
+        if (value) {
+          switch (key) {
+            case 'textColor':
+              updates.fill = value;
+              break;
+            case 'fontId':
+              updates.fontFamily = `fontid-${value}`;
+              break;
+            case 'fontSize':
+              updates.fontSize = value * 4;
+              break;
+            case 'text':
+              updates.text = value;
+              break;
+            case 'textAlign':
+              updates.textAlign = value;
+            default:
+              console.log(`Sorry, no matchin property found to update.`);
+              break;
+          }
+        }
+      }
+      Object.assign(activeObj, updates);
+      return true;
     } else {
       return false;
     }
@@ -7213,8 +7295,26 @@ const generateCanvasJSONUtil = (function () {
     applyScale,
     applyRotation,
     cleanUp,
+    updateTextProperties,
   };
 })();
 
 generateCanvasJSONUtil.initializeProject(initialProjectData);
+const imageName = generateCanvasJSONUtil.addImage({
+  faceId: 2,
+  userDefined: true,
+  objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd2',
+  config: {
+    uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/a81970e4-514c-442b-8f58-87b5ea809f501873028403530748053.JPG',
+    width: 3024,
+    height: 4032,
+    multiplierX: 0.2203,
+  },
+});
+const opStatus = generateCanvasJSONUtil.applyRotation({
+  faceId: 2,
+  type: 'image',
+  objectName: imageName,
+  angle: configStore.degreesToRadians(45),
+});
 console.log(generateCanvasJSONUtil.getProjectData());

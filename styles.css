@@ -44,3 +44,17 @@ h1 {
   font-weight: bold;
   font-size: 1.5rem;
 }
+.canvas-container {
+  position: relative;
+}
+.divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  border-right: 1px dashed #000;
+}
+#fCanvas {
+  border: 1px solid #000;
+}
