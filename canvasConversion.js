@@ -328,8 +328,8 @@ export const generateCanvasJSONUtil = (function () {
           photoZoneAngle = photoZoneRect.angle;
         let scaleX = 1,
           scaleY = 1,
-          left = 0,
-          top = 0;
+          left = photoZoneRect.left,
+          top = photoZoneRect.top;
         if (imageWidth * scaleX > imageHeight * scaleY) {
           scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
         }
@@ -758,7 +758,32 @@ export const generateCanvasJSONUtil = (function () {
       );
     }
     if (activeObj) {
-      config.updateObj
+      const updates = {};
+      for (const [key, value] of Object.entries(config.updateObj)) {
+        console.log(`${key}: ${value}`);
+        if (value) {
+          switch (key) {
+            case 'textColor':
+              updates.fill = value;
+              break;
+            case 'fontId':
+              updates.fontFamily = `fontid-${value}`;
+              break;
+            case 'fontSize':
+              updates.fontSize = value * 4;
+              break;
+            case 'text':
+              updates.text = value;
+              break;
+            case 'textAlign':
+              updates.textAlign = value;
+            default:
+              console.log(`Sorry, no matchin property found to update.`);
+              break;
+          }
+        }
+      }
+      Object.assign(activeObj, updates);
       return true;
     } else {
       return false;
@@ -774,5 +799,6 @@ export const generateCanvasJSONUtil = (function () {
     applyScale,
     applyRotation,
     cleanUp,
+    updateTextProperties,
   };
 })();
