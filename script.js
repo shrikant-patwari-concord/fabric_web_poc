@@ -311,7 +311,27 @@
       }
     ) {
       console.log('config from app', imageConfig);
-      if (imageConfig.objectId == null) {
+      imageConfig = Object.assign(
+        {
+          faceId: 1,
+          photoZoneId: -1,
+          userDefined: false,
+          objectId: null,
+        },
+        imageConfig
+      );
+      imageConfig.config = Object.assign(
+        {
+          width: 0,
+          height: 0,
+          uri: null,
+          insideWidth: 0,
+          angle: 0,
+          multiplierX: 1,
+        },
+        imageConfig.config
+      );
+      if (!imageConfig.objectId) {
         return null;
       }
       const faceObj = projectObj.personalization[imageConfig.faceId - 1];
@@ -324,6 +344,7 @@
           (obj) => obj.name === `photozone-${imageConfig.photoZoneId}`
         );
         if (rectIndex !== -1) {
+          // debugger;
           const photoZoneRect = canvasjson.objects[rectIndex];
           const photoZoneWidth = photoZoneRect.width,
             photoZoneHeight = photoZoneRect.height,
@@ -333,16 +354,20 @@
             left = photoZoneRect.left,
             top = photoZoneRect.top;
           if (imageWidth * scaleX > imageHeight * scaleY) {
-            scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
+            const scale = photoZoneHeight / (imageHeight * scaleY);
+            scaleX = scaleY = scaleX * scale;
           }
           if (imageWidth * scaleX < imageHeight * scaleY) {
-            scaleX = scaleY = photoZoneWidth / (imageWidth * scaleX);
+            const scale = photoZoneWidth / (imageWidth * scaleX);
+            scaleX = scaleY = scaleX * scale;
           }
           if (imageWidth * scaleX < photoZoneWidth) {
-            scaleX = scaleY = photoZoneWidth / (imageWidth * scaleX);
+            const scale = photoZoneWidth / (imageWidth * scaleX);
+            scaleX = scaleY = scaleX * scale;
           }
           if (imageHeight * scaleY < photoZoneHeight) {
-            scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
+            const scale = photoZoneHeight / (imageHeight * scaleY);
+            scaleX = scaleY = scaleX * scale;
           }
           if (imageWidth * scaleX > photoZoneWidth) {
             left = left - (imageWidth * scaleX - photoZoneWidth) / 2;
@@ -351,6 +376,10 @@
             top = top - (imageHeight * scaleY - photoZoneHeight) / 2;
             left = left - (imageWidth * scaleX - photoZoneWidth) / 2;
           }
+          const centerPoint = {
+            x: left + (imageWidth * scaleX) / 2,
+            y: top + (imageHeight * scaleY) / 2,
+          };
           const imageObj = {
             type: 'image',
             version: '5.2.1',
@@ -383,6 +412,7 @@
             globalCompositeOperation: 'source-over',
             skewX: 0,
             skewY: 0,
+            data: { scaleX, scaleY, centerPoint },
             clipPath: {
               type: 'rect',
               version: '5.2.1',
@@ -458,6 +488,10 @@
           (imageConfig.config.insideWidth || 0) +
           (canvasWidth / 2 - imageWidth * scaleX) / 2;
         top = (canvasHeight - imageHeight * scaleY) / 2;
+        const centerPoint = {
+          x: left + (imageWidth * scaleX) / 2,
+          y: top + (imageHeight * scaleY) / 2,
+        };
         const imageObj = {
           type: 'image',
           version: '5.2.1',
@@ -497,6 +531,7 @@
           crossOrigin: 'anonymous',
           filters: [],
           userDefined: true,
+          data: { scaleX, scaleY, centerPoint },
         };
         canvasjson.objects.push(imageObj);
         if (imageObj.angle) {
@@ -521,7 +556,32 @@
         config: {},
       }
     ) {
-      if (textConfig.objectId == null) {
+      textConfig = Object.assign(
+        {
+          faceId: 1,
+          photoZoneId: -1,
+          userDefined: true,
+          objectId: null,
+        },
+        textConfig
+      );
+      textConfig.config = Object.assign(
+        {
+          left: 0,
+          top: 0,
+          width: 1000,
+          height: 180,
+          insideWidth: 0,
+          angle: 0,
+          textColor: '#000',
+          fontId: 107,
+          fontSize: 26,
+          text: 'Edit this text',
+          textAlign: 'center',
+        },
+        textConfig.config
+      );
+      if (!textConfig.objectId) {
         return null;
       }
       const faceObj = projectObj.personalization[textConfig.faceId - 1];
@@ -603,6 +663,10 @@
     function applyRotation(
       config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
     ) {
+      config = Object.assign(
+        { faceId: 1, type: '', objectName: null, objectIndex: -1, angle: null },
+        config
+      );
       if (
         config.objectName === null &&
         config.objectIndex === -1 &&
@@ -633,11 +697,15 @@
             x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
             y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
           },
-          config.angle
+          config.angle || helperStore.degreesToRadians(activeObj.angle)
         );
         activeObj.left = rotatePoint.x;
         activeObj.top = rotatePoint.y;
         activeObj.angle = helperStore.radToDegree(config.angle);
+        activeObj.data.centerPoint = {
+          x: rotatePoint.x + (activeObj.width * activeObj.scaleX) / 2,
+          y: rotatePoint.y + (activeObj.height * activeObj.scaleY) / 2,
+        };
         return true;
       } else {
         return false;
@@ -654,6 +722,17 @@
         scaleY: 1,
       }
     ) {
+      config = Object.assign(
+        {
+          faceId: 1,
+          type: '',
+          objectName: null,
+          objectIndex: -1,
+          scaleX: 1,
+          scaleY: 1,
+        },
+        config
+      );
       if (
         config.objectName === null &&
         config.objectIndex === -1 &&
@@ -675,14 +754,14 @@
         );
       }
       if (activeObj) {
+        console.log('config Obj in scale', config);
         if (activeObj.type !== 'textbox') {
-          console.log('config Obj in scale', config);
           if (activeObj.isPannedByUser) {
-            activeObj.scaleX *= config.scaleX || 1;
-            activeObj.scaleY *= config.scaleY || 1;
+            activeObj.scaleX = activeObj.data.scaleX * (config.scaleX || 1);
+            activeObj.scaleY = activeObj.data.scaleY * (config.scaleY || 1);
           } else {
-            const newScaleX = activeObj.scaleX * (config.scaleX || 1);
-            const newScaleY = activeObj.scaleY * (config.scaleY || 1);
+            const newScaleX = activeObj.data.scaleX * (config.scaleX || 1);
+            const newScaleY = activeObj.data.scaleY * (config.scaleY || 1);
             const centerPoint = {
               x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
               y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
@@ -697,8 +776,8 @@
             activeObj.scaleY = newScaleY;
           }
         } else {
-          activeObj.scaleX *= config.scaleX || 1;
-          activeObj.scaleY *= config.scaleY || 1;
+          activeObj.scaleX = activeObj.data.scaleX * (config.scaleX || 1);
+          activeObj.scaleY = activeObj.data.scaleY * (config.scaleY || 1);
         }
         return true;
       } else {
@@ -718,6 +797,19 @@
         multiplierY: 1,
       }
     ) {
+      config = Object.assign(
+        {
+          faceId: 1,
+          type: '',
+          objectName: null,
+          objectIndex: -1,
+          translateX: 0,
+          translateY: 0,
+          multiplierX: 1,
+          multiplierY: 1,
+        },
+        config
+      );
       if (
         config.objectName === null &&
         config.objectIndex === -1 &&
@@ -739,8 +831,14 @@
         );
       }
       if (activeObj) {
-        activeObj.left += config.translateX / config.multiplierX;
-        activeObj.top += config.translateY / config.multiplierY;
+        activeObj.left =
+          activeObj.data.centerPoint.x +
+          config.translateX / config.multiplierX -
+          (activeObj.scaleX * activeObj.width) / 2;
+        activeObj.top =
+          activeObj.data.centerPoint.y +
+          config.translateY / config.multiplierY -
+          (activeObj.scaleY * activeObj.height) / 2;
         activeObj.isPannedByUser = true;
         return true;
       } else {
@@ -763,6 +861,22 @@
         },
       }
     ) {
+      config = Object.assign(
+        {
+          faceId: 1,
+          type: '',
+          objectName: null,
+          objectIndex: -1,
+          updateObj: {
+            textColor: null,
+            fontId: null,
+            fontSize: null,
+            text: null,
+            textAlign: null,
+          },
+        },
+        config
+      );
       if (
         config.objectName === null &&
         config.objectIndex === -1 &&
@@ -835,18 +949,18 @@
   };
 
   const initialProjectData = {
-    project_id: '91a986a2-db46-415b-83f7-6f5053806f86',
-    account_id: '2125507251',
+    project_id: '7e9d85ca-3c12-420b-9e3e-ff08a0980c03',
+    account_id: '2125445574',
     name: 'POD Project',
-    product_id: '2PGM1239',
-    scan_code: '0002391827',
+    product_id: '2PGM1207',
+    scan_code: '0002391359',
     version: 1,
     is_digital_fulfillment: false,
-    expiration_date: '2023-04-07T07:46:00.659029072Z',
+    expiration_date: '2023-04-05T13:49:19.013821013Z',
     project_type_code: 'P',
     project_status_code: 'C',
-    created_at: '2023-03-31T07:46:00.659056541Z',
-    last_updated_at: '2023-03-31T07:46:00.659059329Z',
+    created_at: '2023-03-29T13:49:19.013847831Z',
+    last_updated_at: '2023-03-29T13:49:19.013848884Z',
     font_collection: {
       default_size: 55,
       default_color: '#000000',
@@ -999,9 +1113,9 @@
       ],
     },
     product: {
-      product_id: '2PGM1239',
-      template_id: 'PGM1239',
-      product_name: 'Personalized Fun Wish List Photo Card',
+      product_id: '2PGM1207',
+      template_id: 'PGM1207',
+      product_name: 'Personalized Full Photo Birthday Photo Card, 5x7 Vertical',
       vendor_lead_time: 1,
       envelope_color: '#FFFFF',
     },
@@ -1018,7 +1132,7 @@
         Faces: [
           {
             BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Background.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Background.png',
             CanvasJson: null,
             Dimensions: {
               Height: 2114,
@@ -1027,85 +1141,37 @@
             EditableAreas: [],
             FaceId: 1,
             FrameUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Frame.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Frame.png',
             IsEditable: true,
             OverlayBackgroundUrl: '',
             PhotoZones: [
               {
-                Height: 651.9991,
-                LeftPosition: 620.8736,
-                Rotation: 7,
-                TopPosition: 1054.8274,
-                Width: 691.9994,
+                Height: 1951.7098,
+                LeftPosition: 21.259802,
+                Rotation: 0,
+                TopPosition: 45.70975,
+                Width: 1363.6118,
               },
             ],
             PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Preview.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Preview.png',
             ReplaceBackgroundUrl: '',
             Texts: [
               {
-                FontFamily: 'Be Seeing You',
-                FontId: 126,
-                FontSize: 17,
-                Height: 100.88956,
+                FontFamily: 'OMG Hi',
+                FontId: 120,
+                FontSize: 26,
+                Height: 184.72404,
                 IsFixed: true,
                 IsHybrid: false,
                 IsMultiline: false,
-                LeftPosition: 600.48303,
-                Rotation: 7,
-                Text: 'Girls’ Weekend!',
-                TextAlign: 'right',
-                TextColor: '#000000',
-                TopPosition: 1654.7212,
-                Width: 574.9985,
-              },
-              {
-                FontFamily: 'WHAT’S UP',
-                FontId: 117,
-                FontSize: 41,
-                Height: 202.94485,
-                IsFixed: true,
-                IsHybrid: false,
-                IsMultiline: false,
-                LeftPosition: 114.566696,
+                LeftPosition: 170.5662,
                 Rotation: 0,
-                Text: 'AND DANCING.',
-                TextAlign: 'left',
+                Text: 'RYLEIGH',
+                TextAlign: 'center',
                 TextColor: '#FFFFFF',
-                TopPosition: 823.4653,
-                Width: 1161.998,
-              },
-              {
-                FontFamily: 'WHAT’S UP',
-                FontId: 117,
-                FontSize: 41,
-                Height: 223.99915,
-                IsFixed: true,
-                IsHybrid: false,
-                IsMultiline: false,
-                LeftPosition: 114.566696,
-                Rotation: 0,
-                Text: 'DRINKING BEER',
-                TextAlign: 'left',
-                TextColor: '#FFFFFF',
-                TopPosition: 586.96655,
-                Width: 1161.998,
-              },
-              {
-                FontFamily: 'WHAT’S UP',
-                FontId: 117,
-                FontSize: 41,
-                Height: 202.94368,
-                IsFixed: true,
-                IsHybrid: false,
-                IsMultiline: false,
-                LeftPosition: 114.566696,
-                Rotation: 0,
-                Text: 'IN NASHVILLE',
-                TextAlign: 'left',
-                TextColor: '#FFFFFF',
-                TopPosition: 375.46698,
-                Width: 1161.998,
+                TopPosition: 1693.4612,
+                Width: 1063.9987,
               },
             ],
             Type: 'front',
@@ -1114,7 +1180,7 @@
           },
           {
             BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Background.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Background.png',
             CanvasJson: null,
             Dimensions: {
               Height: 2114,
@@ -1127,7 +1193,7 @@
             OverlayBackgroundUrl: '',
             PhotoZones: [],
             PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Preview.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Preview.png',
             ReplaceBackgroundUrl: '',
             Texts: [],
             Type: 'inside',
@@ -1136,7 +1202,7 @@
           },
           {
             BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Background.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Background.png',
             CanvasJson: null,
             Dimensions: {
               Height: 2114,
@@ -1149,7 +1215,7 @@
             OverlayBackgroundUrl: '',
             PhotoZones: [],
             PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Preview.png',
+              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Preview.png',
             ReplaceBackgroundUrl: '',
             Texts: [],
             Type: 'back',
@@ -1157,7 +1223,7 @@
             UserTextZones: [],
           },
         ],
-        Name: 'PGM1239',
+        Name: 'PGM1207',
         OpenOrientation: 'right',
         ParentDimensions: {
           Height: 179,
@@ -1201,18 +1267,34 @@
     generateCanvasJSONUtil.initializeProject(initialProjectData);
 
     const imageNameFace1PhotoZone0 = generateCanvasJSONUtil.addImage({
+      // faceId: 1,
+      // photoZoneId: 0,
+      // objectId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
+      // userDefined: false,
+      // config: {
+      //   height: 4032,
+      //   width: 3024,
+      //   filename: 'IMG_4072.JPG',
+      //   extension: 'jpg',
+      //   fileSize: 1744579,
+      //   uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
+      //   type: 'image',
+      // },
+
       faceId: 1,
       photoZoneId: 0,
-      objectId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
       userDefined: false,
+      objectId: '8702f28a-7772-4229-8058-a59c72b92a9b',
       config: {
+        playableDuration: null,
         height: 4032,
         width: 3024,
-        filename: 'IMG_4072.JPG',
+        filename: 'IMG_4241.JPG',
         extension: 'jpg',
-        fileSize: 1744579,
-        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
+        fileSize: 2053949,
+        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/7188bd48-d7f6-4a32-a73d-9f3a5a7b81af4402039975735780323.JPG',
         type: 'image',
+        localUrl: 'ph://3134E70B-EFEE-48D3-A01B-5EFCAFD6B393/L0/001',
       },
     });
 
