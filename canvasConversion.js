@@ -152,10 +152,10 @@ export const generateCanvasJSONUtil = (function () {
               version: '5.2.1',
               originX: 'left',
               originY: 'top',
-              left: photoZone.LeftPosition,
-              top: photoZone.TopPosition,
-              width: photoZone.Width,
-              height: photoZone.Height,
+              left: photoZone.LeftPosition + 18,
+              top: photoZone.TopPosition + 18,
+              width: photoZone.Width + 18,
+              height: photoZone.Height + 18,
               fill: '#838684',
               stroke: null,
               strokeWidth: 0,
@@ -235,10 +235,10 @@ export const generateCanvasJSONUtil = (function () {
               version: '5.2.1',
               originX: 'left',
               originY: 'top',
-              left: text.LeftPosition,
-              top: text.TopPosition,
-              width: text.Width,
-              height: text.Height,
+              left: text.LeftPosition + 18,
+              top: text.TopPosition + text.Height / 4 + 18,
+              width: text.Width + 18,
+              height: text.Height + 18,
               fill: text.TextColor,
               stroke: null,
               strokeWidth: 1,
@@ -250,7 +250,7 @@ export const generateCanvasJSONUtil = (function () {
               strokeMiterLimit: 4,
               scaleX: 1,
               scaleY: 1,
-              angle: 0,
+              angle: text.Rotation || 0,
               flipX: false,
               flipY: false,
               opacity: 1,
@@ -280,6 +280,7 @@ export const generateCanvasJSONUtil = (function () {
               pathStartOffset: 0,
               pathSide: 'left',
               pathAlign: 'baseline',
+              padding: 5,
               minWidth: 20,
               splitByGrapheme: false,
               name: `userTextbox-${face.FaceId}-${textIndex}`,
@@ -308,7 +309,7 @@ export const generateCanvasJSONUtil = (function () {
       config: {}, //width,height,angle,insideWidth,multiplierX,multiplierY
     }
   ) {
-    console.log('config from app', imageConfig);
+    console.log('config from app add Image', imageConfig);
     if (imageConfig.objectId == null) {
       return null;
     }
@@ -354,8 +355,8 @@ export const generateCanvasJSONUtil = (function () {
           version: '5.2.1',
           originX: 'left',
           originY: 'top',
-          left: left,
-          top: top,
+          left: left + 18,
+          top: top + 18,
           width: imageWidth,
           height: imageHeight,
           fill: 'rgb(0,0,0)',
@@ -381,6 +382,7 @@ export const generateCanvasJSONUtil = (function () {
           globalCompositeOperation: 'source-over',
           skewX: 0,
           skewY: 0,
+          data: { scaleX, scaleY, top, left },
           clipPath: {
             type: 'rect',
             version: '5.2.1',
@@ -443,7 +445,7 @@ export const generateCanvasJSONUtil = (function () {
     if (imageConfig.userDefined) {
       console.log('faceObj', faceObj);
       const canvasWidth = faceObj.canvasDimensions.Width || 0,
-            canvasHeight = faceObj.canvasDimensions.Height || 0;
+        canvasHeight = faceObj.canvasDimensions.Height || 0;
       let scaleX = 1,
         scaleY = 1,
         left = 0,
@@ -490,6 +492,7 @@ export const generateCanvasJSONUtil = (function () {
         skewY: 0,
         cropX: 0,
         cropY: 0,
+        data: { scaleX, scaleY, top, left },
         name: `userImage-${imageConfig.faceId}-${imageConfig.objectId}`,
         src: imageConfig.config.uri,
         crossOrigin: 'anonymous',
@@ -519,6 +522,7 @@ export const generateCanvasJSONUtil = (function () {
       config: {},
     }
   ) {
+    console.log('config from app for add text', textConfig);
     if (textConfig.objectId == null) {
       return null;
     }
@@ -555,6 +559,7 @@ export const generateCanvasJSONUtil = (function () {
       flipX: false,
       flipY: false,
       opacity: 1,
+      data: { scaleX: 1, scaleY: 1 },
       shadow: null,
       visible: true,
       backgroundColor: 'transparent',
@@ -601,6 +606,7 @@ export const generateCanvasJSONUtil = (function () {
   function applyRotation(
     config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
   ) {
+    console.log('config from app apply rotation', config);
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
@@ -652,11 +658,16 @@ export const generateCanvasJSONUtil = (function () {
       scaleY: 1,
     }
   ) {
+    console.log('config from app apply scale', config);
+    console.log(!config.objectName || config.objectIndex === -1) &&
+      config.type === '' &&
+      (!config.scaleX || !config.scaleY);
     if (
-      config.objectName === null &&
-      config.objectIndex === -1 &&
-      config.type === ''
+      (!config.objectName || config.objectIndex === -1) &&
+      config.type === '' &&
+      (!config.scaleX || !config.scaleY)
     ) {
+      console.log('false from scale');
       return false;
     }
     const faceObj = projectObj.personalization[config.faceId - 1];
@@ -676,11 +687,11 @@ export const generateCanvasJSONUtil = (function () {
       if (activeObj.type !== 'textbox') {
         console.log('config Obj in scale', config);
         if (activeObj.isPannedByUser) {
-          activeObj.scaleX *= config.scaleX || 1;
-          activeObj.scaleY *= config.scaleY || 1;
+          activeObj.scaleX = activeObj.data.scaleX * (config.scaleX || 1);
+          activeObj.scaleY = activeObj.data.scaleY * (config.scaleY || 1);
         } else {
-          const newScaleX = activeObj.scaleX * (config.scaleX || 1);
-          const newScaleY = activeObj.scaleY * (config.scaleY || 1);
+          const newScaleX = activeObj.data.scaleX * (config.scaleX || 1);
+          const newScaleY = activeObj.data.scaleY * (config.scaleY || 1);
           const centerPoint = {
             x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
             y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
@@ -695,8 +706,8 @@ export const generateCanvasJSONUtil = (function () {
           activeObj.scaleY = newScaleY;
         }
       } else {
-        activeObj.scaleX *= config.scaleX || 1;
-        activeObj.scaleY *= config.scaleY || 1;
+        activeObj.scaleX = activeObj.data.scaleX * (config.scaleX || 1);
+        activeObj.scaleY = activeObj.data.scaleY * (config.scaleY || 1);
       }
       return true;
     } else {
@@ -716,6 +727,7 @@ export const generateCanvasJSONUtil = (function () {
       multiplierY: 1,
     }
   ) {
+    console.log('config from app apply pan', config);
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
@@ -737,9 +749,13 @@ export const generateCanvasJSONUtil = (function () {
       );
     }
     if (activeObj) {
-      activeObj.left += config.translateX / config.multiplierX;
-      activeObj.top += config.translateY / config.multiplierY;
+      console.log('activeObj', activeObj);
+      activeObj.left =
+        activeObj.data.left + config.translateX / config.multiplierX;
+      activeObj.top =
+        activeObj.data.top + config.translateY / config.multiplierY;
       activeObj.isPannedByUser = true;
+      console.log('activeObj after', activeObj);
       return true;
     } else {
       return false;
@@ -761,6 +777,7 @@ export const generateCanvasJSONUtil = (function () {
       },
     }
   ) {
+    console.log('config from app text config', config);
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
