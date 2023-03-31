@@ -722,6 +722,49 @@ export const generateCanvasJSONUtil = (function () {
     }
   }
 
+  function updateTextProperties(
+    config = {
+      faceId: 1,
+      type: '',
+      objectName: null,
+      objectIndex: -1,
+      updateObj: {
+        textColor: null,
+        fontId: null,
+        fontSize: null,
+        text: null,
+        textAlign: null,
+      },
+    }
+  ) {
+    if (
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type !== 'text'
+    ) {
+      return false;
+    }
+    const faceObj = projectObj.personalization[config.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let activeObj = null;
+    if (config.objectName) {
+      activeObj = canvasjson.objects.find(
+        (obj) => obj.name === config.objectName
+      );
+    } else if (config.objectIndex !== -1 && config.type == 'text') {
+      activeObj = canvasjson.objects.find(
+        (obj) =>
+          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+      );
+    }
+    if (activeObj) {
+      config.updateObj
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return {
     initializeProject,
     getProjectData,
