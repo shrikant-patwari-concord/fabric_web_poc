@@ -1,290 +1,4 @@
 (function () {
-
-  const initialProjectData = {
-    project_id: '7e9d85ca-3c12-420b-9e3e-ff08a0980c03',
-    account_id: '2125445574',
-    name: 'POD Project',
-    product_id: '2PGM1207',
-    scan_code: '0002391359',
-    version: 1,
-    is_digital_fulfillment: false,
-    expiration_date: '2023-04-05T13:49:19.013821013Z',
-    project_type_code: 'P',
-    project_status_code: 'C',
-    created_at: '2023-03-29T13:49:19.013847831Z',
-    last_updated_at: '2023-03-29T13:49:19.013848884Z',
-    font_collection: {
-      default_size: 55,
-      default_color: '#000000',
-      fonts: [
-        {
-          id: 101,
-          name: 'Simply Yours',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/108317.ttf',
-        },
-        {
-          id: 102,
-          name: 'Grateful for You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/126056.ttf',
-        },
-        {
-          id: 103,
-          name: 'Warmest Wishes',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BerdingScript.ttf',
-        },
-        {
-          id: 104,
-          name: 'Yours Always',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/TuesdayHMK-MGE.ttf',
-        },
-        {
-          id: 105,
-          name: 'All My Best',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/KrickHMK-Regular.ttf',
-        },
-        {
-          id: 106,
-          name: 'Take It Easy',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonBallpointPen.ttf',
-        },
-        {
-          id: 107,
-          name: 'Hey Sunshine',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AnnettePrintMGE-Regular.ttf',
-        },
-        {
-          id: 108,
-          name: 'Stay Strong',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JasonPrint.ttf',
-        },
-        {
-          id: 109,
-          name: "'Til Next Time",
-          url: 'https://content.dev.hallmark.com/POD_Fonts/126059.ttf',
-        },
-        {
-          id: 110,
-          name: 'Catch You Later',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonPrint.ttf',
-        },
-        {
-          id: 111,
-          name: 'Keep in Touch',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JenniferPrintLight.ttf',
-        },
-        {
-          id: 112,
-          name: 'Hugs to You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BrentPrint.ttf',
-        },
-        {
-          id: 113,
-          name: 'Kind Regards',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/TypewriteWornOneHMK.ttf',
-        },
-        {
-          id: 114,
-          name: 'Buh-Bye',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AmbergerSansTextA.ttf',
-        },
-        {
-          id: 115,
-          name: 'Cheers to You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Regular.ttf',
-        },
-        {
-          id: 116,
-          name: 'Later Gator',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/CrayottBookKB.ttf',
-        },
-        {
-          id: 117,
-          name: 'WHAT’S UP',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AlmondMilkHMK-Regular.ttf',
-        },
-        {
-          id: 119,
-          name: 'Just Saying',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/SarahndipityHMK-Smooth.ttf',
-        },
-        {
-          id: 120,
-          name: 'OMG Hi',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Bold.ttf',
-        },
-        {
-          id: 121,
-          name: "How Ya Doin'",
-          url: 'https://content.dev.hallmark.com/POD_Fonts/HelloOne-HMK.ttf',
-        },
-        {
-          id: 122,
-          name: 'Just a Note',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AstaSlabHMK-Medium.ttf',
-        },
-        {
-          id: 123,
-          name: 'Keep Smiling',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/MiziletteHMK-SemiBoldUpright.ttf',
-        },
-        {
-          id: 124,
-          name: 'Sincerely',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/QueensHatHMK-Italic.ttf',
-        },
-        {
-          id: 125,
-          name: 'Hiya Pal',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/MichaelaVFHMK.ttf',
-        },
-        {
-          id: 126,
-          name: 'Be Seeing You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/FieldnotesHMK-Rough.ttf',
-        },
-        {
-          id: 127,
-          name: 'Good Vibes',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/GretaHMK-Regular.ttf',
-        },
-        {
-          id: 128,
-          name: 'Best Wishes',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BernhardFashionOnePKA.ttf',
-        },
-        {
-          id: 129,
-          name: 'Hang Loose',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/RittenPrintLowRiseHMK-Regular.ttf',
-        },
-        {
-          id: 130,
-          name: 'Much Appreciated',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BethelHMK-Regular.ttf',
-        },
-      ],
-    },
-    product: {
-      product_id: '2PGM1207',
-      template_id: 'PGM1207',
-      product_name: 'Personalized Full Photo Birthday Photo Card, 5x7 Vertical',
-      vendor_lead_time: 1,
-      envelope_color: '#FFFFF',
-    },
-    fulfillment: {},
-    variables: {
-      template_data: {
-        CardFormat: 'portrait',
-        CardSize: '49',
-        CardType: 'photo',
-        Dimensions: {
-          Height: 179,
-          Width: 125,
-        },
-        Faces: [
-          {
-            BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Background.png',
-            CanvasJson: null,
-            Dimensions: {
-              Height: 2114,
-              Width: 1476,
-            },
-            EditableAreas: [],
-            FaceId: 1,
-            FrameUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Frame.png',
-            IsEditable: true,
-            OverlayBackgroundUrl: '',
-            PhotoZones: [
-              {
-                Height: 1951.7098,
-                LeftPosition: 21.259802,
-                Rotation: 0,
-                TopPosition: 45.70975,
-                Width: 1363.6118,
-              },
-            ],
-            PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P1_Preview.png',
-            ReplaceBackgroundUrl: '',
-            Texts: [
-              {
-                FontFamily: 'OMG Hi',
-                FontId: 120,
-                FontSize: 26,
-                Height: 184.72404,
-                IsFixed: true,
-                IsHybrid: false,
-                IsMultiline: false,
-                LeftPosition: 170.5662,
-                Rotation: 0,
-                Text: 'RYLEIGH',
-                TextAlign: 'center',
-                TextColor: '#FFFFFF',
-                TopPosition: 1693.4612,
-                Width: 1063.9987,
-              },
-            ],
-            Type: 'front',
-            UserImages: null,
-            UserTextZones: [],
-          },
-          {
-            BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Background.png',
-            CanvasJson: null,
-            Dimensions: {
-              Height: 2114,
-              Width: 2870,
-            },
-            EditableAreas: [],
-            FaceId: 2,
-            FrameUrl: '',
-            IsEditable: true,
-            OverlayBackgroundUrl: '',
-            PhotoZones: [],
-            PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P2-3_Preview.png',
-            ReplaceBackgroundUrl: '',
-            Texts: [],
-            Type: 'inside',
-            UserImages: null,
-            UserTextZones: [],
-          },
-          {
-            BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Background.png',
-            CanvasJson: null,
-            Dimensions: {
-              Height: 2114,
-              Width: 1394,
-            },
-            EditableAreas: [],
-            FaceId: 3,
-            FrameUrl: '',
-            IsEditable: false,
-            OverlayBackgroundUrl: '',
-            PhotoZones: [],
-            PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1207/PGM1207_P4_Preview.png',
-            ReplaceBackgroundUrl: '',
-            Texts: [],
-            Type: 'back',
-            UserImages: null,
-            UserTextZones: [],
-          },
-        ],
-        Name: 'PGM1207',
-        OpenOrientation: 'right',
-        ParentDimensions: {
-          Height: 179,
-          Width: 125,
-        },
-      },
-    },
-  };
-
   const generateCanvasJSONUtil = (function () {
     let projectObj = { personalization: [] };
 
@@ -439,10 +153,10 @@
                 version: '5.2.1',
                 originX: 'left',
                 originY: 'top',
-                left: photoZone.LeftPosition,
-                top: photoZone.TopPosition,
-                width: photoZone.Width,
-                height: photoZone.Height,
+                left: photoZone.LeftPosition + 18,
+                top: photoZone.TopPosition + 18,
+                width: photoZone.Width + 18,
+                height: photoZone.Height + 18,
                 fill: '#838684',
                 stroke: null,
                 strokeWidth: 0,
@@ -522,10 +236,10 @@
                 version: '5.2.1',
                 originX: 'left',
                 originY: 'top',
-                left: text.LeftPosition,
-                top: text.TopPosition,
-                width: text.Width,
-                height: text.Height,
+                left: text.LeftPosition + 18,
+                top: text.TopPosition + text.Height / 4 + 18,
+                width: text.Width + 18,
+                height: text.Height + 18,
                 fill: text.TextColor,
                 stroke: null,
                 strokeWidth: 1,
@@ -537,7 +251,7 @@
                 strokeMiterLimit: 4,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 0,
+                angle: text.Rotation || 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -567,6 +281,7 @@
                 pathStartOffset: 0,
                 pathSide: 'left',
                 pathAlign: 'baseline',
+                padding: 5,
                 minWidth: 20,
                 splitByGrapheme: false,
                 name: `userTextbox-${face.FaceId}-${textIndex}`,
@@ -641,8 +356,8 @@
             version: '5.2.1',
             originX: 'left',
             originY: 'top',
-            left: left,
-            top: top,
+            left: left + 18,
+            top: top + 18,
             width: imageWidth,
             height: imageHeight,
             fill: 'rgb(0,0,0)',
@@ -1114,88 +829,465 @@
     };
   })();
 
-  generateCanvasJSONUtil.initializeProject(initialProjectData);
-  const imageNameFace1PhotoZone0 = generateCanvasJSONUtil.addImage({
-    faceId: 1,
-    photoZoneId: 0,
-    objectId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
-    userDefined: false,
-    config: {
-      height: 4032,
-      width: 3024,
-      filename: 'IMG_4072.JPG',
-      extension: 'jpg',
-      fileSize: 1744579,
-      uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
-      type: 'image',
-    },
-  });
-  const imageNameFace2 = generateCanvasJSONUtil.addImage({
-    faceId: 2,
-    userDefined: true,
-    objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd2',
-    config: {
-      uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/a81970e4-514c-442b-8f58-87b5ea809f501873028403530748053.JPG',
-      width: 3024,
-      height: 4032,
-      multiplierX: 0.2203,
-    },
-  });
-  const opStatus1 = generateCanvasJSONUtil.applyRotation({
-    faceId: 2,
-    type: 'image',
-    objectName: imageNameFace2,
-    angle: configStore.degreesToRadians(45),
-  });
-  const opTextUpdateStatus = generateCanvasJSONUtil.updateTextProperties({
-    faceId: 1,
-    type: 'text',
-    objectIndex: 0,
-    updateObj: {
-      text: 'Shrikant',
-    },
-  });
-  const finalProjectData = generateCanvasJSONUtil.getProjectData();
+  const piBy180 = Math.PI / 180;
+  const degreesToRadians = (deg) => {
+    return (deg || 0) * piBy180;
+  };
 
-  finalProjectData.personalization.forEach((finalJson, index) => {
-    if (index == 0) {
-      const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
-        width: finalJson.canvasDimensions.Width,
-        height: finalJson.canvasDimensions.Height,
-      });
-      console.log(finalJson);
-      fcanvas.loadFromJSON(finalJson.CanvasJson, () => {
-        console.log(fcanvas);
-        fcanvas.renderAll.bind(fcanvas);
-      });
-    }
-    if (index == 1) {
-      const icanvasEle = document.querySelector('#iCanvas');
-      const icanvas = new fabric.Canvas(icanvasEle, {
-        width: finalJson.canvasDimensions.Width,
-        height: finalJson.canvasDimensions.Height,
-      });
-      console.log(finalJson);
-      icanvas.loadFromJSON(finalJson.CanvasJson, () => {
-        console.log(icanvas);
-        icanvas.renderAll.bind(icanvas);
-        if (!icanvasEle.parentElement.querySelector('.divider')) {
-          const ele = document.createElement('div');
-          ele.setAttribute('class', 'divider');
-          icanvasEle.parentElement.appendChild(ele);
+  const initialProjectData = {
+    project_id: '91a986a2-db46-415b-83f7-6f5053806f86',
+    account_id: '2125507251',
+    name: 'POD Project',
+    product_id: '2PGM1239',
+    scan_code: '0002391827',
+    version: 1,
+    is_digital_fulfillment: false,
+    expiration_date: '2023-04-07T07:46:00.659029072Z',
+    project_type_code: 'P',
+    project_status_code: 'C',
+    created_at: '2023-03-31T07:46:00.659056541Z',
+    last_updated_at: '2023-03-31T07:46:00.659059329Z',
+    font_collection: {
+      default_size: 55,
+      default_color: '#000000',
+      fonts: [
+        {
+          id: 101,
+          name: 'Simply Yours',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/108317.ttf',
+        },
+        {
+          id: 102,
+          name: 'Grateful for You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/126056.ttf',
+        },
+        {
+          id: 103,
+          name: 'Warmest Wishes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BerdingScript.ttf',
+        },
+        {
+          id: 104,
+          name: 'Yours Always',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/TuesdayHMK-MGE.ttf',
+        },
+        {
+          id: 105,
+          name: 'All My Best',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/KrickHMK-Regular.ttf',
+        },
+        {
+          id: 106,
+          name: 'Take It Easy',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonBallpointPen.ttf',
+        },
+        {
+          id: 107,
+          name: 'Hey Sunshine',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AnnettePrintMGE-Regular.ttf',
+        },
+        {
+          id: 108,
+          name: 'Stay Strong',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JasonPrint.ttf',
+        },
+        {
+          id: 109,
+          name: "'Til Next Time",
+          url: 'https://content.dev.hallmark.com/POD_Fonts/126059.ttf',
+        },
+        {
+          id: 110,
+          name: 'Catch You Later',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonPrint.ttf',
+        },
+        {
+          id: 111,
+          name: 'Keep in Touch',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JenniferPrintLight.ttf',
+        },
+        {
+          id: 112,
+          name: 'Hugs to You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BrentPrint.ttf',
+        },
+        {
+          id: 113,
+          name: 'Kind Regards',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/TypewriteWornOneHMK.ttf',
+        },
+        {
+          id: 114,
+          name: 'Buh-Bye',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AmbergerSansTextA.ttf',
+        },
+        {
+          id: 115,
+          name: 'Cheers to You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Regular.ttf',
+        },
+        {
+          id: 116,
+          name: 'Later Gator',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/CrayottBookKB.ttf',
+        },
+        {
+          id: 117,
+          name: 'WHAT’S UP',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AlmondMilkHMK-Regular.ttf',
+        },
+        {
+          id: 119,
+          name: 'Just Saying',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/SarahndipityHMK-Smooth.ttf',
+        },
+        {
+          id: 120,
+          name: 'OMG Hi',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Bold.ttf',
+        },
+        {
+          id: 121,
+          name: "How Ya Doin'",
+          url: 'https://content.dev.hallmark.com/POD_Fonts/HelloOne-HMK.ttf',
+        },
+        {
+          id: 122,
+          name: 'Just a Note',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AstaSlabHMK-Medium.ttf',
+        },
+        {
+          id: 123,
+          name: 'Keep Smiling',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/MiziletteHMK-SemiBoldUpright.ttf',
+        },
+        {
+          id: 124,
+          name: 'Sincerely',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/QueensHatHMK-Italic.ttf',
+        },
+        {
+          id: 125,
+          name: 'Hiya Pal',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/MichaelaVFHMK.ttf',
+        },
+        {
+          id: 126,
+          name: 'Be Seeing You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/FieldnotesHMK-Rough.ttf',
+        },
+        {
+          id: 127,
+          name: 'Good Vibes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/GretaHMK-Regular.ttf',
+        },
+        {
+          id: 128,
+          name: 'Best Wishes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BernhardFashionOnePKA.ttf',
+        },
+        {
+          id: 129,
+          name: 'Hang Loose',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/RittenPrintLowRiseHMK-Regular.ttf',
+        },
+        {
+          id: 130,
+          name: 'Much Appreciated',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BethelHMK-Regular.ttf',
+        },
+      ],
+    },
+    product: {
+      product_id: '2PGM1239',
+      template_id: 'PGM1239',
+      product_name: 'Personalized Fun Wish List Photo Card',
+      vendor_lead_time: 1,
+      envelope_color: '#FFFFF',
+    },
+    fulfillment: {},
+    variables: {
+      template_data: {
+        CardFormat: 'portrait',
+        CardSize: '49',
+        CardType: 'photo',
+        Dimensions: {
+          Height: 179,
+          Width: 125,
+        },
+        Faces: [
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Background.png',
+            CanvasJson: null,
+            Dimensions: {
+              Height: 2114,
+              Width: 1476,
+            },
+            EditableAreas: [],
+            FaceId: 1,
+            FrameUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Frame.png',
+            IsEditable: true,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [
+              {
+                Height: 651.9991,
+                LeftPosition: 620.8736,
+                Rotation: 7,
+                TopPosition: 1054.8274,
+                Width: 691.9994,
+              },
+            ],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [
+              {
+                FontFamily: 'Be Seeing You',
+                FontId: 126,
+                FontSize: 17,
+                Height: 100.88956,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 600.48303,
+                Rotation: 7,
+                Text: 'Girls’ Weekend!',
+                TextAlign: 'right',
+                TextColor: '#000000',
+                TopPosition: 1654.7212,
+                Width: 574.9985,
+              },
+              {
+                FontFamily: 'WHAT’S UP',
+                FontId: 117,
+                FontSize: 41,
+                Height: 202.94485,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 114.566696,
+                Rotation: 0,
+                Text: 'AND DANCING.',
+                TextAlign: 'left',
+                TextColor: '#FFFFFF',
+                TopPosition: 823.4653,
+                Width: 1161.998,
+              },
+              {
+                FontFamily: 'WHAT’S UP',
+                FontId: 117,
+                FontSize: 41,
+                Height: 223.99915,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 114.566696,
+                Rotation: 0,
+                Text: 'DRINKING BEER',
+                TextAlign: 'left',
+                TextColor: '#FFFFFF',
+                TopPosition: 586.96655,
+                Width: 1161.998,
+              },
+              {
+                FontFamily: 'WHAT’S UP',
+                FontId: 117,
+                FontSize: 41,
+                Height: 202.94368,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 114.566696,
+                Rotation: 0,
+                Text: 'IN NASHVILLE',
+                TextAlign: 'left',
+                TextColor: '#FFFFFF',
+                TopPosition: 375.46698,
+                Width: 1161.998,
+              },
+            ],
+            Type: 'front',
+            UserImages: null,
+            UserTextZones: [],
+          },
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Background.png',
+            CanvasJson: null,
+            Dimensions: {
+              Height: 2114,
+              Width: 2870,
+            },
+            EditableAreas: [],
+            FaceId: 2,
+            FrameUrl: '',
+            IsEditable: true,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'inside',
+            UserImages: null,
+            UserTextZones: [],
+          },
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Background.png',
+            CanvasJson: null,
+            Dimensions: {
+              Height: 2114,
+              Width: 1394,
+            },
+            EditableAreas: [],
+            FaceId: 3,
+            FrameUrl: '',
+            IsEditable: false,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'back',
+            UserImages: null,
+            UserTextZones: [],
+          },
+        ],
+        Name: 'PGM1239',
+        OpenOrientation: 'right',
+        ParentDimensions: {
+          Height: 179,
+          Width: 125,
+        },
+      },
+    },
+  };
+
+  const loadFont = () => {
+    const fontLoadPromises = [];
+    initialProjectData.font_collection.fonts.forEach((font) => {
+      const ftl = new FontFace(`fontid-${font.id}`, `url(${font.url})`);
+      fontLoadPromises.push(ftl.load());
+    });
+    Promise.all(fontLoadPromises)
+      .then((r) => {
+        console.log(r);
+        if (Array.isArray(r) && r.length) {
+          r.forEach((lFont) => {
+            document.fonts.add(lFont);
+          });
         }
+        document.fonts.ready.then(function (font_face_set) {
+          // all fonts have been loaded
+          console.log(font_face_set);
+          usecanvasJSONUtil();
+        });
+      })
+      .catch((r) => {
+        console.log(r);
+        document.fonts.ready.then(function (font_face_set) {
+          // all fonts have been loaded
+          console.log(font_face_set);
+          usecanvasJSONUtil();
+        });
       });
-    }
-    if (index == 2) {
-      const bcanvas = new fabric.Canvas(document.querySelector('#bCanvas'), {
-        width: finalJson.canvasDimensions.Width,
-        height: finalJson.canvasDimensions.Height,
-      });
-      console.log(finalJson);
-      bcanvas.loadFromJSON(finalJson.CanvasJson, () => {
-        console.log(bcanvas);
-        bcanvas.renderAll.bind(bcanvas);
-      });
-    }
-  });
+  };
+
+  function usecanvasJSONUtil() {
+    generateCanvasJSONUtil.initializeProject(initialProjectData);
+
+    const imageNameFace1PhotoZone0 = generateCanvasJSONUtil.addImage({
+      faceId: 1,
+      photoZoneId: 0,
+      objectId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
+      userDefined: false,
+      config: {
+        height: 4032,
+        width: 3024,
+        filename: 'IMG_4072.JPG',
+        extension: 'jpg',
+        fileSize: 1744579,
+        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
+        type: 'image',
+      },
+    });
+
+    const imageNameFace2 = generateCanvasJSONUtil.addImage({
+      faceId: 2,
+      userDefined: true,
+      objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd2',
+      config: {
+        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/a81970e4-514c-442b-8f58-87b5ea809f501873028403530748053.JPG',
+        width: 3024,
+        height: 4032,
+        multiplierX: 0.2203,
+      },
+    });
+
+    const opStatus1 = generateCanvasJSONUtil.applyRotation({
+      faceId: 2,
+      type: 'image',
+      objectName: imageNameFace2,
+      angle: degreesToRadians(45),
+    });
+
+    const opTextUpdateStatus = generateCanvasJSONUtil.updateTextProperties({
+      faceId: 1,
+      type: 'text',
+      objectIndex: 0,
+      updateObj: {
+        text: 'Shrikant',
+      },
+    });
+
+    const finalProjectData = generateCanvasJSONUtil.getProjectData();
+
+    finalProjectData.personalization.forEach((finalJson, index) => {
+      if (index == 0) {
+        const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
+          width: finalJson.canvasDimensions.Width,
+          height: finalJson.canvasDimensions.Height,
+        });
+        console.log(finalJson);
+        fcanvas.loadFromJSON(finalJson.CanvasJson, () => {
+          console.log(fcanvas);
+          fcanvas.renderAll.bind(fcanvas);
+        });
+      }
+      if (index == 1) {
+        const icanvasEle = document.querySelector('#iCanvas');
+        const icanvas = new fabric.Canvas(icanvasEle, {
+          width: finalJson.canvasDimensions.Width,
+          height: finalJson.canvasDimensions.Height,
+        });
+        console.log(finalJson);
+        icanvas.loadFromJSON(finalJson.CanvasJson, () => {
+          console.log(icanvas);
+          icanvas.renderAll.bind(icanvas);
+          if (!icanvasEle.parentElement.querySelector('.divider')) {
+            const ele = document.createElement('div');
+            ele.setAttribute('class', 'divider');
+            icanvasEle.parentElement.appendChild(ele);
+          }
+        });
+      }
+      if (index == 2) {
+        const bcanvas = new fabric.Canvas(document.querySelector('#bCanvas'), {
+          width: finalJson.canvasDimensions.Width,
+          height: finalJson.canvasDimensions.Height,
+        });
+        console.log(finalJson);
+        bcanvas.loadFromJSON(finalJson.CanvasJson, () => {
+          console.log(bcanvas);
+          bcanvas.renderAll.bind(bcanvas);
+        });
+      }
+    });
+  }
+
+  loadFont();
 })();
