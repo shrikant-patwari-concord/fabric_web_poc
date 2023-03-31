@@ -309,8 +309,28 @@ export const generateCanvasJSONUtil = (function () {
       config: {}, //width,height,angle,insideWidth,multiplierX,multiplierY
     }
   ) {
-    console.log('config from app add Image', imageConfig);
-    if (imageConfig.objectId == null) {
+    console.log('config from app', imageConfig);
+    imageConfig = Object.assign(
+      {
+        faceId: 1,
+        photoZoneId: -1,
+        userDefined: false,
+        objectId: null,
+      },
+      imageConfig
+    );
+    imageConfig.config = Object.assign(
+      {
+        width: 0,
+        height: 0,
+        uri: null,
+        insideWidth: 0,
+        angle: 0,
+        multiplierX: 1,
+      },
+      imageConfig.config
+    );
+    if (!imageConfig.objectId) {
       return null;
     }
     const faceObj = projectObj.personalization[imageConfig.faceId - 1];
@@ -323,6 +343,7 @@ export const generateCanvasJSONUtil = (function () {
         (obj) => obj.name === `photozone-${imageConfig.photoZoneId}`
       );
       if (rectIndex !== -1) {
+        // debugger;
         const photoZoneRect = canvasjson.objects[rectIndex];
         const photoZoneWidth = photoZoneRect.width,
           photoZoneHeight = photoZoneRect.height,
@@ -332,16 +353,20 @@ export const generateCanvasJSONUtil = (function () {
           left = photoZoneRect.left,
           top = photoZoneRect.top;
         if (imageWidth * scaleX > imageHeight * scaleY) {
-          scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
+          const scale = photoZoneHeight / (imageHeight * scaleY);
+          scaleX = scaleY = scaleX * scale;
         }
         if (imageWidth * scaleX < imageHeight * scaleY) {
-          scaleX = scaleY = photoZoneWidth / (imageWidth * scaleX);
+          const scale = photoZoneWidth / (imageWidth * scaleX);
+          scaleX = scaleY = scaleX * scale;
         }
         if (imageWidth * scaleX < photoZoneWidth) {
-          scaleX = scaleY = photoZoneWidth / (imageWidth * scaleX);
+          const scale = photoZoneWidth / (imageWidth * scaleX);
+          scaleX = scaleY = scaleX * scale;
         }
         if (imageHeight * scaleY < photoZoneHeight) {
-          scaleX = scaleY = photoZoneHeight / (imageHeight * scaleY);
+          const scale = photoZoneHeight / (imageHeight * scaleY);
+          scaleX = scaleY = scaleX * scale;
         }
         if (imageWidth * scaleX > photoZoneWidth) {
           left = left - (imageWidth * scaleX - photoZoneWidth) / 2;
@@ -350,6 +375,10 @@ export const generateCanvasJSONUtil = (function () {
           top = top - (imageHeight * scaleY - photoZoneHeight) / 2;
           left = left - (imageWidth * scaleX - photoZoneWidth) / 2;
         }
+        const centerPoint = {
+          x: left + (imageWidth * scaleX) / 2,
+          y: top + (imageHeight * scaleY) / 2,
+        };
         const imageObj = {
           type: 'image',
           version: '5.2.1',
@@ -382,7 +411,7 @@ export const generateCanvasJSONUtil = (function () {
           globalCompositeOperation: 'source-over',
           skewX: 0,
           skewY: 0,
-          data: { scaleX, scaleY, top, left },
+          data: { scaleX, scaleY, centerPoint },
           clipPath: {
             type: 'rect',
             version: '5.2.1',
@@ -458,6 +487,10 @@ export const generateCanvasJSONUtil = (function () {
         (imageConfig.config.insideWidth || 0) +
         (canvasWidth / 2 - imageWidth * scaleX) / 2;
       top = (canvasHeight - imageHeight * scaleY) / 2;
+      const centerPoint = {
+        x: left + (imageWidth * scaleX) / 2,
+        y: top + (imageHeight * scaleY) / 2,
+      };
       const imageObj = {
         type: 'image',
         version: '5.2.1',
@@ -492,12 +525,12 @@ export const generateCanvasJSONUtil = (function () {
         skewY: 0,
         cropX: 0,
         cropY: 0,
-        data: { scaleX, scaleY, top, left },
         name: `userImage-${imageConfig.faceId}-${imageConfig.objectId}`,
         src: imageConfig.config.uri,
         crossOrigin: 'anonymous',
         filters: [],
         userDefined: true,
+        data: { scaleX, scaleY, centerPoint },
       };
       canvasjson.objects.push(imageObj);
       if (imageObj.angle) {
@@ -522,8 +555,32 @@ export const generateCanvasJSONUtil = (function () {
       config: {},
     }
   ) {
-    console.log('config from app for add text', textConfig);
-    if (textConfig.objectId == null) {
+    textConfig = Object.assign(
+      {
+        faceId: 1,
+        photoZoneId: -1,
+        userDefined: true,
+        objectId: null,
+      },
+      textConfig
+    );
+    textConfig.config = Object.assign(
+      {
+        left: 0,
+        top: 0,
+        width: 1000,
+        height: 180,
+        insideWidth: 0,
+        angle: 0,
+        textColor: '#000',
+        fontId: 107,
+        fontSize: 26,
+        text: 'Edit this text',
+        textAlign: 'center',
+      },
+      textConfig.config
+    );
+    if (!textConfig.objectId) {
       return null;
     }
     const faceObj = projectObj.personalization[textConfig.faceId - 1];
@@ -559,7 +616,6 @@ export const generateCanvasJSONUtil = (function () {
       flipX: false,
       flipY: false,
       opacity: 1,
-      data: { scaleX: 1, scaleY: 1 },
       shadow: null,
       visible: true,
       backgroundColor: 'transparent',
@@ -606,7 +662,10 @@ export const generateCanvasJSONUtil = (function () {
   function applyRotation(
     config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
   ) {
-    console.log('config from app apply rotation', config);
+    config = Object.assign(
+      { faceId: 1, type: '', objectName: null, objectIndex: -1, angle: null },
+      config
+    );
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
@@ -637,11 +696,15 @@ export const generateCanvasJSONUtil = (function () {
           x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
           y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
         },
-        config.angle
+        config.angle || helperStore.degreesToRadians(activeObj.angle)
       );
       activeObj.left = rotatePoint.x;
       activeObj.top = rotatePoint.y;
       activeObj.angle = helperStore.radToDegree(config.angle);
+      activeObj.data.centerPoint = {
+        x: rotatePoint.x + (activeObj.width * activeObj.scaleX) / 2,
+        y: rotatePoint.y + (activeObj.height * activeObj.scaleY) / 2,
+      };
       return true;
     } else {
       return false;
@@ -658,16 +721,22 @@ export const generateCanvasJSONUtil = (function () {
       scaleY: 1,
     }
   ) {
-    console.log('config from app apply scale', config);
-    console.log(!config.objectName || config.objectIndex === -1) &&
-      config.type === '' &&
-      (!config.scaleX || !config.scaleY);
+    config = Object.assign(
+      {
+        faceId: 1,
+        type: '',
+        objectName: null,
+        objectIndex: -1,
+        scaleX: 1,
+        scaleY: 1,
+      },
+      config
+    );
     if (
-      (!config.objectName || config.objectIndex === -1) &&
-      config.type === '' &&
-      (!config.scaleX || !config.scaleY)
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type === ''
     ) {
-      console.log('false from scale');
       return false;
     }
     const faceObj = projectObj.personalization[config.faceId - 1];
@@ -684,8 +753,8 @@ export const generateCanvasJSONUtil = (function () {
       );
     }
     if (activeObj) {
+      console.log('config Obj in scale', config);
       if (activeObj.type !== 'textbox') {
-        console.log('config Obj in scale', config);
         if (activeObj.isPannedByUser) {
           activeObj.scaleX = activeObj.data.scaleX * (config.scaleX || 1);
           activeObj.scaleY = activeObj.data.scaleY * (config.scaleY || 1);
@@ -727,7 +796,19 @@ export const generateCanvasJSONUtil = (function () {
       multiplierY: 1,
     }
   ) {
-    console.log('config from app apply pan', config);
+    config = Object.assign(
+      {
+        faceId: 1,
+        type: '',
+        objectName: null,
+        objectIndex: -1,
+        translateX: 0,
+        translateY: 0,
+        multiplierX: 1,
+        multiplierY: 1,
+      },
+      config
+    );
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
@@ -749,13 +830,15 @@ export const generateCanvasJSONUtil = (function () {
       );
     }
     if (activeObj) {
-      console.log('activeObj', activeObj);
       activeObj.left =
-        activeObj.data.left + config.translateX / config.multiplierX;
+        activeObj.data.centerPoint.x +
+        config.translateX / config.multiplierX -
+        (activeObj.scaleX * activeObj.width) / 2;
       activeObj.top =
-        activeObj.data.top + config.translateY / config.multiplierY;
+        activeObj.data.centerPoint.y +
+        config.translateY / config.multiplierY -
+        (activeObj.scaleY * activeObj.height) / 2;
       activeObj.isPannedByUser = true;
-      console.log('activeObj after', activeObj);
       return true;
     } else {
       return false;
@@ -777,7 +860,22 @@ export const generateCanvasJSONUtil = (function () {
       },
     }
   ) {
-    console.log('config from app text config', config);
+    config = Object.assign(
+      {
+        faceId: 1,
+        type: '',
+        objectName: null,
+        objectIndex: -1,
+        updateObj: {
+          textColor: null,
+          fontId: null,
+          fontSize: null,
+          text: null,
+          textAlign: null,
+        },
+      },
+      config
+    );
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
