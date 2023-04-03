@@ -692,6 +692,7 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
+      console.log(config, activeObj);
       if (activeObj) {
         const rotatePoint = helperStore.rotatePoint(
           {
@@ -758,6 +759,7 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
+      console.log(config, activeObj);
       if (activeObj) {
         console.log('config Obj in scale', config);
         if (activeObj.type !== 'textbox') {
@@ -835,6 +837,7 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
+      console.log(config, activeObj);
       if (activeObj) {
         activeObj.left =
           activeObj.data.centerPoint.x +
@@ -1304,22 +1307,49 @@
     });
 
     const imageNameFace2 = generateCanvasJSONUtil.addImage({
+      // faceId: 2,
+      // userDefined: true,
+      // objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd2',
+      // config: {
+      //   uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/a81970e4-514c-442b-8f58-87b5ea809f501873028403530748053.JPG',
+      //   width: 3024,
+      //   height: 4032,
+      //   multiplierX: 0.2203,
+      // },
       faceId: 2,
       userDefined: true,
-      objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd2',
+      objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd',
       config: {
-        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/a81970e4-514c-442b-8f58-87b5ea809f501873028403530748053.JPG',
-        width: 3024,
+        type: 'image',
+        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/7188bd48-d7f6-4a32-a73d-9f3a5a7b81af4402039975735780323.JPG',
         height: 4032,
-        multiplierX: 0.2203,
+        width: 3024,
+        multiplierX: 0.22154471544715448,
       },
+    });
+
+    // const opStatus1 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: imageNameFace2,
+    //   angle: degreesToRadians(45),
+    // });
+
+    const opApplyPanStatus = generateCanvasJSONUtil.applyPan({
+      faceId: 2,
+      type: 'image',
+      objectName: imageNameFace2,
+      multiplierX: 0.22154471544715448,
+      multiplierY: 0.22138126773888364,
+      translateX: 4.5,
+      translateY: 18,
     });
 
     const opStatus1 = generateCanvasJSONUtil.applyRotation({
       faceId: 2,
       type: 'image',
       objectName: imageNameFace2,
-      angle: degreesToRadians(45),
+      angle: -0.5410520681182421,
     });
 
     const opTextUpdateStatus = generateCanvasJSONUtil.updateTextProperties({
