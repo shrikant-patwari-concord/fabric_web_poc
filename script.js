@@ -711,6 +711,12 @@
           x: rotatePoint.x + (activeObj.width * activeObj.scaleX) / 2,
           y: rotatePoint.y + (activeObj.height * activeObj.scaleY) / 2,
         };
+        console.log(
+          JSON.stringify({
+            angle: activeObj.angle,
+            centerPoint: activeObj.data.centerPoint,
+          })
+        );
         return true;
       } else {
         return false;
@@ -759,7 +765,7 @@
         );
       }
       if (activeObj) {
-        console.log('config Obj in scale', config);
+        // console.log('config Obj in scale', config);
         if (activeObj.type !== 'textbox') {
           if (activeObj.isPannedByUser) {
             activeObj.scaleX = activeObj.data.scaleX * (config.scaleX || 1);
@@ -954,18 +960,18 @@
   };
 
   const initialProjectData = {
-    project_id: '7e9d85ca-3c12-420b-9e3e-ff08a0980c03',
-    account_id: '2125445574',
-    name: 'POD Project',
-    product_id: '2PGM1207',
-    scan_code: '0002391359',
+    project_id: '3dd08ca4-0df7-48c7-ad40-159ca0ecf407',
+    account_id: '2125448473',
+    name: 'test',
+    product_id: '2PGM2000',
+    scan_code: '0002392611',
     version: 1,
     is_digital_fulfillment: false,
-    expiration_date: '2023-04-05T13:49:19.013821013Z',
+    expiration_date: '2023-04-10T13:22:34.947414737Z',
     project_type_code: 'P',
     project_status_code: 'C',
-    created_at: '2023-03-29T13:49:19.013847831Z',
-    last_updated_at: '2023-03-29T13:49:19.013848884Z',
+    created_at: '2023-04-03T13:22:34.947435679Z',
+    last_updated_at: '2023-04-03T13:22:34.947436776Z',
     font_collection: {
       default_size: 55,
       default_color: '#000000',
@@ -1118,7 +1124,7 @@
       ],
     },
     product: {
-      product_id: '2PGM1207',
+      product_id: '2PGM2000',
       template_id: 'PGM1207',
       product_name: 'Personalized Full Photo Birthday Photo Card, 5x7 Vertical',
       vendor_lead_time: 1,
@@ -1246,7 +1252,7 @@
     });
     Promise.all(fontLoadPromises)
       .then((r) => {
-        console.log(r);
+        // console.log(r);
         if (Array.isArray(r) && r.length) {
           r.forEach((lFont) => {
             document.fonts.add(lFont);
@@ -1254,15 +1260,15 @@
         }
         document.fonts.ready.then(function (font_face_set) {
           // all fonts have been loaded
-          console.log(font_face_set);
+          // console.log(font_face_set);
           usecanvasJSONUtil();
         });
       })
       .catch((r) => {
-        console.log(r);
+        // console.log(r);
         document.fonts.ready.then(function (font_face_set) {
           // all fonts have been loaded
-          console.log(font_face_set);
+          // console.log(font_face_set);
           usecanvasJSONUtil();
         });
       });
@@ -1271,25 +1277,20 @@
   function usecanvasJSONUtil() {
     generateCanvasJSONUtil.initializeProject(initialProjectData);
 
-    const imageNameFace1PhotoZone0 = generateCanvasJSONUtil.addImage({
-      // faceId: 1,
-      // photoZoneId: 0,
-      // objectId: '3732c7ea-ce72-4eb0-be84-fc186a307ae7',
-      // userDefined: false,
-      // config: {
-      //   height: 4032,
-      //   width: 3024,
-      //   filename: 'IMG_4072.JPG',
-      //   extension: 'jpg',
-      //   fileSize: 1744579,
-      //   uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/38c7d840-8f56-40e3-a70b-01f7fead1c398466342204829421918.JPG',
-      //   type: 'image',
-      // },
-
+    console.log({
       faceId: 1,
+      objectIndex: 0,
+      objectName: undefined,
+      scaleX: undefined,
+      scaleY: undefined,
+      type: 'image',
+    });
+
+    const imageNameFace2 = generateCanvasJSONUtil.addImage({
+      faceId: 2,
       photoZoneId: 0,
-      userDefined: false,
-      objectId: '8702f28a-7772-4229-8058-a59c72b92a9b',
+      userDefined: true,
+      objectId: 'eca3bb28-6e05-47da-bdc1-6a62831fc753',
       config: {
         playableDuration: null,
         height: 4032,
@@ -1297,39 +1298,161 @@
         filename: 'IMG_4241.JPG',
         extension: 'jpg',
         fileSize: 2053949,
-        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/7188bd48-d7f6-4a32-a73d-9f3a5a7b81af4402039975735780323.JPG',
+        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/34441d80-9f89-4b6e-bf9a-187bf61853137294260850053058250.JPG',
         type: 'image',
         localUrl: 'ph://3134E70B-EFEE-48D3-A01B-5EFCAFD6B393/L0/001',
+        multiplierX: 0.2269647696476965,
+        multiplierY: 0.22682119205298013,
       },
     });
 
-    const imageNameFace2 = generateCanvasJSONUtil.addImage({
+    // const opPan = generateCanvasJSONUtil.applyPan({});
+    const opScale = generateCanvasJSONUtil.applyScale({
       faceId: 2,
-      userDefined: true,
-      objectId: 'c169afff-9096-47ad-bdd9-c0b9b2b17fd2',
-      config: {
-        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/a81970e4-514c-442b-8f58-87b5ea809f501873028403530748053.JPG',
-        width: 3024,
-        height: 4032,
-        multiplierX: 0.2203,
-      },
+      objectIndex: 0,
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      scaleX: undefined,
+      scaleY: undefined,
+      type: 'image',
     });
 
-    const opStatus1 = generateCanvasJSONUtil.applyRotation({
+    const opRotate1 = generateCanvasJSONUtil.applyRotation({
       faceId: 2,
       type: 'image',
-      objectName: imageNameFace2,
-      angle: degreesToRadians(45),
-    });
-
-    const opTextUpdateStatus = generateCanvasJSONUtil.updateTextProperties({
-      faceId: 1,
-      type: 'text',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
       objectIndex: 0,
-      updateObj: {
-        text: 'Shrikant',
-      },
+      angle: 0,
     });
+    const opScale1 = generateCanvasJSONUtil.applyScale({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      scaleX: 0.49453978159126366,
+      scaleY: 0.49453978159126366,
+    });
+    const opRotate2 = generateCanvasJSONUtil.applyRotation({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      angle: -0.8726646259971648,
+    });
+    // const opScale2 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 0.49453978159126366,
+    //   scaleY: 0.49453978159126366,
+    // });
+
+    // const opRotate3 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: -0.8726646259971648,
+    // });
+    const opScale3 = generateCanvasJSONUtil.applyScale({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      scaleX: 1.1653666146645867,
+      scaleY: 1.1653666146645867,
+    });
+    const opRotate3 = generateCanvasJSONUtil.applyRotation({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      angle: -0.8726646259971648,
+    });
+    const opScale4 = generateCanvasJSONUtil.applyScale({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      scaleX: 1.5,
+      scaleY: 1.5,
+    });
+    const opRotate4 = generateCanvasJSONUtil.applyRotation({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      angle: -0.8726646259971648,
+    });
+    // const opPan = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: 53.49999999999997,
+    //   translateY: -53.5,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
+    // const opRotate4 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: -0.8726646259971648,
+    // });
+
+    // const opScale4 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 0.6723868954758192,
+    //   scaleY: 0.6723868954758192,
+    // });
+
+    // const opRotate5 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: 1.3264502315156905,
+    // });
+
+    // const opScale5 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 0.6723868954758192,
+    //   scaleY: 0.6723868954758192,
+    // });
+
+    // const opPan1 = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: -17.5,
+    //   translateY: -136.5,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
+    // const opStatus1 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: imageNameFace2,
+    //   angle: degreesToRadians(45),
+    // });
+
+    // const opTextUpdateStatus = generateCanvasJSONUtil.updateTextProperties({
+    //   faceId: 1,
+    //   type: 'text',
+    //   objectIndex: 0,
+    //   updateObj: {
+    //     text: 'Shrikant',
+    //   },
+    // });
 
     const finalProjectData = generateCanvasJSONUtil.getProjectData();
 
@@ -1339,9 +1462,9 @@
           width: finalJson.canvasDimensions.Width,
           height: finalJson.canvasDimensions.Height,
         });
-        console.log(finalJson);
+        // console.log(finalJson);
         fcanvas.loadFromJSON(finalJson.CanvasJson, () => {
-          console.log(fcanvas);
+          // console.log(fcanvas);
           fcanvas.renderAll.bind(fcanvas);
         });
       }
@@ -1367,9 +1490,9 @@
           width: finalJson.canvasDimensions.Width,
           height: finalJson.canvasDimensions.Height,
         });
-        console.log(finalJson);
+        // console.log(finalJson);
         bcanvas.loadFromJSON(finalJson.CanvasJson, () => {
-          console.log(bcanvas);
+          // console.log(bcanvas);
           bcanvas.renderAll.bind(bcanvas);
         });
       }
