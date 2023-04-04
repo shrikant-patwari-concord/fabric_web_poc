@@ -692,7 +692,24 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
-      if (activeObj) {
+      if (
+        activeObj &&
+        typeof config.angle === 'number' &&
+        activeObj.angle.toFixed(2) !==
+          helperStore.radToDegree(config.angle).toFixed(2)
+      ) {
+        console.log(
+          JSON.stringify({
+            prevLeftTop: {
+              x: activeObj.left,
+              y: activeObj.top,
+            },
+            prevCenterPoint: {
+              x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
+              y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
+            },
+          })
+        );
         const rotatePoint = helperStore.rotatePoint(
           {
             x: activeObj.left,
@@ -707,10 +724,24 @@
         activeObj.left = rotatePoint.x;
         activeObj.top = rotatePoint.y;
         activeObj.angle = helperStore.radToDegree(config.angle);
+        console.log(
+          JSON.stringify({
+            currLeftTop: {
+              x: activeObj.left,
+              y: activeObj.top,
+            },
+            currCenterPoint: {
+              x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
+              y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
+            },
+          })
+        );
+
         activeObj.data.centerPoint = {
           x: rotatePoint.x + (activeObj.width * activeObj.scaleX) / 2,
           y: rotatePoint.y + (activeObj.height * activeObj.scaleY) / 2,
         };
+        activeObj.isCalcNewCPAfterPan = true;
         console.log(
           JSON.stringify({
             angle: activeObj.angle,
@@ -1307,14 +1338,14 @@
     });
 
     // const opPan = generateCanvasJSONUtil.applyPan({});
-    const opScale = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      objectIndex: 0,
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      scaleX: undefined,
-      scaleY: undefined,
-      type: 'image',
-    });
+    // const opScale = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   objectIndex: 0,
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   scaleX: undefined,
+    //   scaleY: undefined,
+    //   type: 'image',
+    // });
 
     const opRotate1 = generateCanvasJSONUtil.applyRotation({
       faceId: 2,
@@ -1354,14 +1385,14 @@
     //   objectIndex: 0,
     //   angle: -0.8726646259971648,
     // });
-    const opScale3 = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      scaleX: 1.1653666146645867,
-      scaleY: 1.1653666146645867,
-    });
+    // const opScale3 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 1.1653666146645867,
+    //   scaleY: 1.1653666146645867,
+    // });
     const opRotate3 = generateCanvasJSONUtil.applyRotation({
       faceId: 2,
       type: 'image',
@@ -1369,21 +1400,21 @@
       objectIndex: 0,
       angle: -0.8726646259971648,
     });
-    const opScale4 = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      scaleX: 1.5,
-      scaleY: 1.5,
-    });
-    const opRotate4 = generateCanvasJSONUtil.applyRotation({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      angle: -0.8726646259971648,
-    });
+    // const opScale4 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 1.5,
+    //   scaleY: 1.5,
+    // });
+    // const opRotate4 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: -0.8726646259971648,
+    // });
     // const opPan = generateCanvasJSONUtil.applyPan({
     //   faceId: 2,
     //   type: 'image',
