@@ -4664,3 +4664,6371 @@ var initialData = {
     },
   },
 };
+
+const loadAPIResp = {
+  meta: {
+    code: 200,
+    version: '68ee2554',
+  },
+  data: {
+    project_id: '57085800-1771-4feb-a029-78c7f38bf944',
+    account_id: '2125445574',
+    name: 'POD Project',
+    product_id: '2PGM1239',
+    scan_code: '0002393382',
+    version: 1,
+    is_digital_fulfillment: false,
+    expiration_date: '2023-05-06T05:50:41Z',
+    purchase_quantity: 1,
+    project_type_code: 'P',
+    project_status_code: 'A',
+    created_at: '2023-04-05T15:49:02Z',
+    last_updated_at: '2023-04-06T05:50:41Z',
+    addresses: [
+      {
+        first_name: 'Shrikant',
+        last_name: 'Patwari',
+        company_name: '',
+        address_line_1: '202 W Superior St',
+        address_line_2: '',
+        city: 'Fort Wayne',
+        state_code: 'IN',
+        zip: '46802',
+        country_code: 'USA',
+        address_id: 'c9a4c6c2-b3cf-4909-8126-e9cee40fb24c',
+        address_type_code: 'R',
+        created_at: '2023-04-05T15:58:08Z',
+        last_updated_at: '2023-04-05T16:00:34Z',
+        is_verified: true,
+      },
+      {
+        first_name: 'Shrikant',
+        last_name: 'Patwari',
+        company_name: '',
+        address_line_1: '202 W Superior St',
+        address_line_2: '',
+        city: 'Fort Wayne',
+        state_code: 'IN',
+        zip: '46802',
+        country_code: 'USA',
+        address_id: 'bf3ad993-b5e3-49d3-aec7-6c54d28e2021',
+        address_type_code: 'S',
+        created_at: '2023-04-05T15:58:09Z',
+        last_updated_at: '2023-04-05T16:00:34Z',
+        is_verified: true,
+      },
+    ],
+    images: [
+      {
+        image_id: '3a9299c2-d359-43ed-9b66-b6c50db395d3',
+        image_reference_id: '97c8b249-86bf-4869-a083-071d9a501195',
+        image_url:
+          'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/507612d1-549b-4267-9675-9902363086743492546050005463881.jpg',
+        created_at: '2023-04-05T15:54:50Z',
+        last_updated_at: '2023-04-05T15:54:50Z',
+      },
+    ],
+    font_collection: {
+      default_size: 55,
+      default_color: '#000000',
+      fonts: [
+        {
+          id: 101,
+          name: 'Simply Yours',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/108317.ttf',
+        },
+        {
+          id: 102,
+          name: 'Grateful for You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/126056.ttf',
+        },
+        {
+          id: 103,
+          name: 'Warmest Wishes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BerdingScript.ttf',
+        },
+        {
+          id: 104,
+          name: 'Yours Always',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/TuesdayHMK-MGE.ttf',
+        },
+        {
+          id: 105,
+          name: 'All My Best',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/KrickHMK-Regular.ttf',
+        },
+        {
+          id: 106,
+          name: 'Take It Easy',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonBallpointPen.ttf',
+        },
+        {
+          id: 107,
+          name: 'Hey Sunshine',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AnnettePrintMGE-Regular.ttf',
+        },
+        {
+          id: 108,
+          name: 'Stay Strong',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JasonPrint.ttf',
+        },
+        {
+          id: 109,
+          name: "'Til Next Time",
+          url: 'https://content.dev.hallmark.com/POD_Fonts/126059.ttf',
+        },
+        {
+          id: 110,
+          name: 'Catch You Later',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonPrint.ttf',
+        },
+        {
+          id: 111,
+          name: 'Keep in Touch',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JenniferPrintLight.ttf',
+        },
+        {
+          id: 112,
+          name: 'Hugs to You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BrentPrint.ttf',
+        },
+        {
+          id: 113,
+          name: 'Kind Regards',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/TypewriteWornOneHMK.ttf',
+        },
+        {
+          id: 114,
+          name: 'Buh-Bye',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AmbergerSansTextA.ttf',
+        },
+        {
+          id: 115,
+          name: 'Cheers to You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Regular.ttf',
+        },
+        {
+          id: 116,
+          name: 'Later Gator',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/CrayottBookKB.ttf',
+        },
+        {
+          id: 117,
+          name: 'WHAT’S UP',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AlmondMilkHMK-Regular.ttf',
+        },
+        {
+          id: 119,
+          name: 'Just Saying',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/SarahndipityHMK-Smooth.ttf',
+        },
+        {
+          id: 120,
+          name: 'OMG Hi',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Bold.ttf',
+        },
+        {
+          id: 121,
+          name: "How Ya Doin'",
+          url: 'https://content.dev.hallmark.com/POD_Fonts/HelloOne-HMK.ttf',
+        },
+        {
+          id: 122,
+          name: 'Just a Note',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AstaSlabHMK-Medium.ttf',
+        },
+        {
+          id: 123,
+          name: 'Keep Smiling',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/MiziletteHMK-SemiBoldUpright.ttf',
+        },
+        {
+          id: 124,
+          name: 'Sincerely',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/QueensHatHMK-Italic.ttf',
+        },
+        {
+          id: 125,
+          name: 'Hiya Pal',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/MichaelaVFHMK.ttf',
+        },
+        {
+          id: 126,
+          name: 'Be Seeing You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/FieldnotesHMK-Rough.ttf',
+        },
+        {
+          id: 127,
+          name: 'Good Vibes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/GretaHMK-Regular.ttf',
+        },
+        {
+          id: 128,
+          name: 'Best Wishes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BernhardFashionOnePKA.ttf',
+        },
+        {
+          id: 129,
+          name: 'Hang Loose',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/RittenPrintLowRiseHMK-Regular.ttf',
+        },
+        {
+          id: 130,
+          name: 'Much Appreciated',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BethelHMK-Regular.ttf',
+        },
+      ],
+    },
+    product: {
+      product_id: '2PGM1239',
+      template_id: 'PGM1239',
+      product_name: 'Personalized Fun Wish List Photo Card',
+      vendor_lead_time: 1,
+      envelope_color: '#FFFFF',
+    },
+    fulfillment: {
+      fulfillment_date: '2023-04-07T00:00:00Z',
+      fulfillment_expiration_date: '2023-04-06T06:00:40Z',
+      allocation_date: '2023-04-06T00:00:00Z',
+      fulfillment_node_id: 83,
+      fulfillment_method: 'POD_line3',
+      delivery_dates: [
+        {
+          shipping_option_code: 'E',
+          shipping_option_description: 'Expedited Shipping',
+          carrier_code: 'FEDEX',
+          shipping_method_code: '2D',
+          earliest_delivery_date: '2023-04-11',
+          latest_delivery_date: '2023-04-11',
+          arrival_dates: 'Tue. 04/11',
+        },
+        {
+          shipping_option_code: 'R',
+          shipping_option_description: 'Rush Shipping',
+          carrier_code: 'FEDEX',
+          shipping_method_code: '1D',
+          earliest_delivery_date: '2023-04-10',
+          latest_delivery_date: '2023-04-10',
+          arrival_dates: 'Mon. 04/10',
+        },
+        {
+          shipping_option_code: 'S',
+          shipping_option_description: 'Standard Ground',
+          carrier_code: 'USPS',
+          shipping_method_code: 'FC',
+          earliest_delivery_date: '2023-04-11',
+          latest_delivery_date: '2023-04-13',
+          arrival_dates: 'Tue. 04/11 - Thu. 04/13',
+        },
+      ],
+    },
+    variables: {
+      template_data: {
+        CardFormat: 'portrait',
+        CardSize: '49',
+        CardType: 'photo',
+        Dimensions: {
+          Height: 179,
+          Width: 125,
+        },
+        Faces: [
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Background.png',
+            CanvasJson: {
+              backgroundImage: {
+                angle: 0,
+                backgroundColor: '',
+                borderDashArray: null,
+                cornerColor: 'rgb(178,204,255)',
+                cropX: 0,
+                cropY: 0,
+                crossOrigin: 'anonymous',
+                evented: true,
+                fill: 'transparent',
+                fillRule: 'nonzero',
+                filters: [],
+                flipX: false,
+                flipY: false,
+                globalCompositeOperation: 'source-over',
+                hasControls: true,
+                height: 2112,
+                hoverCursor: null,
+                left: 0,
+                lockMovementX: false,
+                lockMovementY: false,
+                lockRotation: false,
+                lockScalingFlip: false,
+                lockSkewingX: false,
+                minScaleLimit: 0,
+                oCoords: {
+                  bl: {
+                    corner: {
+                      bl: {
+                        x: -6.500000000123661,
+                        y: 1062.5000000001237,
+                      },
+                      br: {
+                        x: 6.500000000123659,
+                        y: 1062.5000000001237,
+                      },
+                      tl: {
+                        x: -6.500000000123659,
+                        y: 1049.4999999998763,
+                      },
+                      tr: {
+                        x: 6.500000000123661,
+                        y: 1049.4999999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -12.000000000228296,
+                        y: 1068.0000000002283,
+                      },
+                      br: {
+                        x: 12.000000000228294,
+                        y: 1068.0000000002283,
+                      },
+                      tl: {
+                        x: -12.000000000228294,
+                        y: 1043.9999999997717,
+                      },
+                      tr: {
+                        x: 12.000000000228296,
+                        y: 1043.9999999997717,
+                      },
+                    },
+                    x: 0,
+                    y: 1056,
+                  },
+                  br: {
+                    corner: {
+                      bl: {
+                        x: 731.4999999998763,
+                        y: 1062.5000000001237,
+                      },
+                      br: {
+                        x: 744.5000000001237,
+                        y: 1062.5000000001237,
+                      },
+                      tl: {
+                        x: 731.4999999998763,
+                        y: 1049.4999999998763,
+                      },
+                      tr: {
+                        x: 744.5000000001237,
+                        y: 1049.4999999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 725.9999999997717,
+                        y: 1068.0000000002283,
+                      },
+                      br: {
+                        x: 750.0000000002283,
+                        y: 1068.0000000002283,
+                      },
+                      tl: {
+                        x: 725.9999999997717,
+                        y: 1043.9999999997717,
+                      },
+                      tr: {
+                        x: 750.0000000002283,
+                        y: 1043.9999999997717,
+                      },
+                    },
+                    x: 738,
+                    y: 1056,
+                  },
+                  mb: {
+                    corner: {
+                      bl: {
+                        x: 362.49999999987637,
+                        y: 1062.5000000001237,
+                      },
+                      br: {
+                        x: 375.50000000012363,
+                        y: 1062.5000000001237,
+                      },
+                      tl: {
+                        x: 362.49999999987637,
+                        y: 1049.4999999998763,
+                      },
+                      tr: {
+                        x: 375.50000000012363,
+                        y: 1049.4999999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 356.9999999997717,
+                        y: 1068.0000000002283,
+                      },
+                      br: {
+                        x: 381.0000000002283,
+                        y: 1068.0000000002283,
+                      },
+                      tl: {
+                        x: 356.9999999997717,
+                        y: 1043.9999999997717,
+                      },
+                      tr: {
+                        x: 381.0000000002283,
+                        y: 1043.9999999997717,
+                      },
+                    },
+                    x: 369,
+                    y: 1056,
+                  },
+                  ml: {
+                    corner: {
+                      bl: {
+                        x: -6.500000000123661,
+                        y: 534.5000000001237,
+                      },
+                      br: {
+                        x: 6.500000000123659,
+                        y: 534.5000000001237,
+                      },
+                      tl: {
+                        x: -6.500000000123659,
+                        y: 521.4999999998763,
+                      },
+                      tr: {
+                        x: 6.500000000123661,
+                        y: 521.4999999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -12.000000000228296,
+                        y: 540.0000000002283,
+                      },
+                      br: {
+                        x: 12.000000000228294,
+                        y: 540.0000000002283,
+                      },
+                      tl: {
+                        x: -12.000000000228294,
+                        y: 515.9999999997717,
+                      },
+                      tr: {
+                        x: 12.000000000228296,
+                        y: 515.9999999997717,
+                      },
+                    },
+                    x: 0,
+                    y: 528,
+                  },
+                  mr: {
+                    corner: {
+                      bl: {
+                        x: 731.4999999998763,
+                        y: 534.5000000001237,
+                      },
+                      br: {
+                        x: 744.5000000001237,
+                        y: 534.5000000001237,
+                      },
+                      tl: {
+                        x: 731.4999999998763,
+                        y: 521.4999999998763,
+                      },
+                      tr: {
+                        x: 744.5000000001237,
+                        y: 521.4999999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 725.9999999997717,
+                        y: 540.0000000002283,
+                      },
+                      br: {
+                        x: 750.0000000002283,
+                        y: 540.0000000002283,
+                      },
+                      tl: {
+                        x: 725.9999999997717,
+                        y: 515.9999999997717,
+                      },
+                      tr: {
+                        x: 750.0000000002283,
+                        y: 515.9999999997717,
+                      },
+                    },
+                    x: 738,
+                    y: 528,
+                  },
+                  mt: {
+                    corner: {
+                      bl: {
+                        x: 362.49999999987637,
+                        y: 6.500000000123659,
+                      },
+                      br: {
+                        x: 375.50000000012363,
+                        y: 6.500000000123661,
+                      },
+                      tl: {
+                        x: 362.49999999987637,
+                        y: -6.500000000123661,
+                      },
+                      tr: {
+                        x: 375.50000000012363,
+                        y: -6.500000000123659,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 356.9999999997717,
+                        y: 12.000000000228294,
+                      },
+                      br: {
+                        x: 381.0000000002283,
+                        y: 12.000000000228296,
+                      },
+                      tl: {
+                        x: 356.9999999997717,
+                        y: -12.000000000228296,
+                      },
+                      tr: {
+                        x: 381.0000000002283,
+                        y: -12.000000000228294,
+                      },
+                    },
+                    x: 369,
+                    y: 0,
+                  },
+                  mtr: {
+                    corner: {
+                      bl: {
+                        x: 362.49999999987637,
+                        y: -33.49999999987634,
+                      },
+                      br: {
+                        x: 375.50000000012363,
+                        y: -33.49999999987634,
+                      },
+                      tl: {
+                        x: 362.49999999987637,
+                        y: -46.50000000012366,
+                      },
+                      tr: {
+                        x: 375.50000000012363,
+                        y: -46.50000000012366,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 356.9999999997717,
+                        y: -27.999999999771706,
+                      },
+                      br: {
+                        x: 381.0000000002283,
+                        y: -27.999999999771703,
+                      },
+                      tl: {
+                        x: 356.9999999997717,
+                        y: -52.0000000002283,
+                      },
+                      tr: {
+                        x: 381.0000000002283,
+                        y: -52.0000000002283,
+                      },
+                    },
+                    x: 369,
+                    y: -40,
+                  },
+                  tl: {
+                    corner: {
+                      bl: {
+                        x: -6.500000000123661,
+                        y: 6.500000000123659,
+                      },
+                      br: {
+                        x: 6.500000000123659,
+                        y: 6.500000000123661,
+                      },
+                      tl: {
+                        x: -6.500000000123659,
+                        y: -6.500000000123661,
+                      },
+                      tr: {
+                        x: 6.500000000123661,
+                        y: -6.500000000123659,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -12.000000000228296,
+                        y: 12.000000000228294,
+                      },
+                      br: {
+                        x: 12.000000000228294,
+                        y: 12.000000000228296,
+                      },
+                      tl: {
+                        x: -12.000000000228294,
+                        y: -12.000000000228296,
+                      },
+                      tr: {
+                        x: 12.000000000228296,
+                        y: -12.000000000228294,
+                      },
+                    },
+                    x: 0,
+                    y: 0,
+                  },
+                  tr: {
+                    corner: {
+                      bl: {
+                        x: 731.4999999998763,
+                        y: 6.500000000123659,
+                      },
+                      br: {
+                        x: 744.5000000001237,
+                        y: 6.500000000123661,
+                      },
+                      tl: {
+                        x: 731.4999999998763,
+                        y: -6.500000000123661,
+                      },
+                      tr: {
+                        x: 744.5000000001237,
+                        y: -6.500000000123659,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 725.9999999997717,
+                        y: 12.000000000228294,
+                      },
+                      br: {
+                        x: 750.0000000002283,
+                        y: 12.000000000228296,
+                      },
+                      tl: {
+                        x: 725.9999999997717,
+                        y: -12.000000000228296,
+                      },
+                      tr: {
+                        x: 750.0000000002283,
+                        y: -12.000000000228294,
+                      },
+                    },
+                    x: 738,
+                    y: 0,
+                  },
+                },
+                objectCaching: true,
+                opacity: 1,
+                originX: 'left',
+                originY: 'top',
+                padding: 0,
+                paintFirst: 'fill',
+                scaleX: 1,
+                scaleY: 1,
+                selectable: true,
+                shadow: null,
+                skewX: 0,
+                skewY: 0,
+                src: 'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Background.png?w=1476',
+                stroke: null,
+                strokeDashArray: null,
+                strokeDashOffset: 0,
+                strokeLineCap: 'butt',
+                strokeLineJoin: 'miter',
+                strokeMiterLimit: 4,
+                strokeUniform: false,
+                strokeWidth: 0,
+                top: 0,
+                type: 'image',
+                version: '5.2.1',
+                visible: true,
+                width: 1476,
+              },
+              hoverCursor: 'move',
+              objects: [
+                {
+                  angle: 7,
+                  backgroundColor: '',
+                  borderDashArray: null,
+                  clipPath: {
+                    absolutePositioned: true,
+                    angle: 7,
+                    backgroundColor: '',
+                    borderDashArray: null,
+                    cornerColor: 'rgb(178,204,255)',
+                    evented: true,
+                    fill: 'rgb(0,0,0)',
+                    fillRule: 'nonzero',
+                    flipX: false,
+                    flipY: false,
+                    globalCompositeOperation: 'source-over',
+                    hasControls: true,
+                    height: 326,
+                    hoverCursor: null,
+                    inverted: false,
+                    left: 657.433,
+                    lockMovementX: false,
+                    lockMovementY: false,
+                    lockRotation: false,
+                    lockScalingFlip: false,
+                    lockSkewingX: false,
+                    minScaleLimit: 0,
+                    oCoords: null,
+                    objectCaching: true,
+                    opacity: 1,
+                    originX: 'left',
+                    originY: 'top',
+                    padding: 0,
+                    paintFirst: 'fill',
+                    rx: 0,
+                    ry: 0,
+                    scaleX: 2,
+                    scaleY: 2,
+                    selectable: true,
+                    shadow: null,
+                    skewX: 0,
+                    skewY: 0,
+                    stroke: null,
+                    strokeDashArray: null,
+                    strokeDashOffset: 0,
+                    strokeLineCap: 'butt',
+                    strokeLineJoin: 'miter',
+                    strokeMiterLimit: 4,
+                    strokeUniform: false,
+                    strokeWidth: 1,
+                    top: 1091.433,
+                    type: 'rect',
+                    version: '5.2.1',
+                    visible: true,
+                    width: 346,
+                  },
+                  cornerColor: 'rgb(178,204,255)',
+                  cropX: 0,
+                  cropY: 0,
+                  crossOrigin: 'anonymous',
+                  data: {
+                    photoZoneId: 'photozone-0',
+                    type: 'photo-zone-image',
+                  },
+                  evented: true,
+                  fill: 'rgb(0,0,0)',
+                  fillRule: 'nonzero',
+                  filters: [],
+                  flipX: false,
+                  flipY: false,
+                  globalCompositeOperation: 'source-over',
+                  hasControls: true,
+                  height: 259,
+                  hoverCursor: null,
+                  left: 657.433,
+                  lockMovementX: false,
+                  lockMovementY: false,
+                  lockRotation: false,
+                  lockScalingFlip: false,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  name: '3a9299c2-d359-43ed-9b66-b6c50db395d3',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 109.94041376461698,
+                          y: 459.51881978868096,
+                        },
+                        br: {
+                          x: 122.84351373619964,
+                          y: 461.10312125297804,
+                        },
+                        tl: {
+                          x: 111.52471522891403,
+                          y: 446.6157198170983,
+                        },
+                        tr: {
+                          x: 124.4278152004967,
+                          y: 448.2000212813954,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 103.8111285417448,
+                          y: 464.30754223407104,
+                        },
+                        br: {
+                          x: 127.6322361815897,
+                          y: 467.2324064758502,
+                        },
+                        tl: {
+                          x: 106.73599278352397,
+                          y: 440.4864345942261,
+                        },
+                        tr: {
+                          x: 130.5571004233689,
+                          y: 443.4112988360053,
+                        },
+                      },
+                      x: 117.18411448255684,
+                      y: 453.85942053503817,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 267.9406772616874,
+                          y: 478.91881276471196,
+                        },
+                        br: {
+                          x: 280.8437772332701,
+                          y: 480.50311422900904,
+                        },
+                        tl: {
+                          x: 269.5249787259845,
+                          y: 466.0157127931293,
+                        },
+                        tr: {
+                          x: 282.4280786975672,
+                          y: 467.6000142574264,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 261.81139203881526,
+                          y: 483.70753521010204,
+                        },
+                        br: {
+                          x: 285.63249967866017,
+                          y: 486.6323994518812,
+                        },
+                        tl: {
+                          x: 264.73625628059443,
+                          y: 459.8864275702571,
+                        },
+                        tr: {
+                          x: 288.55736392043934,
+                          y: 462.8112918120363,
+                        },
+                      },
+                      x: 275.1843779796273,
+                      y: 473.25941351106917,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 188.94054551315222,
+                          y: 469.2188162766965,
+                        },
+                        br: {
+                          x: 201.84364548473488,
+                          y: 470.80311774099357,
+                        },
+                        tl: {
+                          x: 190.5248469774493,
+                          y: 456.3157163051138,
+                        },
+                        tr: {
+                          x: 203.42794694903196,
+                          y: 457.9000177694109,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 182.81126029028005,
+                          y: 474.00753872208657,
+                        },
+                        br: {
+                          x: 206.63236793012496,
+                          y: 476.93240296386574,
+                        },
+                        tl: {
+                          x: 185.73612453205922,
+                          y: 450.18643108224165,
+                        },
+                        tr: {
+                          x: 209.55723217190413,
+                          y: 453.11129532402083,
+                        },
+                      },
+                      x: 196.1842462310921,
+                      y: 463.5594170230537,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 122.89040907593666,
+                          y: 354.04957173264677,
+                        },
+                        br: {
+                          x: 135.7935090475193,
+                          y: 355.63387319694385,
+                        },
+                        tl: {
+                          x: 124.47471054023372,
+                          y: 341.1464717610641,
+                        },
+                        tr: {
+                          x: 137.3778105118164,
+                          y: 342.7307732253612,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 116.76112385306448,
+                          y: 358.83829417803685,
+                        },
+                        br: {
+                          x: 140.5822314929094,
+                          y: 361.763158419816,
+                        },
+                        tl: {
+                          x: 119.68598809484365,
+                          y: 335.01718653819194,
+                        },
+                        tr: {
+                          x: 143.50709573468856,
+                          y: 337.9420507799711,
+                        },
+                      },
+                      x: 130.13410979387652,
+                      y: 348.390172479004,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 280.8906725730071,
+                          y: 373.4495647086778,
+                        },
+                        br: {
+                          x: 293.7937725445898,
+                          y: 375.0338661729749,
+                        },
+                        tl: {
+                          x: 282.4749740373042,
+                          y: 360.54646473709516,
+                        },
+                        tr: {
+                          x: 295.37807400888687,
+                          y: 362.13076620139225,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 274.76138735013495,
+                          y: 378.2382871540679,
+                        },
+                        br: {
+                          x: 298.58249498997986,
+                          y: 381.1631513958471,
+                        },
+                        tl: {
+                          x: 277.68625159191413,
+                          y: 354.417179514223,
+                        },
+                        tr: {
+                          x: 301.50735923175904,
+                          y: 357.34204375600217,
+                        },
+                      },
+                      x: 288.134373290947,
+                      y: 367.79016545503504,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 214.84053613579155,
+                          y: 258.28032016462817,
+                        },
+                        br: {
+                          x: 227.74363610737421,
+                          y: 259.8646216289252,
+                        },
+                        tl: {
+                          x: 216.42483760008864,
+                          y: 245.37722019304547,
+                        },
+                        tr: {
+                          x: 229.3279375716713,
+                          y: 246.96152165734256,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 208.71125091291938,
+                          y: 263.0690426100182,
+                        },
+                        br: {
+                          x: 232.5323585527643,
+                          y: 265.9939068517974,
+                        },
+                        tl: {
+                          x: 211.63611515469856,
+                          y: 239.2479349701733,
+                        },
+                        tr: {
+                          x: 235.45722279454347,
+                          y: 242.17279921195248,
+                        },
+                      },
+                      x: 222.08423685373143,
+                      y: 252.62092091098535,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 219.71530987199748,
+                          y: 218.57847409897525,
+                        },
+                        br: {
+                          x: 232.61840984358014,
+                          y: 220.16277556327233,
+                        },
+                        tl: {
+                          x: 221.29961133629456,
+                          y: 205.6753741273926,
+                        },
+                        tr: {
+                          x: 234.20271130787722,
+                          y: 207.25967559168967,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 213.5860246491253,
+                          y: 223.36719654436533,
+                        },
+                        br: {
+                          x: 237.40713228897022,
+                          y: 226.2920607861445,
+                        },
+                        tl: {
+                          x: 216.51088889090448,
+                          y: 199.54608890452042,
+                        },
+                        tr: {
+                          x: 240.3319965307494,
+                          y: 202.4709531462996,
+                        },
+                      },
+                      x: 226.95901058993735,
+                      y: 212.91907484533246,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 135.84040438725634,
+                          y: 248.58032367661264,
+                        },
+                        br: {
+                          x: 148.743504358839,
+                          y: 250.16462514090972,
+                        },
+                        tl: {
+                          x: 137.42470585155343,
+                          y: 235.67722370502997,
+                        },
+                        tr: {
+                          x: 150.3278058231361,
+                          y: 237.26152516932706,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 129.71111916438417,
+                          y: 253.36904612200271,
+                        },
+                        br: {
+                          x: 153.53222680422908,
+                          y: 256.2939103637819,
+                        },
+                        tl: {
+                          x: 132.63598340616335,
+                          y: 229.5479384821578,
+                        },
+                        tr: {
+                          x: 156.45709104600826,
+                          y: 232.47280272393698,
+                        },
+                      },
+                      x: 143.08410510519622,
+                      y: 242.92092442296985,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 293.8406678843268,
+                          y: 267.98031665264364,
+                        },
+                        br: {
+                          x: 306.7437678559095,
+                          y: 269.5646181169407,
+                        },
+                        tl: {
+                          x: 295.4249693486239,
+                          y: 255.07721668106097,
+                        },
+                        tr: {
+                          x: 308.32806932020657,
+                          y: 256.66151814535806,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.71138266145465,
+                          y: 272.7690390980337,
+                        },
+                        br: {
+                          x: 311.53249030129956,
+                          y: 275.6939033398129,
+                        },
+                        tl: {
+                          x: 290.6362469032338,
+                          y: 248.9479314581888,
+                        },
+                        tr: {
+                          x: 314.45735454307874,
+                          y: 251.87279569996798,
+                        },
+                      },
+                      x: 301.0843686022667,
+                      y: 262.32091739900085,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'top',
+                  padding: 0,
+                  paintFirst: 'fill',
+                  scaleX: 3.56,
+                  scaleY: 3.56,
+                  selectable: true,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  src: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/507612d1-549b-4267-9675-9902363086743492546050005463881.jpg?1680710088277',
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 0,
+                  top: 1091.433,
+                  type: 'image',
+                  version: '5.2.1',
+                  visible: true,
+                  width: 194,
+                },
+                {
+                  angle: 7,
+                  backgroundColor: '',
+                  borderDashArray: null,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    hasContent: true,
+                  },
+                  evented: true,
+                  fill: '#838684',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  globalCompositeOperation: 'source-over',
+                  hasControls: true,
+                  hasImg: false,
+                  hasRotatingPoint: false,
+                  height: 326,
+                  hoverCursor: 'pointer',
+                  left: 657.433,
+                  lockMovementX: true,
+                  lockMovementY: true,
+                  lockRotation: false,
+                  lockScalingFlip: false,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  name: 'photozone-0',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 264.026893331982,
+                          y: 857.2294446887139,
+                        },
+                        br: {
+                          x: 276.9299933035647,
+                          y: 858.8137461530109,
+                        },
+                        tl: {
+                          x: 265.6111947962791,
+                          y: 844.3263447171312,
+                        },
+                        tr: {
+                          x: 278.51429476786177,
+                          y: 845.9106461814282,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 257.89760810910985,
+                          y: 862.0181671341039,
+                        },
+                        br: {
+                          x: 281.71871574895476,
+                          y: 864.9430313758832,
+                        },
+                        tl: {
+                          x: 260.82247235088903,
+                          y: 838.197059494259,
+                        },
+                        tr: {
+                          x: 284.64357999073394,
+                          y: 841.1219237360382,
+                        },
+                      },
+                      x: 271.2705940499219,
+                      y: 851.570045435071,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 607.4478617998794,
+                          y: 899.3962375068949,
+                        },
+                        br: {
+                          x: 620.3509617714622,
+                          y: 900.9805389711919,
+                        },
+                        tl: {
+                          x: 609.0321632641765,
+                          y: 886.4931375353121,
+                        },
+                        tr: {
+                          x: 621.9352632357592,
+                          y: 888.0774389996092,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 601.3185765770072,
+                          y: 904.1849599522849,
+                        },
+                        br: {
+                          x: 625.1396842168522,
+                          y: 907.1098241940641,
+                        },
+                        tl: {
+                          x: 604.2434408187864,
+                          y: 880.3638523124399,
+                        },
+                        tr: {
+                          x: 628.0645484586314,
+                          y: 883.2887165542191,
+                        },
+                      },
+                      x: 614.6915625178193,
+                      y: 893.736838253252,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 435.73737756593073,
+                          y: 878.3128410978044,
+                        },
+                        br: {
+                          x: 448.6404775375134,
+                          y: 879.8971425621014,
+                        },
+                        tl: {
+                          x: 437.3216790302278,
+                          y: 865.4097411262217,
+                        },
+                        tr: {
+                          x: 450.2247790018105,
+                          y: 866.9940425905187,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 429.60809234305856,
+                          y: 883.1015635431944,
+                        },
+                        br: {
+                          x: 453.42919998290347,
+                          y: 886.0264277849736,
+                        },
+                        tl: {
+                          x: 432.53295658483773,
+                          y: 859.2804559033494,
+                        },
+                        tr: {
+                          x: 456.35406422468265,
+                          y: 862.2053201451287,
+                        },
+                      },
+                      x: 442.9810782838706,
+                      y: 872.6534418441615,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 283.8915963070211,
+                          y: 695.4444219711784,
+                        },
+                        br: {
+                          x: 296.79469627860374,
+                          y: 697.0287234354754,
+                        },
+                        tl: {
+                          x: 285.47589777131816,
+                          y: 682.5413219995957,
+                        },
+                        tr: {
+                          x: 298.3789977429008,
+                          y: 684.1256234638927,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 277.7623110841489,
+                          y: 700.2331444165684,
+                        },
+                        br: {
+                          x: 301.5834187239938,
+                          y: 703.1580086583476,
+                        },
+                        tl: {
+                          x: 280.6871753259281,
+                          y: 676.4120367767234,
+                        },
+                        tr: {
+                          x: 304.508282965773,
+                          y: 679.3369010185027,
+                        },
+                      },
+                      x: 291.13529702496095,
+                      y: 689.7850227175355,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 627.3125647749184,
+                          y: 737.6112147893593,
+                        },
+                        br: {
+                          x: 640.2156647465011,
+                          y: 739.1955162536564,
+                        },
+                        tl: {
+                          x: 628.8968662392155,
+                          y: 724.7081148177766,
+                        },
+                        tr: {
+                          x: 641.7999662107982,
+                          y: 726.2924162820736,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 621.1832795520462,
+                          y: 742.3999372347494,
+                        },
+                        br: {
+                          x: 645.0043871918912,
+                          y: 745.3248014765286,
+                        },
+                        tl: {
+                          x: 624.1081437938254,
+                          y: 718.5788295949044,
+                        },
+                        tr: {
+                          x: 647.9292514336704,
+                          y: 721.5036938366836,
+                        },
+                      },
+                      x: 634.5562654928583,
+                      y: 731.9518155357165,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 475.46678351600883,
+                          y: 554.7427956627333,
+                        },
+                        br: {
+                          x: 488.3698834875915,
+                          y: 556.3270971270304,
+                        },
+                        tl: {
+                          x: 477.0510849803059,
+                          y: 541.8396956911506,
+                        },
+                        tr: {
+                          x: 489.9541849518886,
+                          y: 543.4239971554476,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 469.33749829313666,
+                          y: 559.5315181081234,
+                        },
+                        br: {
+                          x: 493.1586059329816,
+                          y: 562.4563823499026,
+                        },
+                        tl: {
+                          x: 472.26236253491584,
+                          y: 535.7104104682784,
+                        },
+                        tr: {
+                          x: 496.08347017476075,
+                          y: 538.6352747100576,
+                        },
+                      },
+                      x: 482.7104842339487,
+                      y: 549.0833964090905,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 480.3415572522147,
+                          y: 515.0409495970805,
+                        },
+                        br: {
+                          x: 493.2446572237974,
+                          y: 516.6252510613775,
+                        },
+                        tl: {
+                          x: 481.9258587165118,
+                          y: 502.1378496254978,
+                        },
+                        tr: {
+                          x: 494.8289586880945,
+                          y: 503.72215108979486,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 474.21227202934256,
+                          y: 519.8296720424705,
+                        },
+                        br: {
+                          x: 498.03337966918747,
+                          y: 522.7545362842498,
+                        },
+                        tl: {
+                          x: 477.13713627112173,
+                          y: 496.0085644026256,
+                        },
+                        tr: {
+                          x: 500.95824391096664,
+                          y: 498.9334286444048,
+                        },
+                      },
+                      x: 487.5852579701546,
+                      y: 509.38155034343765,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 303.7562992820601,
+                          y: 533.6593992536428,
+                        },
+                        br: {
+                          x: 316.6593992536428,
+                          y: 535.2437007179399,
+                        },
+                        tl: {
+                          x: 305.3406007463572,
+                          y: 520.7562992820601,
+                        },
+                        tr: {
+                          x: 318.2437007179399,
+                          y: 522.3406007463572,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 297.62701405918796,
+                          y: 538.4481216990329,
+                        },
+                        br: {
+                          x: 321.44812169903287,
+                          y: 541.3729859408121,
+                        },
+                        tl: {
+                          x: 300.55187830096713,
+                          y: 514.6270140591879,
+                        },
+                        tr: {
+                          x: 324.37298594081204,
+                          y: 517.5518783009671,
+                        },
+                      },
+                      x: 311,
+                      y: 528,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 647.1772677499575,
+                          y: 575.8261920718238,
+                        },
+                        br: {
+                          x: 660.0803677215403,
+                          y: 577.4104935361208,
+                        },
+                        tl: {
+                          x: 648.7615692142546,
+                          y: 562.9230921002411,
+                        },
+                        tr: {
+                          x: 661.6646691858373,
+                          y: 564.5073935645381,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 641.0479825270853,
+                          y: 580.6149145172138,
+                        },
+                        br: {
+                          x: 664.8690901669303,
+                          y: 583.5397787589931,
+                        },
+                        tl: {
+                          x: 643.9728467688645,
+                          y: 556.7938068773689,
+                        },
+                        tr: {
+                          x: 667.7939544087095,
+                          y: 559.7186711191481,
+                        },
+                      },
+                      x: 654.4209684678974,
+                      y: 570.166792818181,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'top',
+                  padding: 0,
+                  paintFirst: 'fill',
+                  rx: 0,
+                  ry: 0,
+                  scaleX: 2,
+                  scaleY: 2,
+                  selectable: false,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 0,
+                  top: 1091.433,
+                  type: 'rect',
+                  version: '5.2.1',
+                  visible: false,
+                  width: 346,
+                  zoneId: 'p0',
+                },
+                {
+                  angle: 0,
+                  backgroundColor: '',
+                  borderDashArray: null,
+                  cornerColor: 'rgb(178,204,255)',
+                  cropX: 0,
+                  cropY: 0,
+                  crossOrigin: 'anonymous',
+                  evented: false,
+                  fill: 'rgb(0,0,0)',
+                  fillRule: 'nonzero',
+                  filters: [],
+                  flipX: false,
+                  flipY: false,
+                  globalCompositeOperation: 'source-over',
+                  hasControls: true,
+                  height: 2114,
+                  hoverCursor: null,
+                  left: 1.4329999999999998,
+                  lockMovementX: false,
+                  lockMovementY: false,
+                  lockRotation: false,
+                  lockScalingFlip: false,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  name: 'overlayImg',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: -14.32131764252989,
+                          y: 484.98060871203387,
+                        },
+                        br: {
+                          x: -1.321317642282569,
+                          y: 484.98060871203387,
+                        },
+                        tl: {
+                          x: -14.321317642529888,
+                          y: 471.9806087117866,
+                        },
+                        tr: {
+                          x: -1.3213176422825672,
+                          y: 471.9806087117866,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: -19.821317642634526,
+                          y: 490.4806087121385,
+                        },
+                        br: {
+                          x: 4.1786823578220655,
+                          y: 490.4806087121385,
+                        },
+                        tl: {
+                          x: -19.821317642634522,
+                          y: 466.48060871168195,
+                        },
+                        tr: {
+                          x: 4.178682357822067,
+                          y: 466.48060871168195,
+                        },
+                      },
+                      x: -7.821317642406228,
+                      y: 478.48060871191024,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 325.2158835395757,
+                          y: 484.98060871203387,
+                        },
+                        br: {
+                          x: 338.215883539823,
+                          y: 484.98060871203387,
+                        },
+                        tl: {
+                          x: 325.2158835395757,
+                          y: 471.9806087117866,
+                        },
+                        tr: {
+                          x: 338.215883539823,
+                          y: 471.9806087117866,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 319.71588353947106,
+                          y: 490.4806087121385,
+                        },
+                        br: {
+                          x: 343.71588353992763,
+                          y: 490.4806087121385,
+                        },
+                        tl: {
+                          x: 319.71588353947106,
+                          y: 466.48060871168195,
+                        },
+                        tr: {
+                          x: 343.71588353992763,
+                          y: 466.48060871168195,
+                        },
+                      },
+                      x: 331.71588353969935,
+                      y: 478.48060871191024,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 155.44728294852288,
+                          y: 484.98060871203387,
+                        },
+                        br: {
+                          x: 168.4472829487702,
+                          y: 484.98060871203387,
+                        },
+                        tl: {
+                          x: 155.44728294852288,
+                          y: 471.9806087117866,
+                        },
+                        tr: {
+                          x: 168.4472829487702,
+                          y: 471.9806087117866,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.94728294841826,
+                          y: 490.4806087121385,
+                        },
+                        br: {
+                          x: 173.94728294887483,
+                          y: 490.4806087121385,
+                        },
+                        tl: {
+                          x: 149.94728294841826,
+                          y: 466.48060871168195,
+                        },
+                        tr: {
+                          x: 173.94728294887483,
+                          y: 466.48060871168195,
+                        },
+                      },
+                      x: 161.94728294864655,
+                      y: 478.48060871191024,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: -14.32131764252989,
+                          y: 241.82964553487565,
+                        },
+                        br: {
+                          x: -1.321317642282569,
+                          y: 241.82964553487565,
+                        },
+                        tl: {
+                          x: -14.321317642529888,
+                          y: 228.82964553462833,
+                        },
+                        tr: {
+                          x: -1.3213176422825672,
+                          y: 228.82964553462833,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: -19.821317642634526,
+                          y: 247.32964553498027,
+                        },
+                        br: {
+                          x: 4.1786823578220655,
+                          y: 247.32964553498027,
+                        },
+                        tl: {
+                          x: -19.821317642634522,
+                          y: 223.3296455345237,
+                        },
+                        tr: {
+                          x: 4.178682357822067,
+                          y: 223.3296455345237,
+                        },
+                      },
+                      x: -7.821317642406228,
+                      y: 235.329645534752,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 325.2158835395757,
+                          y: 241.82964553487565,
+                        },
+                        br: {
+                          x: 338.215883539823,
+                          y: 241.82964553487565,
+                        },
+                        tl: {
+                          x: 325.2158835395757,
+                          y: 228.82964553462833,
+                        },
+                        tr: {
+                          x: 338.215883539823,
+                          y: 228.82964553462833,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 319.71588353947106,
+                          y: 247.32964553498027,
+                        },
+                        br: {
+                          x: 343.71588353992763,
+                          y: 247.32964553498027,
+                        },
+                        tl: {
+                          x: 319.71588353947106,
+                          y: 223.3296455345237,
+                        },
+                        tr: {
+                          x: 343.71588353992763,
+                          y: 223.3296455345237,
+                        },
+                      },
+                      x: 331.71588353969935,
+                      y: 235.329645534752,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 155.44728294852288,
+                          y: -1.321317642282569,
+                        },
+                        br: {
+                          x: 168.4472829487702,
+                          y: -1.3213176422825672,
+                        },
+                        tl: {
+                          x: 155.44728294852288,
+                          y: -14.32131764252989,
+                        },
+                        tr: {
+                          x: 168.4472829487702,
+                          y: -14.321317642529888,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.94728294841826,
+                          y: 4.1786823578220655,
+                        },
+                        br: {
+                          x: 173.94728294887483,
+                          y: 4.178682357822067,
+                        },
+                        tl: {
+                          x: 149.94728294841826,
+                          y: -19.821317642634526,
+                        },
+                        tr: {
+                          x: 173.94728294887483,
+                          y: -19.821317642634522,
+                        },
+                      },
+                      x: 161.94728294864655,
+                      y: -7.821317642406228,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 155.44728294852288,
+                          y: -41.321317642282594,
+                        },
+                        br: {
+                          x: 168.4472829487702,
+                          y: -41.321317642282594,
+                        },
+                        tl: {
+                          x: 155.44728294852288,
+                          y: -54.32131764252992,
+                        },
+                        tr: {
+                          x: 168.4472829487702,
+                          y: -54.32131764252992,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.94728294841826,
+                          y: -35.82131764217796,
+                        },
+                        br: {
+                          x: 173.94728294887483,
+                          y: -35.82131764217796,
+                        },
+                        tl: {
+                          x: 149.94728294841826,
+                          y: -59.821317642634554,
+                        },
+                        tr: {
+                          x: 173.94728294887483,
+                          y: -59.821317642634554,
+                        },
+                      },
+                      x: 161.94728294864655,
+                      y: -47.82131764240626,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: -14.32131764252989,
+                          y: -1.321317642282569,
+                        },
+                        br: {
+                          x: -1.321317642282569,
+                          y: -1.3213176422825672,
+                        },
+                        tl: {
+                          x: -14.321317642529888,
+                          y: -14.32131764252989,
+                        },
+                        tr: {
+                          x: -1.3213176422825672,
+                          y: -14.321317642529888,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: -19.821317642634526,
+                          y: 4.1786823578220655,
+                        },
+                        br: {
+                          x: 4.1786823578220655,
+                          y: 4.178682357822067,
+                        },
+                        tl: {
+                          x: -19.821317642634522,
+                          y: -19.821317642634526,
+                        },
+                        tr: {
+                          x: 4.178682357822067,
+                          y: -19.821317642634522,
+                        },
+                      },
+                      x: -7.821317642406228,
+                      y: -7.821317642406228,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 325.2158835395757,
+                          y: -1.321317642282569,
+                        },
+                        br: {
+                          x: 338.215883539823,
+                          y: -1.3213176422825672,
+                        },
+                        tl: {
+                          x: 325.2158835395757,
+                          y: -14.32131764252989,
+                        },
+                        tr: {
+                          x: 338.215883539823,
+                          y: -14.321317642529888,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 319.71588353947106,
+                          y: 4.1786823578220655,
+                        },
+                        br: {
+                          x: 343.71588353992763,
+                          y: 4.178682357822067,
+                        },
+                        tl: {
+                          x: 319.71588353947106,
+                          y: -19.821317642634526,
+                        },
+                        tr: {
+                          x: 343.71588353992763,
+                          y: -19.821317642634522,
+                        },
+                      },
+                      x: 331.71588353969935,
+                      y: -7.821317642406228,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'top',
+                  padding: 0,
+                  paintFirst: 'fill',
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: false,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  src: 'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Frame.png',
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 0,
+                  top: 1.4329999999999998,
+                  type: 'image',
+                  version: '5.2.1',
+                  visible: true,
+                  width: 1476,
+                },
+                {
+                  angle: 7,
+                  backgroundColor: 'transparent',
+                  borderDashArray: null,
+                  charSpacing: 0,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    fixedWidth: 288.49925,
+                    hasContent: true,
+                    isEdited: true,
+                    maxFontSize: 34,
+                    maxLines: 1,
+                    type: 'editable-text',
+                  },
+                  direction: 'ltr',
+                  editable: true,
+                  editableText: true,
+                  editingBorderColor: 'rgba(102,153,255,0.25)',
+                  evented: true,
+                  fill: '#000000',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  fontFamily: 'fontid-126',
+                  fontSize: 68,
+                  fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  globalCompositeOperation: 'source-over',
+                  hasControls: false,
+                  hasRotatingPoint: false,
+                  height: 76.84,
+                  hoverCursor: 'pointer',
+                  isModified: false,
+                  left: 635.913,
+                  lineHeight: 1.16,
+                  linethrough: false,
+                  lockMovementX: true,
+                  lockMovementY: true,
+                  lockRotation: true,
+                  lockScalingFlip: true,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  minWidth: 20,
+                  name: 'userTextbox-1-0',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 124.21346317180696,
+                          y: 411.2675762599054,
+                        },
+                        br: {
+                          x: 137.1165631433896,
+                          y: 412.8518777242025,
+                        },
+                        tl: {
+                          x: 125.79776463610402,
+                          y: 398.36447628832275,
+                        },
+                        tr: {
+                          x: 138.7008646076867,
+                          y: 399.94877775261983,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 118.08417794893478,
+                          y: 416.0562987052955,
+                        },
+                        br: {
+                          x: 141.9052855887797,
+                          y: 418.98116294707467,
+                        },
+                        tl: {
+                          x: 121.00904219071396,
+                          y: 392.2351910654506,
+                        },
+                        tr: {
+                          x: 144.83014983055887,
+                          y: 395.16005530722975,
+                        },
+                      },
+                      x: 131.45716388974682,
+                      y: 405.6081770062626,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 265.8815764763913,
+                          y: 428.66223334595173,
+                        },
+                        br: {
+                          x: 278.78467644797394,
+                          y: 430.2465348102488,
+                        },
+                        tl: {
+                          x: 267.46587794068836,
+                          y: 415.75913337436907,
+                        },
+                        tr: {
+                          x: 280.368977912271,
+                          y: 417.34343483866616,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 259.7522912535191,
+                          y: 433.4509557913418,
+                        },
+                        br: {
+                          x: 283.573398893364,
+                          y: 436.375820033121,
+                        },
+                        tl: {
+                          x: 262.6771554952983,
+                          y: 409.6298481514969,
+                        },
+                        tr: {
+                          x: 286.4982631351432,
+                          y: 412.5547123932761,
+                        },
+                      },
+                      x: 273.12527719433115,
+                      y: 423.00283409230894,
+                    },
+                    deleteControl: {
+                      corner: {
+                        bl: {
+                          x: 127.64241014087331,
+                          y: 383.3410442606757,
+                        },
+                        br: {
+                          x: 140.54551011245596,
+                          y: 384.9253457249728,
+                        },
+                        tl: {
+                          x: 129.22671160517038,
+                          y: 370.437944289093,
+                        },
+                        tr: {
+                          x: 142.12981157675304,
+                          y: 372.0222457533901,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 121.51312491800113,
+                          y: 388.12976670606577,
+                        },
+                        br: {
+                          x: 145.33423255784604,
+                          y: 391.05463094784494,
+                        },
+                        tl: {
+                          x: 124.4379891597803,
+                          y: 364.30865906622086,
+                        },
+                        tr: {
+                          x: 148.2590967996252,
+                          y: 367.23352330800003,
+                        },
+                      },
+                      x: 134.88611085881317,
+                      y: 377.6816450070329,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 195.04751982409914,
+                          y: 419.9649048029286,
+                        },
+                        br: {
+                          x: 207.9506197956818,
+                          y: 421.54920626722566,
+                        },
+                        tl: {
+                          x: 196.63182128839622,
+                          y: 407.0618048313459,
+                        },
+                        tr: {
+                          x: 209.5349212599789,
+                          y: 408.646106295643,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 188.91823460122697,
+                          y: 424.75362724831865,
+                        },
+                        br: {
+                          x: 212.73934224107188,
+                          y: 427.6784914900978,
+                        },
+                        tl: {
+                          x: 191.84309884300615,
+                          y: 400.93251960847374,
+                        },
+                        tr: {
+                          x: 215.66420648285106,
+                          y: 403.8573838502529,
+                        },
+                      },
+                      x: 202.291220542039,
+                      y: 414.3055055492858,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 125.92793665634015,
+                          y: 397.30431026029055,
+                        },
+                        br: {
+                          x: 138.8310366279228,
+                          y: 398.88861172458763,
+                        },
+                        tl: {
+                          x: 127.5122381206372,
+                          y: 384.4012102887079,
+                        },
+                        tr: {
+                          x: 140.41533809221988,
+                          y: 385.98551175300497,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 119.79865143346797,
+                          y: 402.0930327056806,
+                        },
+                        br: {
+                          x: 143.61975907331288,
+                          y: 405.0178969474598,
+                        },
+                        tl: {
+                          x: 122.72351567524714,
+                          y: 378.2719250658357,
+                        },
+                        tr: {
+                          x: 146.54462331509205,
+                          y: 381.1967893076149,
+                        },
+                      },
+                      x: 133.17163737428,
+                      y: 391.64491100664776,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 267.59604996092446,
+                          y: 414.6989673463369,
+                        },
+                        br: {
+                          x: 280.4991499325071,
+                          y: 416.28326881063396,
+                        },
+                        tl: {
+                          x: 269.18035142522155,
+                          y: 401.7958673747542,
+                        },
+                        tr: {
+                          x: 282.0834513968042,
+                          y: 403.3801688390513,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 261.4667647380523,
+                          y: 419.48768979172695,
+                        },
+                        br: {
+                          x: 285.2878723778972,
+                          y: 422.4125540335061,
+                        },
+                        tl: {
+                          x: 264.39162897983147,
+                          y: 395.66658215188204,
+                        },
+                        tr: {
+                          x: 288.2127366196764,
+                          y: 398.5914463936612,
+                        },
+                      },
+                      x: 274.83975067886433,
+                      y: 409.0395680926941,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 198.47646679316546,
+                          y: 392.03837280369885,
+                        },
+                        br: {
+                          x: 211.37956676474812,
+                          y: 393.62267426799593,
+                        },
+                        tl: {
+                          x: 200.06076825746254,
+                          y: 379.1352728321162,
+                        },
+                        tr: {
+                          x: 212.9638682290452,
+                          y: 380.71957429641327,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 192.3471815702933,
+                          y: 396.8270952490889,
+                        },
+                        br: {
+                          x: 216.1682892101382,
+                          y: 399.7519594908681,
+                        },
+                        tl: {
+                          x: 195.27204581207246,
+                          y: 373.005987609244,
+                        },
+                        tr: {
+                          x: 219.09315345191737,
+                          y: 375.9308518510232,
+                        },
+                      },
+                      x: 205.72016751110533,
+                      y: 386.37897355005606,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 203.35124052937135,
+                          y: 352.33652673804596,
+                        },
+                        br: {
+                          x: 216.25434050095402,
+                          y: 353.92082820234305,
+                        },
+                        tl: {
+                          x: 204.93554199366844,
+                          y: 339.4334267664633,
+                        },
+                        tr: {
+                          x: 217.8386419652511,
+                          y: 341.0177282307604,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 197.22195530649918,
+                          y: 357.12524918343604,
+                        },
+                        br: {
+                          x: 221.0430629463441,
+                          y: 360.0501134252152,
+                        },
+                        tl: {
+                          x: 200.14681954827836,
+                          y: 333.30414154359113,
+                        },
+                        tr: {
+                          x: 223.96792718812327,
+                          y: 336.2290057853703,
+                        },
+                      },
+                      x: 210.59494124731123,
+                      y: 346.6771274844032,
+                    },
+                    resizeControl: {
+                      corner: {
+                        bl: {
+                          x: 265.8815764763913,
+                          y: 428.66223334595173,
+                        },
+                        br: {
+                          x: 278.78467644797394,
+                          y: 430.2465348102488,
+                        },
+                        tl: {
+                          x: 267.46587794068836,
+                          y: 415.75913337436907,
+                        },
+                        tr: {
+                          x: 280.368977912271,
+                          y: 417.34343483866616,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 259.7522912535191,
+                          y: 433.4509557913418,
+                        },
+                        br: {
+                          x: 283.573398893364,
+                          y: 436.375820033121,
+                        },
+                        tl: {
+                          x: 262.6771554952983,
+                          y: 409.6298481514969,
+                        },
+                        tr: {
+                          x: 286.4982631351432,
+                          y: 412.5547123932761,
+                        },
+                      },
+                      x: 273.12527719433115,
+                      y: 423.00283409230894,
+                    },
+                    rotateControl: {
+                      corner: {
+                        bl: {
+                          x: 203.35124052937135,
+                          y: 352.33652673804596,
+                        },
+                        br: {
+                          x: 216.25434050095402,
+                          y: 353.92082820234305,
+                        },
+                        tl: {
+                          x: 204.93554199366844,
+                          y: 339.4334267664633,
+                        },
+                        tr: {
+                          x: 217.8386419652511,
+                          y: 341.0177282307604,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 197.22195530649918,
+                          y: 357.12524918343604,
+                        },
+                        br: {
+                          x: 221.0430629463441,
+                          y: 360.0501134252152,
+                        },
+                        tl: {
+                          x: 200.14681954827836,
+                          y: 333.30414154359113,
+                        },
+                        tr: {
+                          x: 223.96792718812327,
+                          y: 336.2290057853703,
+                        },
+                      },
+                      x: 210.59494124731123,
+                      y: 346.6771274844032,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 127.64241014087331,
+                          y: 383.3410442606757,
+                        },
+                        br: {
+                          x: 140.54551011245596,
+                          y: 384.9253457249728,
+                        },
+                        tl: {
+                          x: 129.22671160517038,
+                          y: 370.437944289093,
+                        },
+                        tr: {
+                          x: 142.12981157675304,
+                          y: 372.0222457533901,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 121.51312491800113,
+                          y: 388.12976670606577,
+                        },
+                        br: {
+                          x: 145.33423255784604,
+                          y: 391.05463094784494,
+                        },
+                        tl: {
+                          x: 124.4379891597803,
+                          y: 364.30865906622086,
+                        },
+                        tr: {
+                          x: 148.2590967996252,
+                          y: 367.23352330800003,
+                        },
+                      },
+                      x: 134.88611085881317,
+                      y: 377.6816450070329,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 269.31052344545765,
+                          y: 400.735701346722,
+                        },
+                        br: {
+                          x: 282.2136234170403,
+                          y: 402.3200028110191,
+                        },
+                        tl: {
+                          x: 270.89482490975473,
+                          y: 387.83260137513935,
+                        },
+                        tr: {
+                          x: 283.7979248813374,
+                          y: 389.41690283943643,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 263.1812382225855,
+                          y: 405.5244237921121,
+                        },
+                        br: {
+                          x: 287.0023458624304,
+                          y: 408.44928803389126,
+                        },
+                        tl: {
+                          x: 266.10610246436465,
+                          y: 381.7033161522672,
+                        },
+                        tr: {
+                          x: 289.92721010420956,
+                          y: 384.62818039404635,
+                        },
+                      },
+                      x: 276.5542241633975,
+                      y: 395.0763020930792,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'center',
+                  overline: false,
+                  padding: 5,
+                  paintFirst: 'fill',
+                  path: null,
+                  pathAlign: 'baseline',
+                  pathSide: 'left',
+                  pathStartOffset: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: true,
+                  selectionColor: 'rgba(237, 141, 56, 0.2)',
+                  selectionEnd: 5,
+                  selectionStart: 5,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  splitByGrapheme: false,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 1,
+                  styles: {},
+                  text: 'Jerry',
+                  textAlign: 'right',
+                  textBackgroundColor: '',
+                  top: 1740.593,
+                  type: 'textbox',
+                  underline: false,
+                  version: '5.2.1',
+                  visible: true,
+                  width: 575,
+                },
+                {
+                  angle: 0,
+                  backgroundColor: 'transparent',
+                  borderDashArray: null,
+                  charSpacing: 0,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    fixedWidth: 581.999,
+                    hasContent: true,
+                    isEdited: true,
+                    maxFontSize: 82,
+                    maxLines: 1,
+                    type: 'editable-text',
+                  },
+                  direction: 'ltr',
+                  editable: true,
+                  editableText: true,
+                  editingBorderColor: 'rgba(102,153,255,0.25)',
+                  evented: true,
+                  fill: '#FFFFFF',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  fontFamily: 'fontid-117',
+                  fontSize: 98,
+                  fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  globalCompositeOperation: 'source-over',
+                  hasControls: false,
+                  hasRotatingPoint: false,
+                  height: 110.74,
+                  hoverCursor: 'text',
+                  isModified: false,
+                  left: 149.993,
+                  lineHeight: 1.16,
+                  linethrough: false,
+                  lockMovementX: true,
+                  lockMovementY: true,
+                  lockRotation: true,
+                  lockScalingFlip: true,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  minWidth: 20,
+                  name: 'userTextbox-1-1',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 237.23880653459472,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 237.23880653459472,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 224.2388065343474,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 224.2388065343474,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 242.73880653469934,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 242.73880653469934,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 218.73880653424277,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 218.73880653424277,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 230.73880653447105,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 237.23880653459472,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 237.23880653459472,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 224.2388065343474,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 224.2388065343474,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 242.73880653469934,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 242.73880653469934,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 218.73880653424277,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 218.73880653424277,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 230.73880653447105,
+                    },
+                    deleteControl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 201.30423738739242,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 201.30423738739242,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 188.3042373871451,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 188.3042373871451,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 206.80423738749704,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 206.80423738749704,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 182.80423738704047,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 182.80423738704047,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 194.80423738726876,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 237.23880653459472,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 237.23880653459472,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 224.2388065343474,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 224.2388065343474,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 242.73880653469934,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 242.73880653469934,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 218.73880653424277,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 218.73880653424277,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 230.73880653447105,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 219.27152196099357,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 219.27152196099357,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 206.27152196074624,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 206.27152196074624,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 224.7715219610982,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 224.7715219610982,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 200.77152196064162,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 200.77152196064162,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 212.7715219608699,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 219.27152196099357,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 219.27152196099357,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 206.27152196074624,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 206.27152196074624,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 224.7715219610982,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 224.7715219610982,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 200.77152196064162,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 200.77152196064162,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 212.7715219608699,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 201.30423738739242,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 201.30423738739242,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 188.3042373871451,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 188.3042373871451,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 206.80423738749704,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 206.80423738749704,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 182.80423738704047,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 182.80423738704047,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 194.80423738726876,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 161.30423738739242,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 161.30423738739242,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 148.3042373871451,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 148.3042373871451,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 166.80423738749704,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 166.80423738749704,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 142.80423738704047,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 142.80423738704047,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 154.80423738726876,
+                    },
+                    resizeControl: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 237.23880653459472,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 237.23880653459472,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 224.2388065343474,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 224.2388065343474,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 242.73880653469934,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 242.73880653469934,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 218.73880653424277,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 218.73880653424277,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 230.73880653447105,
+                    },
+                    rotateControl: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 161.30423738739242,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 161.30423738739242,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 148.3042373871451,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 148.3042373871451,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 166.80423738749704,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 166.80423738749704,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 142.80423738704047,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 142.80423738704047,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 154.80423738726876,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 201.30423738739242,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 201.30423738739242,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 188.3042373871451,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 188.3042373871451,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 206.80423738749704,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 206.80423738749704,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 182.80423738704047,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 182.80423738704047,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 194.80423738726876,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 201.30423738739242,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 201.30423738739242,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 188.3042373871451,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 188.3042373871451,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 206.80423738749704,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 206.80423738749704,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 182.80423738704047,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 182.80423738704047,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 194.80423738726876,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'center',
+                  overline: false,
+                  padding: 5,
+                  paintFirst: 'fill',
+                  path: null,
+                  pathAlign: 'baseline',
+                  pathSide: 'left',
+                  pathStartOffset: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: false,
+                  selectionColor: 'rgba(237, 141, 56, 0.2)',
+                  selectionEnd: 29,
+                  selectionStart: 29,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  splitByGrapheme: false,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 1,
+                  styles: {},
+                  text: "AND watching dancing Apsara's.",
+                  textAlign: 'left',
+                  textBackgroundColor: '',
+                  top: 960.373,
+                  type: 'textbox',
+                  underline: false,
+                  version: '5.2.1',
+                  visible: true,
+                  width: 1162,
+                },
+                {
+                  angle: 0,
+                  backgroundColor: 'transparent',
+                  borderDashArray: null,
+                  charSpacing: 0,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    fixedWidth: 581.999,
+                    hasContent: true,
+                    isEdited: true,
+                    maxFontSize: 82,
+                    maxLines: 1,
+                    type: 'editable-text',
+                  },
+                  direction: 'ltr',
+                  editable: true,
+                  editableText: true,
+                  editingBorderColor: 'rgba(102,153,255,0.25)',
+                  evented: true,
+                  fill: '#FFFFFF',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  fontFamily: 'fontid-117',
+                  fontSize: 164,
+                  fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  globalCompositeOperation: 'source-over',
+                  hasControls: false,
+                  hasRotatingPoint: false,
+                  height: 185.32,
+                  hoverCursor: 'pointer',
+                  isModified: false,
+                  left: 149.993,
+                  lineHeight: 1.16,
+                  linethrough: false,
+                  lockMovementX: true,
+                  lockMovementY: true,
+                  lockRotation: true,
+                  lockScalingFlip: true,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  minWidth: 20,
+                  name: 'userTextbox-1-2',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 193.83472633231722,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 193.83472633231722,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 180.8347263320699,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 180.8347263320699,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 199.33472633242184,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 199.33472633242184,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 175.33472633196527,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 175.33472633196527,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 187.33472633219355,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 193.83472633231722,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 193.83472633231722,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 180.8347263320699,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 180.8347263320699,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 199.33472633242184,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 199.33472633242184,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 175.33472633196527,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 175.33472633196527,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 187.33472633219355,
+                    },
+                    deleteControl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 140.74386689774272,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 140.74386689774272,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 127.7438668974954,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 127.7438668974954,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 146.24386689784734,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 146.24386689784734,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 122.24386689739076,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 122.24386689739076,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 134.24386689761906,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 193.83472633231722,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 193.83472633231722,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 180.8347263320699,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 180.8347263320699,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 199.33472633242184,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 199.33472633242184,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 175.33472633196527,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 175.33472633196527,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 187.33472633219355,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 167.28929661502997,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 167.28929661502997,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 154.28929661478264,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 154.28929661478264,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 172.7892966151346,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 172.7892966151346,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 148.78929661467802,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 148.78929661467802,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 160.7892966149063,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 167.28929661502997,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 167.28929661502997,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 154.28929661478264,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 154.28929661478264,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 172.7892966151346,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 172.7892966151346,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 148.78929661467802,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 148.78929661467802,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 160.7892966149063,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 140.74386689774272,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 140.74386689774272,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 127.7438668974954,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 127.7438668974954,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 146.24386689784734,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 146.24386689784734,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 122.24386689739076,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 122.24386689739076,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 134.24386689761906,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 100.7438668977427,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 100.7438668977427,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 87.74386689749538,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 87.74386689749538,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 106.24386689784734,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 106.24386689784734,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 82.24386689739075,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 82.24386689739075,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 94.24386689761904,
+                    },
+                    resizeControl: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 193.83472633231722,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 193.83472633231722,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 180.8347263320699,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 180.8347263320699,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 199.33472633242184,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 199.33472633242184,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 175.33472633196527,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 175.33472633196527,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 187.33472633219355,
+                    },
+                    rotateControl: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 100.7438668977427,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 100.7438668977427,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 87.74386689749538,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 87.74386689749538,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 106.24386689784734,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 106.24386689784734,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 82.24386689739075,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 82.24386689739075,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 94.24386689761904,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 140.74386689774272,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 140.74386689774272,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 127.7438668974954,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 127.7438668974954,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 146.24386689784734,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 146.24386689784734,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 122.24386689739076,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 122.24386689739076,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 134.24386689761906,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 140.74386689774272,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 140.74386689774272,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 127.7438668974954,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 127.7438668974954,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 146.24386689784734,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 146.24386689784734,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 122.24386689739076,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 122.24386689739076,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 134.24386689761906,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'center',
+                  overline: false,
+                  padding: 5,
+                  paintFirst: 'fill',
+                  path: null,
+                  pathAlign: 'baseline',
+                  pathSide: 'left',
+                  pathStartOffset: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: true,
+                  selectionColor: 'rgba(237, 141, 56, 0.2)',
+                  selectionEnd: 15,
+                  selectionStart: 15,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  splitByGrapheme: false,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 1,
+                  styles: {},
+                  text: 'DRINKING madira',
+                  textAlign: 'left',
+                  textBackgroundColor: '',
+                  top: 734.393,
+                  type: 'textbox',
+                  underline: false,
+                  version: '5.2.1',
+                  visible: true,
+                  width: 1162,
+                },
+                {
+                  angle: 0,
+                  backgroundColor: 'transparent',
+                  borderDashArray: null,
+                  charSpacing: 0,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    fixedWidth: 581.999,
+                    hasContent: true,
+                    isEdited: true,
+                    maxFontSize: 82,
+                    maxLines: 1,
+                    type: 'editable-text',
+                  },
+                  direction: 'ltr',
+                  editable: true,
+                  editableText: true,
+                  editingBorderColor: 'rgba(102,153,255,0.25)',
+                  evented: true,
+                  fill: '#FFFFFF',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  fontFamily: 'fontid-117',
+                  fontSize: 164,
+                  fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  globalCompositeOperation: 'source-over',
+                  hasControls: false,
+                  hasRotatingPoint: false,
+                  height: 185.32,
+                  hoverCursor: 'pointer',
+                  isModified: false,
+                  left: 149.993,
+                  lineHeight: 1.16,
+                  linethrough: false,
+                  lockMovementX: true,
+                  lockMovementY: true,
+                  lockRotation: true,
+                  lockScalingFlip: true,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  minWidth: 20,
+                  name: 'userTextbox-1-3',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 142.75984169430524,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 142.75984169430524,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 129.7598416940579,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 129.7598416940579,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 148.25984169440986,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 148.25984169440986,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 124.25984169395328,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 124.25984169395328,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 136.25984169418157,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 142.75984169430524,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 142.75984169430524,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 129.7598416940579,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 129.7598416940579,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 148.25984169440986,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 148.25984169440986,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 124.25984169395328,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 124.25984169395328,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 136.25984169418157,
+                    },
+                    deleteControl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 89.66898225973071,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 89.66898225973071,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 76.66898225948339,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 76.66898225948339,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 95.16898225983535,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 95.16898225983535,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 71.16898225937875,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 71.16898225937875,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 83.16898225960705,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 142.75984169430524,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 142.75984169430524,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 129.7598416940579,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 129.7598416940579,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 148.25984169440986,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 148.25984169440986,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 124.25984169395328,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 124.25984169395328,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 136.25984169418157,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 116.21441197701797,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 116.21441197701797,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 103.21441197677065,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 103.21441197677065,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 121.71441197712261,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 121.71441197712261,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 97.71441197666601,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 97.71441197666601,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 109.71441197689431,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 116.21441197701797,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 116.21441197701797,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 103.21441197677065,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 103.21441197677065,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 121.71441197712261,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 121.71441197712261,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 97.71441197666601,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 97.71441197666601,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 109.71441197689431,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 89.66898225973071,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 89.66898225973071,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 76.66898225948339,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 76.66898225948339,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 95.16898225983535,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 95.16898225983535,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 71.16898225937875,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 71.16898225937875,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 83.16898225960705,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 49.66898225973071,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 49.66898225973071,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 36.668982259483386,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 36.668982259483386,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 55.168982259835346,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 55.168982259835346,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 31.16898225937875,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 31.168982259378755,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 43.16898225960705,
+                    },
+                    resizeControl: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 142.75984169430524,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 142.75984169430524,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 129.7598416940579,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 129.7598416940579,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 148.25984169440986,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 148.25984169440986,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 124.25984169395328,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 124.25984169395328,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 136.25984169418157,
+                    },
+                    rotateControl: {
+                      corner: {
+                        bl: {
+                          x: 153.7371049181049,
+                          y: 49.66898225973071,
+                        },
+                        br: {
+                          x: 166.73710491835223,
+                          y: 49.66898225973071,
+                        },
+                        tl: {
+                          x: 153.7371049181049,
+                          y: 36.668982259483386,
+                        },
+                        tr: {
+                          x: 166.73710491835223,
+                          y: 36.668982259483386,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 148.23710491800028,
+                          y: 55.168982259835346,
+                        },
+                        br: {
+                          x: 172.23710491845685,
+                          y: 55.168982259835346,
+                        },
+                        tl: {
+                          x: 148.23710491800028,
+                          y: 31.16898225937875,
+                        },
+                        tr: {
+                          x: 172.23710491845685,
+                          y: 31.168982259378755,
+                        },
+                      },
+                      x: 160.23710491822857,
+                      y: 43.16898225960705,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 14.854780019199582,
+                          y: 89.66898225973071,
+                        },
+                        br: {
+                          x: 27.854780019446903,
+                          y: 89.66898225973071,
+                        },
+                        tl: {
+                          x: 14.854780019199584,
+                          y: 76.66898225948339,
+                        },
+                        tr: {
+                          x: 27.854780019446906,
+                          y: 76.66898225948339,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 9.354780019094948,
+                          y: 95.16898225983535,
+                        },
+                        br: {
+                          x: 33.35478001955154,
+                          y: 95.16898225983535,
+                        },
+                        tl: {
+                          x: 9.35478001909495,
+                          y: 71.16898225937875,
+                        },
+                        tr: {
+                          x: 33.35478001955154,
+                          y: 71.16898225937875,
+                        },
+                      },
+                      x: 21.354780019323243,
+                      y: 83.16898225960705,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 292.61942981701026,
+                          y: 89.66898225973071,
+                        },
+                        br: {
+                          x: 305.6194298172575,
+                          y: 89.66898225973071,
+                        },
+                        tl: {
+                          x: 292.61942981701026,
+                          y: 76.66898225948339,
+                        },
+                        tr: {
+                          x: 305.6194298172575,
+                          y: 76.66898225948339,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 287.1194298169056,
+                          y: 95.16898225983535,
+                        },
+                        br: {
+                          x: 311.1194298173622,
+                          y: 95.16898225983535,
+                        },
+                        tl: {
+                          x: 287.1194298169056,
+                          y: 71.16898225937875,
+                        },
+                        tr: {
+                          x: 311.1194298173622,
+                          y: 71.16898225937875,
+                        },
+                      },
+                      x: 299.1194298171339,
+                      y: 83.16898225960705,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'center',
+                  overline: false,
+                  padding: 5,
+                  paintFirst: 'fill',
+                  path: null,
+                  pathAlign: 'baseline',
+                  pathSide: 'left',
+                  pathStartOffset: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: true,
+                  selectionColor: 'rgba(237, 141, 56, 0.2)',
+                  selectionEnd: 8,
+                  selectionStart: 8,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  splitByGrapheme: false,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 1,
+                  styles: {},
+                  text: 'IN heven',
+                  textAlign: 'left',
+                  textBackgroundColor: '',
+                  top: 512.373,
+                  type: 'textbox',
+                  underline: false,
+                  version: '5.2.1',
+                  visible: true,
+                  width: 1162,
+                },
+              ],
+              selectionColor: 'rgba(100, 100, 255, 0.3)',
+              version: '5.2.1',
+            },
+            Dimensions: {
+              Height: 2114,
+              Width: 1476,
+            },
+            EditableAreas: [],
+            FaceId: 1,
+            FrameUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Frame.png',
+            IsEditable: true,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [
+              {
+                Height: 651.9991,
+                LeftPosition: 620.8736,
+                Rotation: 7,
+                TopPosition: 1054.8274,
+                Width: 691.9994,
+              },
+            ],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P1_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [
+              {
+                FontFamily: 'Be Seeing You',
+                FontId: 126,
+                FontSize: 17,
+                Height: 100.88956,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 600.48303,
+                Rotation: 7,
+                Text: 'Girls’ Weekend!',
+                TextAlign: 'right',
+                TextColor: '#000000',
+                TopPosition: 1654.7212,
+                Width: 574.9985,
+              },
+              {
+                FontFamily: 'WHAT’S UP',
+                FontId: 117,
+                FontSize: 41,
+                Height: 202.94485,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 114.566696,
+                Rotation: 0,
+                Text: 'AND DANCING.',
+                TextAlign: 'left',
+                TextColor: '#FFFFFF',
+                TopPosition: 823.4653,
+                Width: 1161.998,
+              },
+              {
+                FontFamily: 'WHAT’S UP',
+                FontId: 117,
+                FontSize: 41,
+                Height: 223.99915,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 114.566696,
+                Rotation: 0,
+                Text: 'DRINKING BEER',
+                TextAlign: 'left',
+                TextColor: '#FFFFFF',
+                TopPosition: 586.96655,
+                Width: 1161.998,
+              },
+              {
+                FontFamily: 'WHAT’S UP',
+                FontId: 117,
+                FontSize: 41,
+                Height: 202.94368,
+                IsFixed: true,
+                IsHybrid: false,
+                IsMultiline: false,
+                LeftPosition: 114.566696,
+                Rotation: 0,
+                Text: 'IN NASHVILLE',
+                TextAlign: 'left',
+                TextColor: '#FFFFFF',
+                TopPosition: 375.46698,
+                Width: 1161.998,
+              },
+            ],
+            Type: 'front',
+            UserImages: null,
+            UserTextZones: [],
+          },
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Background.png',
+            CanvasJson: {
+              backgroundImage: {
+                angle: 0,
+                backgroundColor: '',
+                borderDashArray: null,
+                cornerColor: 'rgb(178,204,255)',
+                cropX: 0,
+                cropY: 0,
+                crossOrigin: 'anonymous',
+                evented: true,
+                fill: 'transparent',
+                fillRule: 'nonzero',
+                filters: [],
+                flipX: false,
+                flipY: false,
+                globalCompositeOperation: 'source-over',
+                hasControls: true,
+                height: 2114,
+                hoverCursor: null,
+                left: 0,
+                lockMovementX: false,
+                lockMovementY: false,
+                lockRotation: false,
+                lockScalingFlip: false,
+                lockSkewingX: false,
+                minScaleLimit: 0,
+                oCoords: {
+                  bl: {
+                    corner: {
+                      bl: {
+                        x: -24.21650000012366,
+                        y: 1045.7835000001237,
+                      },
+                      br: {
+                        x: -11.216499999876337,
+                        y: 1045.7835000001237,
+                      },
+                      tl: {
+                        x: -24.216500000123656,
+                        y: 1032.7834999998763,
+                      },
+                      tr: {
+                        x: -11.216499999876335,
+                        y: 1032.7834999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -29.716500000228294,
+                        y: 1051.2835000002283,
+                      },
+                      br: {
+                        x: -5.7164999997717025,
+                        y: 1051.2835000002283,
+                      },
+                      tl: {
+                        x: -29.71650000022829,
+                        y: 1027.2834999997717,
+                      },
+                      tr: {
+                        x: -5.716499999771701,
+                        y: 1027.2834999997717,
+                      },
+                    },
+                    x: -17.716499999999996,
+                    y: 1039.2835,
+                  },
+                  br: {
+                    corner: {
+                      bl: {
+                        x: 1410.7834999998763,
+                        y: 1045.7835000001237,
+                      },
+                      br: {
+                        x: 1423.7835000001237,
+                        y: 1045.7835000001237,
+                      },
+                      tl: {
+                        x: 1410.7834999998763,
+                        y: 1032.7834999998763,
+                      },
+                      tr: {
+                        x: 1423.7835000001237,
+                        y: 1032.7834999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 1405.2834999997717,
+                        y: 1051.2835000002283,
+                      },
+                      br: {
+                        x: 1429.2835000002283,
+                        y: 1051.2835000002283,
+                      },
+                      tl: {
+                        x: 1405.2834999997717,
+                        y: 1027.2834999997717,
+                      },
+                      tr: {
+                        x: 1429.2835000002283,
+                        y: 1027.2834999997717,
+                      },
+                    },
+                    x: 1417.2835,
+                    y: 1039.2835,
+                  },
+                  mb: {
+                    corner: {
+                      bl: {
+                        x: 693.2834999998763,
+                        y: 1045.7835000001237,
+                      },
+                      br: {
+                        x: 706.2835000001237,
+                        y: 1045.7835000001237,
+                      },
+                      tl: {
+                        x: 693.2834999998763,
+                        y: 1032.7834999998763,
+                      },
+                      tr: {
+                        x: 706.2835000001237,
+                        y: 1032.7834999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 687.7834999997717,
+                        y: 1051.2835000002283,
+                      },
+                      br: {
+                        x: 711.7835000002283,
+                        y: 1051.2835000002283,
+                      },
+                      tl: {
+                        x: 687.7834999997717,
+                        y: 1027.2834999997717,
+                      },
+                      tr: {
+                        x: 711.7835000002283,
+                        y: 1027.2834999997717,
+                      },
+                    },
+                    x: 699.7835,
+                    y: 1039.2835,
+                  },
+                  ml: {
+                    corner: {
+                      bl: {
+                        x: -24.21650000012366,
+                        y: 517.2835000001237,
+                      },
+                      br: {
+                        x: -11.216499999876337,
+                        y: 517.2835000001237,
+                      },
+                      tl: {
+                        x: -24.216500000123656,
+                        y: 504.28349999987637,
+                      },
+                      tr: {
+                        x: -11.216499999876335,
+                        y: 504.28349999987637,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -29.716500000228294,
+                        y: 522.7835000002283,
+                      },
+                      br: {
+                        x: -5.7164999997717025,
+                        y: 522.7835000002283,
+                      },
+                      tl: {
+                        x: -29.71650000022829,
+                        y: 498.7834999997717,
+                      },
+                      tr: {
+                        x: -5.716499999771701,
+                        y: 498.7834999997717,
+                      },
+                    },
+                    x: -17.716499999999996,
+                    y: 510.7835,
+                  },
+                  mr: {
+                    corner: {
+                      bl: {
+                        x: 1410.7834999998763,
+                        y: 517.2835000001237,
+                      },
+                      br: {
+                        x: 1423.7835000001237,
+                        y: 517.2835000001237,
+                      },
+                      tl: {
+                        x: 1410.7834999998763,
+                        y: 504.28349999987637,
+                      },
+                      tr: {
+                        x: 1423.7835000001237,
+                        y: 504.28349999987637,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 1405.2834999997717,
+                        y: 522.7835000002283,
+                      },
+                      br: {
+                        x: 1429.2835000002283,
+                        y: 522.7835000002283,
+                      },
+                      tl: {
+                        x: 1405.2834999997717,
+                        y: 498.7834999997717,
+                      },
+                      tr: {
+                        x: 1429.2835000002283,
+                        y: 498.7834999997717,
+                      },
+                    },
+                    x: 1417.2835,
+                    y: 510.7835,
+                  },
+                  mt: {
+                    corner: {
+                      bl: {
+                        x: 693.2834999998763,
+                        y: -11.216499999876337,
+                      },
+                      br: {
+                        x: 706.2835000001237,
+                        y: -11.216499999876335,
+                      },
+                      tl: {
+                        x: 693.2834999998763,
+                        y: -24.21650000012366,
+                      },
+                      tr: {
+                        x: 706.2835000001237,
+                        y: -24.216500000123656,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 687.7834999997717,
+                        y: -5.7164999997717025,
+                      },
+                      br: {
+                        x: 711.7835000002283,
+                        y: -5.716499999771701,
+                      },
+                      tl: {
+                        x: 687.7834999997717,
+                        y: -29.716500000228294,
+                      },
+                      tr: {
+                        x: 711.7835000002283,
+                        y: -29.71650000022829,
+                      },
+                    },
+                    x: 699.7835,
+                    y: -17.716499999999996,
+                  },
+                  mtr: {
+                    corner: {
+                      bl: {
+                        x: 693.2834999998763,
+                        y: -51.21649999987633,
+                      },
+                      br: {
+                        x: 706.2835000001237,
+                        y: -51.21649999987633,
+                      },
+                      tl: {
+                        x: 693.2834999998763,
+                        y: -64.21650000012366,
+                      },
+                      tr: {
+                        x: 706.2835000001237,
+                        y: -64.21650000012366,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 687.7834999997717,
+                        y: -45.7164999997717,
+                      },
+                      br: {
+                        x: 711.7835000002283,
+                        y: -45.7164999997717,
+                      },
+                      tl: {
+                        x: 687.7834999997717,
+                        y: -69.7165000002283,
+                      },
+                      tr: {
+                        x: 711.7835000002283,
+                        y: -69.7165000002283,
+                      },
+                    },
+                    x: 699.7835,
+                    y: -57.716499999999996,
+                  },
+                  tl: {
+                    corner: {
+                      bl: {
+                        x: -24.21650000012366,
+                        y: -11.216499999876337,
+                      },
+                      br: {
+                        x: -11.216499999876337,
+                        y: -11.216499999876335,
+                      },
+                      tl: {
+                        x: -24.216500000123656,
+                        y: -24.21650000012366,
+                      },
+                      tr: {
+                        x: -11.216499999876335,
+                        y: -24.216500000123656,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -29.716500000228294,
+                        y: -5.7164999997717025,
+                      },
+                      br: {
+                        x: -5.7164999997717025,
+                        y: -5.716499999771701,
+                      },
+                      tl: {
+                        x: -29.71650000022829,
+                        y: -29.716500000228294,
+                      },
+                      tr: {
+                        x: -5.716499999771701,
+                        y: -29.71650000022829,
+                      },
+                    },
+                    x: -17.716499999999996,
+                    y: -17.716499999999996,
+                  },
+                  tr: {
+                    corner: {
+                      bl: {
+                        x: 1410.7834999998763,
+                        y: -11.216499999876337,
+                      },
+                      br: {
+                        x: 1423.7835000001237,
+                        y: -11.216499999876335,
+                      },
+                      tl: {
+                        x: 1410.7834999998763,
+                        y: -24.21650000012366,
+                      },
+                      tr: {
+                        x: 1423.7835000001237,
+                        y: -24.216500000123656,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 1405.2834999997717,
+                        y: -5.7164999997717025,
+                      },
+                      br: {
+                        x: 1429.2835000002283,
+                        y: -5.716499999771701,
+                      },
+                      tl: {
+                        x: 1405.2834999997717,
+                        y: -29.716500000228294,
+                      },
+                      tr: {
+                        x: 1429.2835000002283,
+                        y: -29.71650000022829,
+                      },
+                    },
+                    x: 1417.2835,
+                    y: -17.716499999999996,
+                  },
+                },
+                objectCaching: true,
+                opacity: 1,
+                originX: 'left',
+                originY: 'top',
+                padding: 0,
+                paintFirst: 'fill',
+                scaleX: 1,
+                scaleY: 1,
+                selectable: true,
+                shadow: null,
+                skewX: 0,
+                skewY: 0,
+                src: 'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Background.png?w=2870',
+                stroke: null,
+                strokeDashArray: null,
+                strokeDashOffset: 0,
+                strokeLineCap: 'butt',
+                strokeLineJoin: 'miter',
+                strokeMiterLimit: 4,
+                strokeUniform: false,
+                strokeWidth: 0,
+                top: 0,
+                type: 'image',
+                version: '5.2.1',
+                visible: true,
+                width: 2870,
+              },
+              hoverCursor: 'move',
+              objects: [
+                {
+                  angle: 0,
+                  backgroundColor: '',
+                  borderDashArray: null,
+                  charSpacing: 0,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    edited: true,
+                    type: 'placeholder',
+                  },
+                  direction: 'ltr',
+                  editable: true,
+                  editingBorderColor: 'rgba(102,153,255,0.25)',
+                  evented: true,
+                  fill: '#000000',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  fontFamily: 'fontid-107',
+                  fontSize: 110,
+                  fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  globalCompositeOperation: 'source-over',
+                  hasControls: true,
+                  height: 124.3,
+                  hoverCursor: null,
+                  left: 195.433,
+                  lineHeight: 1.16,
+                  linethrough: false,
+                  lockMovementX: false,
+                  lockMovementY: false,
+                  lockRotation: false,
+                  lockScalingFlip: true,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  minWidth: 20,
+                  name: 'placeholder',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 22.806200670023287,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 35.80620067027061,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 22.80620067002329,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 35.80620067027061,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 17.306200669918653,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 41.30620067037525,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 17.306200669918656,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 41.30620067037525,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 29.30620067014695,
+                      y: 73.36009532414418,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 286.6085259213284,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 299.6085259215757,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 286.6085259213284,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 299.6085259215757,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 281.10852592122376,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 305.1085259216803,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 281.10852592122376,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 305.1085259216803,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 293.10852592145204,
+                      y: 73.36009532414418,
+                    },
+                    deleteControl: {
+                      corner: {
+                        bl: {
+                          x: 22.806200670023287,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 35.80620067027061,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 22.80620067002329,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 35.80620067027061,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 17.306200669918653,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 41.30620067037525,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 17.306200669918656,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 41.30620067037525,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 29.30620067014695,
+                      y: 29.30620067014694,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 154.70736329567583,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 167.70736329592316,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 154.70736329567583,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 167.70736329592316,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.2073632955712,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 173.20736329602778,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 149.2073632955712,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 173.20736329602778,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 161.2073632957995,
+                      y: 73.36009532414418,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 22.806200670023287,
+                          y: 57.83314799726922,
+                        },
+                        br: {
+                          x: 35.80620067027061,
+                          y: 57.83314799726922,
+                        },
+                        tl: {
+                          x: 22.80620067002329,
+                          y: 44.8331479970219,
+                        },
+                        tr: {
+                          x: 35.80620067027061,
+                          y: 44.8331479970219,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 17.306200669918653,
+                          y: 63.33314799737386,
+                        },
+                        br: {
+                          x: 41.30620067037525,
+                          y: 63.33314799737386,
+                        },
+                        tl: {
+                          x: 17.306200669918656,
+                          y: 39.33314799691726,
+                        },
+                        tr: {
+                          x: 41.30620067037525,
+                          y: 39.33314799691726,
+                        },
+                      },
+                      x: 29.30620067014695,
+                      y: 51.33314799714556,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 286.6085259213284,
+                          y: 57.83314799726922,
+                        },
+                        br: {
+                          x: 299.6085259215757,
+                          y: 57.83314799726922,
+                        },
+                        tl: {
+                          x: 286.6085259213284,
+                          y: 44.8331479970219,
+                        },
+                        tr: {
+                          x: 299.6085259215757,
+                          y: 44.8331479970219,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 281.10852592122376,
+                          y: 63.33314799737386,
+                        },
+                        br: {
+                          x: 305.1085259216803,
+                          y: 63.33314799737386,
+                        },
+                        tl: {
+                          x: 281.10852592122376,
+                          y: 39.33314799691726,
+                        },
+                        tr: {
+                          x: 305.1085259216803,
+                          y: 39.33314799691726,
+                        },
+                      },
+                      x: 293.10852592145204,
+                      y: 51.33314799714556,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 154.70736329567583,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 167.70736329592316,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 154.70736329567583,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 167.70736329592316,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.2073632955712,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 173.20736329602778,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 149.2073632955712,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 173.20736329602778,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 161.2073632957995,
+                      y: 29.30620067014694,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 154.70736329567583,
+                          y: -4.193799329729405,
+                        },
+                        br: {
+                          x: 167.70736329592316,
+                          y: -4.193799329729403,
+                        },
+                        tl: {
+                          x: 154.70736329567583,
+                          y: -17.193799329976727,
+                        },
+                        tr: {
+                          x: 167.70736329592316,
+                          y: -17.193799329976724,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.2073632955712,
+                          y: 1.3062006703752296,
+                        },
+                        br: {
+                          x: 173.20736329602778,
+                          y: 1.3062006703752314,
+                        },
+                        tl: {
+                          x: 149.2073632955712,
+                          y: -22.69379933008136,
+                        },
+                        tr: {
+                          x: 173.20736329602778,
+                          y: -22.693799330081358,
+                        },
+                      },
+                      x: 161.2073632957995,
+                      y: -10.693799329853064,
+                    },
+                    resizeControl: {
+                      corner: {
+                        bl: {
+                          x: 286.6085259213284,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 299.6085259215757,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 286.6085259213284,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 299.6085259215757,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 281.10852592122376,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 305.1085259216803,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 281.10852592122376,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 305.1085259216803,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 293.10852592145204,
+                      y: 73.36009532414418,
+                    },
+                    rotateControl: {
+                      corner: {
+                        bl: {
+                          x: 154.70736329567583,
+                          y: -4.193799329729405,
+                        },
+                        br: {
+                          x: 167.70736329592316,
+                          y: -4.193799329729403,
+                        },
+                        tl: {
+                          x: 154.70736329567583,
+                          y: -17.193799329976727,
+                        },
+                        tr: {
+                          x: 167.70736329592316,
+                          y: -17.193799329976724,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 149.2073632955712,
+                          y: 1.3062006703752296,
+                        },
+                        br: {
+                          x: 173.20736329602778,
+                          y: 1.3062006703752314,
+                        },
+                        tl: {
+                          x: 149.2073632955712,
+                          y: -22.69379933008136,
+                        },
+                        tr: {
+                          x: 173.20736329602778,
+                          y: -22.693799330081358,
+                        },
+                      },
+                      x: 161.2073632957995,
+                      y: -10.693799329853064,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 22.806200670023287,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 35.80620067027061,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 22.80620067002329,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 35.80620067027061,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 17.306200669918653,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 41.30620067037525,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 17.306200669918656,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 41.30620067037525,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 29.30620067014695,
+                      y: 29.30620067014694,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 286.6085259213284,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 299.6085259215757,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 286.6085259213284,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 299.6085259215757,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 281.10852592122376,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 305.1085259216803,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 281.10852592122376,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 305.1085259216803,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 293.10852592145204,
+                      y: 29.30620067014694,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'top',
+                  overline: false,
+                  padding: 7.5,
+                  paintFirst: 'fill',
+                  path: null,
+                  pathAlign: 'baseline',
+                  pathSide: 'left',
+                  pathStartOffset: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: true,
+                  selectionColor: 'rgba(17,119,255,0.3)',
+                  selectionEnd: 14,
+                  selectionStart: 14,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  splitByGrapheme: false,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 1,
+                  styles: {},
+                  text: 'Happy Birthday',
+                  textAlign: 'left',
+                  textBackgroundColor: '',
+                  top: 195.433,
+                  type: 'textbox',
+                  underline: false,
+                  version: '5.2.1',
+                  visible: true,
+                  width: 1079.56,
+                },
+                {
+                  angle: 0,
+                  backgroundColor: '',
+                  borderDashArray: null,
+                  charSpacing: 0,
+                  cornerColor: 'rgb(178,204,255)',
+                  data: {
+                    edited: true,
+                    type: 'placeholder',
+                  },
+                  direction: 'ltr',
+                  editable: true,
+                  editingBorderColor: 'rgba(102,153,255,0.25)',
+                  evented: true,
+                  fill: '#000000',
+                  fillRule: 'nonzero',
+                  flipX: false,
+                  flipY: false,
+                  fontFamily: 'fontid-107',
+                  fontSize: 110,
+                  fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  globalCompositeOperation: 'source-over',
+                  hasControls: true,
+                  height: 124.3,
+                  hoverCursor: null,
+                  left: 1594.993,
+                  lineHeight: 1.16,
+                  linethrough: false,
+                  lockMovementX: false,
+                  lockMovementY: false,
+                  lockRotation: false,
+                  lockScalingFlip: true,
+                  lockSkewingX: false,
+                  minScaleLimit: 0,
+                  minWidth: 20,
+                  name: 'placeholder',
+                  oCoords: {
+                    bl: {
+                      corner: {
+                        bl: {
+                          x: 344.76084975324545,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 357.7608497534927,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 344.76084975324545,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 357.7608497534927,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 339.2608497531408,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 363.26084975359737,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 339.2608497531408,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 363.26084975359737,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 351.2608497533691,
+                      y: 73.36009532414418,
+                    },
+                    br: {
+                      corner: {
+                        bl: {
+                          x: 608.5631750045504,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 621.5631750047978,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 608.5631750045504,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 621.5631750047978,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 603.0631750044458,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 627.0631750049024,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 603.0631750044458,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 627.0631750049024,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 615.0631750046741,
+                      y: 73.36009532414418,
+                    },
+                    deleteControl: {
+                      corner: {
+                        bl: {
+                          x: 344.76084975324545,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 357.7608497534927,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 344.76084975324545,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 357.7608497534927,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 339.2608497531408,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 363.26084975359737,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 339.2608497531408,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 363.26084975359737,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 351.2608497533691,
+                      y: 29.30620067014694,
+                    },
+                    mb: {
+                      corner: {
+                        bl: {
+                          x: 476.662012378898,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 489.66201237914527,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 476.662012378898,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 489.66201237914527,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 471.16201237879335,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 495.1620123792499,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 471.16201237879335,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 495.1620123792499,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 483.16201237902163,
+                      y: 73.36009532414418,
+                    },
+                    ml: {
+                      corner: {
+                        bl: {
+                          x: 344.76084975324545,
+                          y: 57.83314799726922,
+                        },
+                        br: {
+                          x: 357.7608497534927,
+                          y: 57.83314799726922,
+                        },
+                        tl: {
+                          x: 344.76084975324545,
+                          y: 44.8331479970219,
+                        },
+                        tr: {
+                          x: 357.7608497534927,
+                          y: 44.8331479970219,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 339.2608497531408,
+                          y: 63.33314799737386,
+                        },
+                        br: {
+                          x: 363.26084975359737,
+                          y: 63.33314799737386,
+                        },
+                        tl: {
+                          x: 339.2608497531408,
+                          y: 39.33314799691726,
+                        },
+                        tr: {
+                          x: 363.26084975359737,
+                          y: 39.33314799691726,
+                        },
+                      },
+                      x: 351.2608497533691,
+                      y: 51.33314799714556,
+                    },
+                    mr: {
+                      corner: {
+                        bl: {
+                          x: 608.5631750045504,
+                          y: 57.83314799726922,
+                        },
+                        br: {
+                          x: 621.5631750047978,
+                          y: 57.83314799726922,
+                        },
+                        tl: {
+                          x: 608.5631750045504,
+                          y: 44.8331479970219,
+                        },
+                        tr: {
+                          x: 621.5631750047978,
+                          y: 44.8331479970219,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 603.0631750044458,
+                          y: 63.33314799737386,
+                        },
+                        br: {
+                          x: 627.0631750049024,
+                          y: 63.33314799737386,
+                        },
+                        tl: {
+                          x: 603.0631750044458,
+                          y: 39.33314799691726,
+                        },
+                        tr: {
+                          x: 627.0631750049024,
+                          y: 39.33314799691726,
+                        },
+                      },
+                      x: 615.0631750046741,
+                      y: 51.33314799714556,
+                    },
+                    mt: {
+                      corner: {
+                        bl: {
+                          x: 476.662012378898,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 489.66201237914527,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 476.662012378898,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 489.66201237914527,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 471.16201237879335,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 495.1620123792499,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 471.16201237879335,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 495.1620123792499,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 483.16201237902163,
+                      y: 29.30620067014694,
+                    },
+                    mtr: {
+                      corner: {
+                        bl: {
+                          x: 476.662012378898,
+                          y: -4.193799329729405,
+                        },
+                        br: {
+                          x: 489.66201237914527,
+                          y: -4.193799329729403,
+                        },
+                        tl: {
+                          x: 476.662012378898,
+                          y: -17.193799329976727,
+                        },
+                        tr: {
+                          x: 489.66201237914527,
+                          y: -17.193799329976724,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 471.16201237879335,
+                          y: 1.3062006703752296,
+                        },
+                        br: {
+                          x: 495.1620123792499,
+                          y: 1.3062006703752314,
+                        },
+                        tl: {
+                          x: 471.16201237879335,
+                          y: -22.69379933008136,
+                        },
+                        tr: {
+                          x: 495.1620123792499,
+                          y: -22.693799330081358,
+                        },
+                      },
+                      x: 483.16201237902163,
+                      y: -10.693799329853064,
+                    },
+                    resizeControl: {
+                      corner: {
+                        bl: {
+                          x: 608.5631750045504,
+                          y: 79.86009532426785,
+                        },
+                        br: {
+                          x: 621.5631750047978,
+                          y: 79.86009532426785,
+                        },
+                        tl: {
+                          x: 608.5631750045504,
+                          y: 66.86009532402052,
+                        },
+                        tr: {
+                          x: 621.5631750047978,
+                          y: 66.86009532402052,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 603.0631750044458,
+                          y: 85.36009532437248,
+                        },
+                        br: {
+                          x: 627.0631750049024,
+                          y: 85.36009532437248,
+                        },
+                        tl: {
+                          x: 603.0631750044458,
+                          y: 61.360095323915886,
+                        },
+                        tr: {
+                          x: 627.0631750049024,
+                          y: 61.360095323915886,
+                        },
+                      },
+                      x: 615.0631750046741,
+                      y: 73.36009532414418,
+                    },
+                    rotateControl: {
+                      corner: {
+                        bl: {
+                          x: 476.662012378898,
+                          y: -4.193799329729405,
+                        },
+                        br: {
+                          x: 489.66201237914527,
+                          y: -4.193799329729403,
+                        },
+                        tl: {
+                          x: 476.662012378898,
+                          y: -17.193799329976727,
+                        },
+                        tr: {
+                          x: 489.66201237914527,
+                          y: -17.193799329976724,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 471.16201237879335,
+                          y: 1.3062006703752296,
+                        },
+                        br: {
+                          x: 495.1620123792499,
+                          y: 1.3062006703752314,
+                        },
+                        tl: {
+                          x: 471.16201237879335,
+                          y: -22.69379933008136,
+                        },
+                        tr: {
+                          x: 495.1620123792499,
+                          y: -22.693799330081358,
+                        },
+                      },
+                      x: 483.16201237902163,
+                      y: -10.693799329853064,
+                    },
+                    tl: {
+                      corner: {
+                        bl: {
+                          x: 344.76084975324545,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 357.7608497534927,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 344.76084975324545,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 357.7608497534927,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 339.2608497531408,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 363.26084975359737,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 339.2608497531408,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 363.26084975359737,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 351.2608497533691,
+                      y: 29.30620067014694,
+                    },
+                    tr: {
+                      corner: {
+                        bl: {
+                          x: 608.5631750045504,
+                          y: 35.8062006702706,
+                        },
+                        br: {
+                          x: 621.5631750047978,
+                          y: 35.8062006702706,
+                        },
+                        tl: {
+                          x: 608.5631750045504,
+                          y: 22.80620067002328,
+                        },
+                        tr: {
+                          x: 621.5631750047978,
+                          y: 22.80620067002328,
+                        },
+                      },
+                      touchCorner: {
+                        bl: {
+                          x: 603.0631750044458,
+                          y: 41.30620067037523,
+                        },
+                        br: {
+                          x: 627.0631750049024,
+                          y: 41.30620067037523,
+                        },
+                        tl: {
+                          x: 603.0631750044458,
+                          y: 17.306200669918645,
+                        },
+                        tr: {
+                          x: 627.0631750049024,
+                          y: 17.306200669918645,
+                        },
+                      },
+                      x: 615.0631750046741,
+                      y: 29.30620067014694,
+                    },
+                  },
+                  objectCaching: true,
+                  opacity: 1,
+                  originX: 'left',
+                  originY: 'top',
+                  overline: false,
+                  padding: 7.5,
+                  paintFirst: 'fill',
+                  path: null,
+                  pathAlign: 'baseline',
+                  pathSide: 'left',
+                  pathStartOffset: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  selectable: true,
+                  selectionColor: 'rgba(17,119,255,0.3)',
+                  selectionEnd: 6,
+                  selectionStart: 6,
+                  shadow: null,
+                  skewX: 0,
+                  skewY: 0,
+                  splitByGrapheme: false,
+                  stroke: null,
+                  strokeDashArray: null,
+                  strokeDashOffset: 0,
+                  strokeLineCap: 'butt',
+                  strokeLineJoin: 'miter',
+                  strokeMiterLimit: 4,
+                  strokeUniform: false,
+                  strokeWidth: 1,
+                  styles: {},
+                  text: 'To You',
+                  textAlign: 'left',
+                  textBackgroundColor: '',
+                  top: 195.433,
+                  type: 'textbox',
+                  underline: false,
+                  version: '5.2.1',
+                  visible: true,
+                  width: 1079.56,
+                },
+              ],
+              selectionColor: 'rgba(100, 100, 255, 0.3)',
+              version: '5.2.1',
+            },
+            Dimensions: {
+              Height: 2114,
+              Width: 2870,
+            },
+            EditableAreas: [],
+            FaceId: 2,
+            FrameUrl: '',
+            IsEditable: true,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P2-3_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'inside',
+            UserImages: null,
+            UserTextZones: [],
+          },
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Background.png',
+            CanvasJson: {
+              backgroundImage: {
+                angle: 0,
+                backgroundColor: '',
+                borderDashArray: null,
+                cornerColor: 'rgb(178,204,255)',
+                cropX: 0,
+                cropY: 0,
+                crossOrigin: 'anonymous',
+                evented: true,
+                fill: 'transparent',
+                fillRule: 'nonzero',
+                filters: [],
+                flipX: false,
+                flipY: false,
+                globalCompositeOperation: 'source-over',
+                hasControls: true,
+                height: 2114,
+                hoverCursor: null,
+                left: 0,
+                lockMovementX: false,
+                lockMovementY: false,
+                lockRotation: false,
+                lockScalingFlip: false,
+                lockSkewingX: false,
+                minScaleLimit: 0,
+                oCoords: {
+                  bl: {
+                    corner: {
+                      bl: {
+                        x: -24.21650000012366,
+                        y: 1045.7835000001237,
+                      },
+                      br: {
+                        x: -11.216499999876337,
+                        y: 1045.7835000001237,
+                      },
+                      tl: {
+                        x: -24.216500000123656,
+                        y: 1032.7834999998763,
+                      },
+                      tr: {
+                        x: -11.216499999876335,
+                        y: 1032.7834999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -29.716500000228294,
+                        y: 1051.2835000002283,
+                      },
+                      br: {
+                        x: -5.7164999997717025,
+                        y: 1051.2835000002283,
+                      },
+                      tl: {
+                        x: -29.71650000022829,
+                        y: 1027.2834999997717,
+                      },
+                      tr: {
+                        x: -5.716499999771701,
+                        y: 1027.2834999997717,
+                      },
+                    },
+                    x: -17.716499999999996,
+                    y: 1039.2835,
+                  },
+                  br: {
+                    corner: {
+                      bl: {
+                        x: 672.7834999998763,
+                        y: 1045.7835000001237,
+                      },
+                      br: {
+                        x: 685.7835000001237,
+                        y: 1045.7835000001237,
+                      },
+                      tl: {
+                        x: 672.7834999998763,
+                        y: 1032.7834999998763,
+                      },
+                      tr: {
+                        x: 685.7835000001237,
+                        y: 1032.7834999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 667.2834999997717,
+                        y: 1051.2835000002283,
+                      },
+                      br: {
+                        x: 691.2835000002283,
+                        y: 1051.2835000002283,
+                      },
+                      tl: {
+                        x: 667.2834999997717,
+                        y: 1027.2834999997717,
+                      },
+                      tr: {
+                        x: 691.2835000002283,
+                        y: 1027.2834999997717,
+                      },
+                    },
+                    x: 679.2835,
+                    y: 1039.2835,
+                  },
+                  mb: {
+                    corner: {
+                      bl: {
+                        x: 324.28349999987637,
+                        y: 1045.7835000001237,
+                      },
+                      br: {
+                        x: 337.28350000012364,
+                        y: 1045.7835000001237,
+                      },
+                      tl: {
+                        x: 324.28349999987637,
+                        y: 1032.7834999998763,
+                      },
+                      tr: {
+                        x: 337.28350000012364,
+                        y: 1032.7834999998763,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 318.7834999997717,
+                        y: 1051.2835000002283,
+                      },
+                      br: {
+                        x: 342.7835000002283,
+                        y: 1051.2835000002283,
+                      },
+                      tl: {
+                        x: 318.7834999997717,
+                        y: 1027.2834999997717,
+                      },
+                      tr: {
+                        x: 342.7835000002283,
+                        y: 1027.2834999997717,
+                      },
+                    },
+                    x: 330.7835,
+                    y: 1039.2835,
+                  },
+                  ml: {
+                    corner: {
+                      bl: {
+                        x: -24.21650000012366,
+                        y: 517.2835000001237,
+                      },
+                      br: {
+                        x: -11.216499999876337,
+                        y: 517.2835000001237,
+                      },
+                      tl: {
+                        x: -24.216500000123656,
+                        y: 504.28349999987637,
+                      },
+                      tr: {
+                        x: -11.216499999876335,
+                        y: 504.28349999987637,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -29.716500000228294,
+                        y: 522.7835000002283,
+                      },
+                      br: {
+                        x: -5.7164999997717025,
+                        y: 522.7835000002283,
+                      },
+                      tl: {
+                        x: -29.71650000022829,
+                        y: 498.7834999997717,
+                      },
+                      tr: {
+                        x: -5.716499999771701,
+                        y: 498.7834999997717,
+                      },
+                    },
+                    x: -17.716499999999996,
+                    y: 510.7835,
+                  },
+                  mr: {
+                    corner: {
+                      bl: {
+                        x: 672.7834999998763,
+                        y: 517.2835000001237,
+                      },
+                      br: {
+                        x: 685.7835000001237,
+                        y: 517.2835000001237,
+                      },
+                      tl: {
+                        x: 672.7834999998763,
+                        y: 504.28349999987637,
+                      },
+                      tr: {
+                        x: 685.7835000001237,
+                        y: 504.28349999987637,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 667.2834999997717,
+                        y: 522.7835000002283,
+                      },
+                      br: {
+                        x: 691.2835000002283,
+                        y: 522.7835000002283,
+                      },
+                      tl: {
+                        x: 667.2834999997717,
+                        y: 498.7834999997717,
+                      },
+                      tr: {
+                        x: 691.2835000002283,
+                        y: 498.7834999997717,
+                      },
+                    },
+                    x: 679.2835,
+                    y: 510.7835,
+                  },
+                  mt: {
+                    corner: {
+                      bl: {
+                        x: 324.28349999987637,
+                        y: -11.216499999876337,
+                      },
+                      br: {
+                        x: 337.28350000012364,
+                        y: -11.216499999876335,
+                      },
+                      tl: {
+                        x: 324.28349999987637,
+                        y: -24.21650000012366,
+                      },
+                      tr: {
+                        x: 337.28350000012364,
+                        y: -24.216500000123656,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 318.7834999997717,
+                        y: -5.7164999997717025,
+                      },
+                      br: {
+                        x: 342.7835000002283,
+                        y: -5.716499999771701,
+                      },
+                      tl: {
+                        x: 318.7834999997717,
+                        y: -29.716500000228294,
+                      },
+                      tr: {
+                        x: 342.7835000002283,
+                        y: -29.71650000022829,
+                      },
+                    },
+                    x: 330.7835,
+                    y: -17.716499999999996,
+                  },
+                  mtr: {
+                    corner: {
+                      bl: {
+                        x: 324.28349999987637,
+                        y: -51.21649999987633,
+                      },
+                      br: {
+                        x: 337.28350000012364,
+                        y: -51.21649999987633,
+                      },
+                      tl: {
+                        x: 324.28349999987637,
+                        y: -64.21650000012366,
+                      },
+                      tr: {
+                        x: 337.28350000012364,
+                        y: -64.21650000012366,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 318.7834999997717,
+                        y: -45.7164999997717,
+                      },
+                      br: {
+                        x: 342.7835000002283,
+                        y: -45.7164999997717,
+                      },
+                      tl: {
+                        x: 318.7834999997717,
+                        y: -69.7165000002283,
+                      },
+                      tr: {
+                        x: 342.7835000002283,
+                        y: -69.7165000002283,
+                      },
+                    },
+                    x: 330.7835,
+                    y: -57.716499999999996,
+                  },
+                  tl: {
+                    corner: {
+                      bl: {
+                        x: -24.21650000012366,
+                        y: -11.216499999876337,
+                      },
+                      br: {
+                        x: -11.216499999876337,
+                        y: -11.216499999876335,
+                      },
+                      tl: {
+                        x: -24.216500000123656,
+                        y: -24.21650000012366,
+                      },
+                      tr: {
+                        x: -11.216499999876335,
+                        y: -24.216500000123656,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: -29.716500000228294,
+                        y: -5.7164999997717025,
+                      },
+                      br: {
+                        x: -5.7164999997717025,
+                        y: -5.716499999771701,
+                      },
+                      tl: {
+                        x: -29.71650000022829,
+                        y: -29.716500000228294,
+                      },
+                      tr: {
+                        x: -5.716499999771701,
+                        y: -29.71650000022829,
+                      },
+                    },
+                    x: -17.716499999999996,
+                    y: -17.716499999999996,
+                  },
+                  tr: {
+                    corner: {
+                      bl: {
+                        x: 672.7834999998763,
+                        y: -11.216499999876337,
+                      },
+                      br: {
+                        x: 685.7835000001237,
+                        y: -11.216499999876335,
+                      },
+                      tl: {
+                        x: 672.7834999998763,
+                        y: -24.21650000012366,
+                      },
+                      tr: {
+                        x: 685.7835000001237,
+                        y: -24.216500000123656,
+                      },
+                    },
+                    touchCorner: {
+                      bl: {
+                        x: 667.2834999997717,
+                        y: -5.7164999997717025,
+                      },
+                      br: {
+                        x: 691.2835000002283,
+                        y: -5.716499999771701,
+                      },
+                      tl: {
+                        x: 667.2834999997717,
+                        y: -29.716500000228294,
+                      },
+                      tr: {
+                        x: 691.2835000002283,
+                        y: -29.71650000022829,
+                      },
+                    },
+                    x: 679.2835,
+                    y: -17.716499999999996,
+                  },
+                },
+                objectCaching: true,
+                opacity: 1,
+                originX: 'left',
+                originY: 'top',
+                padding: 0,
+                paintFirst: 'fill',
+                scaleX: 1,
+                scaleY: 1,
+                selectable: true,
+                shadow: null,
+                skewX: 0,
+                skewY: 0,
+                src: 'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Background.png?w=1394',
+                stroke: null,
+                strokeDashArray: null,
+                strokeDashOffset: 0,
+                strokeLineCap: 'butt',
+                strokeLineJoin: 'miter',
+                strokeMiterLimit: 4,
+                strokeUniform: false,
+                strokeWidth: 0,
+                top: 0,
+                type: 'image',
+                version: '5.2.1',
+                visible: true,
+                width: 1394,
+              },
+              hoverCursor: 'move',
+              objects: [],
+              selectionColor: 'rgba(100, 100, 255, 0.3)',
+              version: '5.2.1',
+            },
+            Dimensions: {
+              Height: 2114,
+              Width: 1394,
+            },
+            EditableAreas: [],
+            FaceId: 3,
+            FrameUrl: '',
+            IsEditable: false,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1239/PGM1239_P4_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'back',
+            UserImages: null,
+            UserTextZones: [],
+          },
+        ],
+        Name: 'PGM1239',
+        OpenOrientation: 'right',
+        ParentDimensions: {
+          Height: 179,
+          Width: 125,
+        },
+      },
+    },
+  },
+};
+
+const generateAppCustomObj = (function () {
+  return {};
+})();
