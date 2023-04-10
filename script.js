@@ -104,6 +104,18 @@
             v = this.rotateVector(newPoint, radians);
           return { x: v.x + origin.x, y: v.y + origin.y };
         },
+        debounce: function () {
+          let timeoutId;
+          return function () {
+            const context = this;
+            const args = arguments;
+
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {
+              func.apply(context, args);
+            }, delay);
+          };
+        },
       };
     })();
 
@@ -1010,11 +1022,13 @@
         ]);
         activeObj.left =
           activeObj.data.centerPoint.x +
-          config.translateX / config.multiplierX -
+          (config.translateX * (activeObj.scaleX / activeObj.data.scaleX)) /
+            config.multiplierX -
           (activeObj.scaleX * activeObj.width) / 2;
         activeObj.top =
           activeObj.data.centerPoint.y +
-          config.translateY / config.multiplierY -
+          (config.translateY * (activeObj.scaleY / activeObj.data.scaleY)) /
+            config.multiplierY -
           (activeObj.scaleY * activeObj.height) / 2;
         activeObj.isPannedByUser = true;
         logger.debug([
@@ -1123,8 +1137,11 @@
       addImage,
       addText,
       applyPan,
+      panDebounce: helperStore.debounce(applyPan, 500),
       applyScale,
+      scaleDebounce: helperStore.debounce(applyScale, 500),
       applyRotation,
+      rotateDebounce: helperStore.debounce(applyRotation, 500),
       cleanUp,
       setLogLevel,
       updateTextProperties,
@@ -1479,37 +1496,48 @@
       },
     });
 
-    const opScale = generateCanvasJSONUtil.applyScale({
+    // const opScale = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   objectIndex: 0,
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   scaleX: undefined,
+    //   scaleY: undefined,
+    //   type: 'image',
+    // });
+
+    const opPan = generateCanvasJSONUtil.applyPan({
       faceId: 2,
-      objectIndex: 0,
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      scaleX: undefined,
-      scaleY: undefined,
       type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      translateX: -53.49999999999997,
+      translateY: -53.5,
+      multiplierX: 0.22154471544715448,
+      multiplierY: 0.22138126773888364,
     });
 
-    const opRotate1 = generateCanvasJSONUtil.applyRotation({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      angle: 0,
-    });
-    const opScale1 = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      scaleX: 0.49453978159126366,
-      scaleY: 0.49453978159126366,
-    });
-    const opRotate2 = generateCanvasJSONUtil.applyRotation({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      angle: -0.8726646259971648,
-    });
+    // const opRotate1 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: 0,
+    // });
+    // const opScale1 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 0.49453978159126366,
+    //   scaleY: 0.49453978159126366,
+    // });
+    // const opRotate2 = generateCanvasJSONUtil.applyRotation({
+    // faceId: 2,
+    // type: 'image',
+    // objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    // objectIndex: 0,
+    // angle: -0.8726646259971648,
+    // });
     // const opScale2 = generateCanvasJSONUtil.applyScale({
     //   faceId: 2,
     //   type: 'image',
@@ -1526,24 +1554,24 @@
     //   objectIndex: 0,
     //   angle: -0.8726646259971648,
     // });
-    const opScale3 = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      scaleX: 1.1653666146645867,
-      scaleY: 1.1653666146645867,
-    });
-    const opPan = generateCanvasJSONUtil.applyPan({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      translateX: 53.49999999999997,
-      translateY: -53.5,
-      multiplierX: 0.22154471544715448,
-      multiplierY: 0.22138126773888364,
-    });
+    // const opScale3 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 1.1653666146645867,
+    //   scaleY: 1.1653666146645867,
+    // });
+    // const opPan = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: 53.49999999999997,
+    //   translateY: -53.5,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
     // const opRotate4 = generateCanvasJSONUtil.applyRotation({
     //   faceId: 2,
     //   type: 'image',
