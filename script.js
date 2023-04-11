@@ -960,13 +960,13 @@
         activeObj.top = activeObj.data.currCenterPoint.y - updatedWH.y;
         // activeObj.left += 18;
         // activeObj.top += 18;
-        logger.debug(JSON.parse(
-          JSON.stringify({
-            msg: 'after scale unrotated obj'
-            newObjLeft: activeObj.left,
-            newObjTop: activeObj.top,
-          }))
-        );
+        // logger.debug(JSON.parse(
+        //   JSON.stringify({
+        //     msg: 'after scale unrotated obj'
+        //     newObjLeft: activeObj.left,
+        //     newObjTop: activeObj.top,
+        //   }))
+        // );
         activeObj.scaleX = newScaleX;
         activeObj.scaleY = newScaleY;
         if (activeObj.angle) {
@@ -980,14 +980,6 @@
           );
           activeObj.left = rotatePoint.x;
           activeObj.top = rotatePoint.y;
-
-          logger.debug(JSON.parse(
-            JSON.stringify({
-              msg: 'after scale rotated obj'
-              newObjLeft: activeObj.left,
-              newObjTop: activeObj.top,
-            }))
-          );
         }
         return true;
       } else {
