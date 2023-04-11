@@ -104,7 +104,7 @@
             v = this.rotateVector(newPoint, radians);
           return { x: v.x + origin.x, y: v.y + origin.y };
         },
-        debounce: function () {
+        debounce: function (func, delay) {
           let timeoutId;
           return function () {
             const context = this;
@@ -1691,13 +1691,18 @@
       scaleY: 0.5,
     });
 
-    const opRotate3 = generateCanvasJSONUtil.applyRotation({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      angle: degreesToRadians(90),
-    });
+    console.log('debounce check');
+    for (let i = 1; i <= 90; i++) {
+      console.log(
+        generateCanvasJSONUtil.rotateDebounce({
+          faceId: 2,
+          type: 'image',
+          objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+          objectIndex: 0,
+          angle: degreesToRadians(i),
+        })
+      );
+    }
 
     const opPan3 = generateCanvasJSONUtil.applyPan({
       faceId: 2,
