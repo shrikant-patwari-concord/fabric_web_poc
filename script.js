@@ -938,34 +938,57 @@
         logger.debug(['found active obj', activeObj.type]);
         const newScaleX = activeObj.data.scaleX * (config.scaleX || 1);
         const newScaleY = activeObj.data.scaleY * (config.scaleY || 1);
-        const centerPoint = {
-          x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
-          y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
+
+        const updatedWH = {
+          x: activeObj.width * newScaleX,
+          y: activeObj.height * newScaleY,
         };
-        const newCenterPoint = {
-          x: activeObj.left + (activeObj.width * newScaleX) / 2,
-          y: activeObj.top + (activeObj.height * newScaleY) / 2,
-        };
-        logger.debug(
+        logger.debug(JSON.parse(
           JSON.stringify({
+            msg: 'before scale'
             originalScaleX: activeObj.data.scaleX,
             originalScaleY: activeObj.data.scaleY,
             newScaleX,
             newScaleY,
-            centerPoint,
-            newCenterPoint,
+            centerPoint: activeObj.data.currCenterPoint,
+            updatedWH,
             oldObjLeft: activeObj.left,
-            newObjLeft: activeObj.left - (newCenterPoint.x - centerPoint.x),
             oldObjTop: activeObj.top,
-            newObjTop: activeObj.top - (newCenterPoint.y - centerPoint.y),
-          })
+          }))
         );
-        activeObj.left -= newCenterPoint.x - centerPoint.x;
-        activeObj.top -= newCenterPoint.y - centerPoint.y;
-        activeObj.left += 18;
-        activeObj.top += 18;
+        activeObj.left = activeObj.data.currCenterPoint.x - updatedWH.x;
+        activeObj.top = activeObj.data.currCenterPoint.y - updatedWH.y;
+        // activeObj.left += 18;
+        // activeObj.top += 18;
+        logger.debug(JSON.parse(
+          JSON.stringify({
+            msg: 'after scale unrotated obj'
+            newObjLeft: activeObj.left,
+            newObjTop: activeObj.top,
+          }))
+        );
         activeObj.scaleX = newScaleX;
         activeObj.scaleY = newScaleY;
+        if (activeObj.angle) {
+          const rotatePoint = helperStore.rotatePoint(
+            {
+              x: activeObj.left,
+              y: activeObj.top,
+            },
+            activeObj.data.currCenterPoint,
+            helperStore.degreesToRadians(activeObj.angle)
+          );
+          activeObj.left = rotatePoint.x;
+          activeObj.top = rotatePoint.y;
+
+          logger.debug(JSON.parse(
+            JSON.stringify({
+              msg: 'after scale rotated obj'
+              newObjLeft: activeObj.left,
+              newObjTop: activeObj.top,
+            }))
+          );
+        }
         return true;
       } else {
         return false;
@@ -1060,7 +1083,7 @@
         );
         activeObj.left = translatedCenter.x - objWidth;
         activeObj.top = translatedCenter.y - objHeight;
-        activeObj.data.translatedCenter = translatedCenter;
+        activeObj.data.currCenterPoint = translatedCenter;
         if (activeObj.angle) {
           const rotatePoint = helperStore.rotatePoint(
             {
@@ -1575,14 +1598,14 @@
       multiplierX: 0.22154471544715448,
       multiplierY: 0.22138126773888364,
     });
-    // const opScale1 = generateCanvasJSONUtil.applyScale({
-    //   faceId: 2,
-    //   type: 'image',
-    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-    //   objectIndex: 0,
-    //   scaleX: 0.49453978159126366,
-    //   scaleY: 0.49453978159126366,
-    // });
+    const opScale1 = generateCanvasJSONUtil.applyScale({
+      faceId: 2,
+      type: 'image',
+      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+      objectIndex: 0,
+      scaleX: 0.49453978159126366,
+      scaleY: 0.49453978159126366,
+    });
     // const opRotate2 = generateCanvasJSONUtil.applyRotation({
     // faceId: 2,
     // type: 'image',
