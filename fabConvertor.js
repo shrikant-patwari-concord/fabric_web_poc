@@ -832,18 +832,20 @@
     function applyRotation(
       config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
     ) {
-      logger.debug(['config', JSON.stringify(config)]);
+      logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
       config = Object.assign(
         { faceId: 1, type: '', objectName: null, objectIndex: -1, angle: null },
         config
       );
-      logger.debug(['updatedconfig', JSON.stringify(config)]);
+      logger.debug(
+        JSON.parse(JSON.stringify({ msg: 'updated-config', config }))
+      );
       if (
         config.objectName === null &&
         config.objectIndex === -1 &&
         config.type === ''
       ) {
-        logger.warn('required attributes are unavailble, operation failed');
+        logger.error('required attributes are unavailble, operation failed');
         return false;
       }
       const faceObj = projectObj.personalization[config.faceId - 1];
@@ -1262,6 +1264,7 @@
     return {
       initializeProject,
       getProjectData,
+      projectDataDebounce: helperStore.debounce(getProjectData, 500),
       addImage,
       addText,
       applyPan,
@@ -1273,6 +1276,7 @@
       cleanUp,
       setLogLevel,
       updateTextProperties,
+      textDebounce: helperStore.debounce(updateTextProperties, 500),
     };
   })();
 

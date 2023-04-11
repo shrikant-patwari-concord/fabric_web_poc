@@ -6,7 +6,7 @@ export const generateCanvasJSONUtil = (function () {
       warn: false,
       debug: false,
     },
-    prefix: 'generateCanvasJSONUtil-v1',
+    prefix: 'GCJU-V1.0.14',
     format: function (level = 'info', calledFrom = '') {
       return `${new Date().toISOString()} - ${
         this.prefix
@@ -103,6 +103,18 @@ export const generateCanvasJSONUtil = (function () {
           v = this.rotateVector(newPoint, radians);
         return { x: v.x + origin.x, y: v.y + origin.y };
       },
+      debounce: function (func, delay) {
+        let timeoutId;
+        return function () {
+          const context = this;
+          const args = arguments;
+
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(function () {
+            func.apply(context, args);
+          }, delay);
+        };
+      },
     };
   })();
 
@@ -125,7 +137,9 @@ export const generateCanvasJSONUtil = (function () {
   }
 
   function initializeProject(initialData) {
-    logger.debug(['initialData', initialData]);
+    logger.debug(
+      JSON.parse(JSON.stringify({ msg: 'initialData', initialData }))
+    );
     if (
       initialData &&
       initialData.variables &&
@@ -369,7 +383,9 @@ export const generateCanvasJSONUtil = (function () {
       config: {}, //width,height,angle,insideWidth,multiplierX,multiplierY
     }
   ) {
-    logger.debug(['imageConfig', JSON.stringify(imageConfig)]);
+    logger.debug(
+      JSON.parse(JSON.stringify({ msg: 'config', config: imageConfig }))
+    );
     imageConfig = Object.assign(
       {
         faceId: 1,
@@ -390,9 +406,11 @@ export const generateCanvasJSONUtil = (function () {
       },
       imageConfig.config
     );
-    logger.debug(['updatedImageConfig', JSON.stringify(imageConfig)]);
+    logger.debug(
+      JSON.parse(JSON.stringify({ msg: 'updated-config', config: imageConfig }))
+    );
     if (!imageConfig.objectId) {
-      logger.warn('objectId is required, Operation failed');
+      logger.error('objectId is required, Operation failed');
       return null;
     }
     try {
@@ -406,7 +424,6 @@ export const generateCanvasJSONUtil = (function () {
           (obj) => obj.name === `photozone-${imageConfig.photoZoneId}`
         );
         if (rectIndex !== -1) {
-          // debugger;
           const photoZoneRect = canvasjson.objects[rectIndex];
           const photoZoneWidth = photoZoneRect.width,
             photoZoneHeight = photoZoneRect.height,
@@ -442,18 +459,22 @@ export const generateCanvasJSONUtil = (function () {
             x: left + (imageWidth * scaleX) / 2,
             y: top + (imageHeight * scaleY) / 2,
           };
-          logger.debug([
-            'inside photozone image section',
-            {
-              photoZoneWidth,
-              photoZoneHeight,
-              scaleX,
-              scaleY,
-              left,
-              top,
-              centerPoint,
-            },
-          ]);
+          logger.debug(
+            JSON.parse(
+              JSON.stringify({
+                msg: 'inside photozone image section',
+                photoZoneInfo: {
+                  photoZoneWidth,
+                  photoZoneHeight,
+                  scaleX,
+                  scaleY,
+                  left,
+                  top,
+                  centerPoint,
+                },
+              })
+            )
+          );
           const imageObj = {
             type: 'image',
             version: '5.2.1',
@@ -486,7 +507,12 @@ export const generateCanvasJSONUtil = (function () {
             globalCompositeOperation: 'source-over',
             skewX: 0,
             skewY: 0,
-            data: { scaleX, scaleY, centerPoint },
+            data: {
+              scaleX,
+              scaleY,
+              centerPoint,
+              currCenterPoint: { x: centerPoint.x, y: centerPoint.y },
+            },
             clipPath: {
               type: 'rect',
               version: '5.2.1',
@@ -565,18 +591,22 @@ export const generateCanvasJSONUtil = (function () {
           x: left + (imageWidth * scaleX) / 2,
           y: top + (imageHeight * scaleY) / 2,
         };
-        logger.debug([
-          'inside userdefined section',
-          {
-            canvasWidth,
-            canvasHeight,
-            scaleX,
-            scaleY,
-            left,
-            top,
-            centerPoint,
-          },
-        ]);
+        logger.debug(
+          JSON.parse(
+            JSON.stringify({
+              msg: 'inside userdefined section',
+              userDefinedImageInfo: {
+                canvasWidth,
+                canvasHeight,
+                scaleX,
+                scaleY,
+                left,
+                top,
+                centerPoint,
+              },
+            })
+          )
+        );
         const imageObj = {
           type: 'image',
           version: '5.2.1',
@@ -616,7 +646,12 @@ export const generateCanvasJSONUtil = (function () {
           crossOrigin: 'anonymous',
           filters: [],
           userDefined: true,
-          data: { scaleX, scaleY, centerPoint },
+          data: {
+            scaleX,
+            scaleY,
+            centerPoint,
+            currCenterPoint: { x: centerPoint.x, y: centerPoint.y },
+          },
         };
         canvasjson.objects.push(imageObj);
         if (imageObj.angle) {
@@ -645,7 +680,9 @@ export const generateCanvasJSONUtil = (function () {
       config: {},
     }
   ) {
-    logger.debug(['textConfig', JSON.stringify(textConfig)]);
+    logger.debug(
+      JSON.parse(JSON.stringify({ msg: 'config', config: textConfig }))
+    );
     textConfig = Object.assign(
       {
         faceId: 1,
@@ -671,9 +708,11 @@ export const generateCanvasJSONUtil = (function () {
       },
       textConfig.config
     );
-    logger.debug(['updatedtextConfig', JSON.stringify(textConfig)]);
+    logger.debug(
+      JSON.parse(JSON.stringify({ msg: 'updated-config', config: textConfig }))
+    );
     if (!textConfig.objectId) {
-      logger.warn('objectId is required, Operation failed');
+      logger.error('objectId is required, Operation failed');
       return null;
     }
     try {
@@ -690,16 +729,20 @@ export const generateCanvasJSONUtil = (function () {
         x: left + (width * scaleX) / 2,
         y: top + (height * scaleY) / 2,
       };
-      logger.debug({
-        width,
-        height,
-        scaleX,
-        scaleY,
-        left,
-        top,
-        angle,
-        centerPoint,
-      });
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            width,
+            height,
+            scaleX,
+            scaleY,
+            left,
+            top,
+            angle,
+            centerPoint,
+          })
+        )
+      );
       const textObj = {
         type: 'textbox',
         version: '5.2.1',
@@ -754,7 +797,12 @@ export const generateCanvasJSONUtil = (function () {
         splitByGrapheme: false,
         name: `userTextbox-${faceObj.FaceId}-${textConfig.objectId}`,
         userDefined: true,
-        data: { scaleX, scaleY, centerPoint },
+        data: {
+          scaleX,
+          scaleY,
+          centerPoint,
+          currCenterPoint: { x: centerPoint.x, y: centerPoint.y },
+        },
       };
       canvasjson.objects.push(textObj);
       if (imageObj.angle) {
@@ -776,124 +824,18 @@ export const generateCanvasJSONUtil = (function () {
   function applyRotation(
     config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
   ) {
-    logger.debug(['config', JSON.stringify(config)]);
+    logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
     config = Object.assign(
       { faceId: 1, type: '', objectName: null, objectIndex: -1, angle: null },
       config
     );
-    logger.debug(['updatedconfig', JSON.stringify(config)]);
+    logger.debug(JSON.parse(JSON.stringify({ msg: 'updated-config', config })));
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
       config.type === ''
     ) {
-      logger.warn('required attributes are unavailble, operation failed');
-      return false;
-    }
-    const faceObj = projectObj.personalization[config.faceId - 1];
-    const canvasjson = faceObj.CanvasJson;
-    let activeObj = null;
-    if (config.objectName) {
-      activeObj = canvasjson.objects.find(
-        (obj) => obj.name === config.objectName
-      );
-    } else if (config.objectIndex !== -1 && config.type == 'text') {
-      activeObj = canvasjson.objects.find(
-        (obj) =>
-          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
-      );
-    }
-    if (
-      activeObj &&
-      typeof config.angle === 'number' &&
-      activeObj.angle.toFixed(2) !==
-        helperStore.radToDegree(config.angle).toFixed(2)
-    ) {
-      logger.debug(
-        JSON.stringify({
-          prevLeftTop: {
-            x: activeObj.left,
-            y: activeObj.top,
-          },
-          prevCenterPoint: {
-            x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
-            y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
-          },
-        })
-      );
-      const rotatePoint = helperStore.rotatePoint(
-        {
-          x: activeObj.left,
-          y: activeObj.top,
-        },
-        {
-          x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
-          y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
-        },
-        config.angle || helperStore.degreesToRadians(activeObj.angle)
-      );
-      activeObj.left = rotatePoint.x;
-      activeObj.top = rotatePoint.y;
-      activeObj.angle = helperStore.radToDegree(config.angle);
-      logger.debug(
-        JSON.stringify({
-          currLeftTop: {
-            x: activeObj.left,
-            y: activeObj.top,
-          },
-          currCenterPoint: {
-            x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
-            y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
-          },
-        })
-      );
-
-      activeObj.data.centerPoint = {
-        x: rotatePoint.x + (activeObj.width * activeObj.scaleX) / 2,
-        y: rotatePoint.y + (activeObj.height * activeObj.scaleY) / 2,
-      };
-      activeObj.isCalcNewCPAfterPan = true;
-      logger.debug(
-        JSON.stringify({
-          angle: activeObj.angle,
-          centerPoint: activeObj.data.centerPoint,
-        })
-      );
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function applyScale(
-    config = {
-      faceId: 1,
-      type: '',
-      objectName: null,
-      objectIndex: -1,
-      scaleX: 1,
-      scaleY: 1,
-    }
-  ) {
-    logger.debug(['config', JSON.stringify(config)]);
-    config = Object.assign(
-      {
-        faceId: 1,
-        type: '',
-        objectName: null,
-        objectIndex: -1,
-        scaleX: 1,
-        scaleY: 1,
-      },
-      config
-    );
-    logger.debug(['updatedconfig', JSON.stringify(config)]);
-    if (
-      config.objectName === null &&
-      config.objectIndex === -1 &&
-      config.type === ''
-    ) {
-      logger.warn('required attributes are unavailble, operation failed');
+      logger.error('required attributes are unavailble, operation failed');
       return false;
     }
     const faceObj = projectObj.personalization[config.faceId - 1];
@@ -910,37 +852,186 @@ export const generateCanvasJSONUtil = (function () {
       );
     }
     if (activeObj) {
-      logger.debug(['found active obj', activeObj.type]);
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            prevLeftTop: {
+              x: activeObj.left,
+              y: activeObj.top,
+            },
+            centerPoint: activeObj.data.currCenterPoint,
+          })
+        )
+      );
+
+      const currentWH = {
+        x: activeObj.width * activeObj.scaleX,
+        y: activeObj.height * activeObj.scaleY,
+      };
+
+      const nonRotatedObjLeftTop = {
+        x: activeObj.data.currCenterPoint.x - currentWH.x / 2,
+        y: activeObj.data.currCenterPoint.y - currentWH.y / 2,
+      };
+
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            msg: 'before rotate',
+            originalScaleX: activeObj.data.scaleX,
+            originalScaleY: activeObj.data.scaleY,
+            scaleX: activeObj.scaleX,
+            scaleY: activeObj.scaleY,
+            centerPoint: activeObj.data.currCenterPoint,
+            currentWH,
+            nonRotatedObjLeftTop,
+            objLeft: activeObj.left,
+            objTop: activeObj.top,
+            angle: activeObj.angle,
+            newAngle: config.angle,
+          })
+        )
+      );
+
+      const rotatePoint = helperStore.rotatePoint(
+        nonRotatedObjLeftTop,
+        activeObj.data.currCenterPoint,
+        config.angle || helperStore.degreesToRadians(activeObj.angle)
+      );
+      activeObj.left = rotatePoint.x;
+      activeObj.top = rotatePoint.y;
+      activeObj.angle = helperStore.radToDegree(config.angle);
+
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            msg: 'after obj rotation',
+            left: activeObj.left,
+            top: activeObj.top,
+          })
+        )
+      );
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function applyScale(
+    config = {
+      faceId: 1,
+      type: '',
+      objectName: null,
+      objectIndex: -1,
+      scaleX: 1,
+      scaleY: 1,
+    }
+  ) {
+    logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
+    config = Object.assign(
+      {
+        faceId: 1,
+        type: '',
+        objectName: null,
+        objectIndex: -1,
+        scaleX: 1,
+        scaleY: 1,
+      },
+      config
+    );
+    logger.debug(JSON.parse(JSON.stringify({ msg: 'updated-config', config })));
+    if (
+      config.objectName === null &&
+      config.objectIndex === -1 &&
+      config.type === ''
+    ) {
+      logger.error('required attributes are unavailble, operation failed');
+      return false;
+    }
+    const faceObj = projectObj.personalization[config.faceId - 1];
+    const canvasjson = faceObj.CanvasJson;
+    let activeObj = null;
+    if (config.objectName) {
+      activeObj = canvasjson.objects.find(
+        (obj) => obj.name === config.objectName
+      );
+    } else if (config.objectIndex !== -1 && config.type == 'text') {
+      activeObj = canvasjson.objects.find(
+        (obj) =>
+          obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+      );
+    }
+    if (activeObj) {
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({ msg: 'found active obj', type: activeObj.type })
+        )
+      );
       const newScaleX = activeObj.data.scaleX * (config.scaleX || 1);
       const newScaleY = activeObj.data.scaleY * (config.scaleY || 1);
-      const centerPoint = {
-        x: activeObj.left + (activeObj.width * activeObj.scaleX) / 2,
-        y: activeObj.top + (activeObj.height * activeObj.scaleY) / 2,
-      };
-      const newCenterPoint = {
-        x: activeObj.left + (activeObj.width * newScaleX) / 2,
-        y: activeObj.top + (activeObj.height * newScaleY) / 2,
+
+      const updatedWH = {
+        x: activeObj.width * newScaleX,
+        y: activeObj.height * newScaleY,
       };
       logger.debug(
-        JSON.stringify({
-          originalScaleX: activeObj.data.scaleX,
-          originalScaleY: activeObj.data.scaleY,
-          newScaleX,
-          newScaleY,
-          centerPoint,
-          newCenterPoint,
-          oldObjLeft: activeObj.left,
-          newObjLeft: activeObj.left - (newCenterPoint.x - centerPoint.x),
-          oldObjTop: activeObj.top,
-          newObjTop: activeObj.top - (newCenterPoint.y - centerPoint.y),
-        })
+        JSON.parse(
+          JSON.stringify({
+            msg: 'before scale',
+            originalScaleX: activeObj.data.scaleX,
+            originalScaleY: activeObj.data.scaleY,
+            newScaleX,
+            newScaleY,
+            oldScaleX: activeObj.scaleX,
+            oldScaleY: activeObj.scaleY,
+            centerPoint: activeObj.data.currCenterPoint,
+            updatedWH,
+            oldWH: {
+              x: activeObj.width * activeObj.scaleX,
+              y: activeObj.height * activeObj.scaleY,
+            },
+            oldObjLeft: activeObj.left,
+            oldObjTop: activeObj.top,
+          })
+        )
       );
-      activeObj.left -= newCenterPoint.x - centerPoint.x;
-      activeObj.top -= newCenterPoint.y - centerPoint.y;
-      activeObj.left += 18;
-      activeObj.top += 18;
+      activeObj.left = activeObj.data.currCenterPoint.x - updatedWH.x / 2;
+      activeObj.top = activeObj.data.currCenterPoint.y - updatedWH.y / 2;
+      // activeObj.left += 18;
+      // activeObj.top += 18;
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            msg: 'after scale unrotated obj',
+            newObjLeft: activeObj.left,
+            newObjTop: activeObj.top,
+          })
+        )
+      );
       activeObj.scaleX = newScaleX;
       activeObj.scaleY = newScaleY;
+      if (activeObj.angle) {
+        const rotatePoint = helperStore.rotatePoint(
+          {
+            x: activeObj.left,
+            y: activeObj.top,
+          },
+          activeObj.data.currCenterPoint,
+          helperStore.degreesToRadians(activeObj.angle)
+        );
+        activeObj.left = rotatePoint.x;
+        activeObj.top = rotatePoint.y;
+        logger.debug(
+          JSON.parse(
+            JSON.stringify({
+              msg: 'after scale and rotate obj',
+              newObjLeft: activeObj.left,
+              newObjTop: activeObj.top,
+            })
+          )
+        );
+      }
       return true;
     } else {
       return false;
@@ -959,7 +1050,7 @@ export const generateCanvasJSONUtil = (function () {
       multiplierY: 1,
     }
   ) {
-    logger.debug(['config', JSON.stringify(config)]);
+    logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
     config = Object.assign(
       {
         faceId: 1,
@@ -973,13 +1064,13 @@ export const generateCanvasJSONUtil = (function () {
       },
       config
     );
-    logger.debug(['updatedConfig', JSON.stringify(config)]);
+    logger.debug(JSON.parse(JSON.stringify({ msg: 'updated-config', config })));
     if (
       config.objectName === null &&
       config.objectIndex === -1 &&
       config.type === ''
     ) {
-      logger.warn('required attributes are unavailble, operation failed');
+      logger.error('required attributes are unavailble, operation failed');
       return false;
     }
     const faceObj = projectObj.personalization[config.faceId - 1];
@@ -996,30 +1087,71 @@ export const generateCanvasJSONUtil = (function () {
       );
     }
     if (activeObj) {
-      logger.debug(['found active obj', activeObj.type]);
-      logger.debug([
-        'original top left',
-        JSON.stringify({
-          left: activeObj.left,
-          top: activeObj.top,
-        }),
-      ]);
-      activeObj.left =
-        activeObj.data.centerPoint.x +
-        config.translateX / config.multiplierX -
-        (activeObj.scaleX * activeObj.width) / 2;
-      activeObj.top =
-        activeObj.data.centerPoint.y +
-        config.translateY / config.multiplierY -
-        (activeObj.scaleY * activeObj.height) / 2;
-      activeObj.isPannedByUser = true;
-      logger.debug([
-        'after update applied top left',
-        JSON.stringify({
-          left: activeObj.left,
-          top: activeObj.top,
-        }),
-      ]);
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({ msg: 'found active obj', type: activeObj.type })
+        )
+      );
+
+      const translatedCenter = {
+        x:
+          activeObj.data.centerPoint.x +
+          (config.translateX * (activeObj.scaleX / activeObj.data.scaleX)) /
+            config.multiplierX,
+        y:
+          activeObj.data.centerPoint.y +
+          (config.translateY * (activeObj.scaleY / activeObj.data.scaleY)) /
+            config.multiplierY,
+      };
+      const objWidth = (activeObj.scaleX * activeObj.width) / 2;
+      const objHeight = (activeObj.scaleY * activeObj.height) / 2;
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            msg: 'original top left',
+            oldLeft: activeObj.left,
+            oldTop: activeObj.top,
+            newTop: translatedCenter.y - objHeight,
+            newLeft: translatedCenter.x - objWidth,
+            centerPoint: activeObj.data.centerPoint,
+            translateX:
+              (config.translateX * (activeObj.scaleX / activeObj.data.scaleX)) /
+              config.multiplierX,
+            translateY:
+              (config.translateY * (activeObj.scaleY / activeObj.data.scaleY)) /
+              config.multiplierY,
+            translatedCenter,
+            objWidth,
+            objHeight,
+          })
+        )
+      );
+      activeObj.left = translatedCenter.x - objWidth;
+      activeObj.top = translatedCenter.y - objHeight;
+      activeObj.data.currCenterPoint = translatedCenter;
+      if (activeObj.angle) {
+        const rotatePoint = helperStore.rotatePoint(
+          {
+            x: activeObj.left,
+            y: activeObj.top,
+          },
+          translatedCenter,
+          helperStore.degreesToRadians(activeObj.angle)
+        );
+        activeObj.left = rotatePoint.x;
+        activeObj.top = rotatePoint.y;
+      }
+      logger.debug(
+        JSON.parse(
+          JSON.stringify({
+            msg: 'after update applied top left',
+            newTopLeft: {
+              left: activeObj.left,
+              top: activeObj.top,
+            },
+          })
+        )
+      );
       return true;
     } else {
       return false;
@@ -1116,13 +1248,18 @@ export const generateCanvasJSONUtil = (function () {
   return {
     initializeProject,
     getProjectData,
+    projectDataDebounce: helperStore.debounce(getProjectData, 500),
     addImage,
     addText,
     applyPan,
+    panDebounce: helperStore.debounce(applyPan, 500),
     applyScale,
+    scaleDebounce: helperStore.debounce(applyScale, 500),
     applyRotation,
+    rotateDebounce: helperStore.debounce(applyRotation, 500),
     cleanUp,
     setLogLevel,
     updateTextProperties,
+    textDebounce: helperStore.debounce(updateTextProperties, 500),
   };
 })();
