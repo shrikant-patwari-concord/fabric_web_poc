@@ -39,6 +39,11 @@
       return fncName;
     }
 
+    /**
+     * Utility function used internally to perform common operations
+     * @private
+     * @returns {Object} having several methods to use
+     */
     const helperStore = (function () {
       const piBy2 = Math.PI / 2;
       const piBy180 = Math.PI / 180;
@@ -119,6 +124,11 @@
       };
     })();
 
+    /**
+     * Set log level as per user preference, used for debugging purpose
+     *
+     * @param {Object} [config] object to set level e.g. {error: true, warn: false, debug: true}
+     */
     function setLogLevel(config) {
       Object.assign(logger.logLevel, {
         error: config['error'] || true,
@@ -127,6 +137,9 @@
       });
     }
 
+    /**
+     * Resets the state of Canvas Json Util
+     */
     function cleanUp() {
       logger.debug('');
       try {
@@ -137,6 +150,13 @@
       logger.debug('Done');
     }
 
+    /**
+     * Create clone of an object
+     * @private
+     * @param {Object} [inObject] any object or array which need to deep copied
+     *
+     * @returns {Object} brand new deeply copied object instance
+     */
     function deepCopy(inObject) {
       if (typeof inObject !== 'object' || inObject === null) {
         return inObject;
@@ -152,6 +172,13 @@
       return outObject;
     }
 
+    /**
+     * Create and Setup the default canvas json objects present in the template
+     *
+     * @param {Object} [initialData] object containing the initial template data. structure can be found at https://raw.githubusercontent.com/shrikant-patwari-concord/fabric_web_poc/main/initial.json
+     *
+     *
+     */
     function initializeProject(initialData) {
       logger.debug(
         JSON.parse(JSON.stringify({ msg: 'initialData', initialData }))
@@ -163,6 +190,7 @@
         initialData.variables.template_data.Faces &&
         Array.isArray(initialData.variables.template_data.Faces)
       ) {
+        this.cleanUp();
         Object.assign(projectObj, {
           project_id: initialData.project_id,
           account_id: initialData.account_id,
@@ -378,10 +406,17 @@
         });
         logger.debug('Done');
       } else {
-        logger.debug('project not setup due to unmet conditions');
+        logger.error('project not setup due to unmet conditions');
       }
     }
 
+    /**
+     * Returns true or false for showing background image
+     * @private
+     * @param {String} [cardType] type of card e.g. photo, woodenphoto etc.
+     * @param {String} [faceType] type of face e.g. front, inside or back
+     * @returns {Boolean} Should background image visible
+     */
     function showBackgroundImage(cardType, faceType) {
       if (faceType === 'front') {
         return !(
@@ -399,6 +434,9 @@
       return true;
     }
 
+    /**
+     * Create Print JSon object
+     */
     function buildPrintJson() {
       projectObj.personalization.forEach((face) => {
         face.PrintJson = deepCopy(face.CanvasJson);
@@ -411,6 +449,10 @@
       });
     }
 
+    /**
+     * Return fabric canvas json object
+     * @returns {Object} object containing project info with canvas json obj
+     */
     function getProjectData() {
       logger.debug('');
       try {
@@ -421,6 +463,10 @@
       }
     }
 
+    /**
+     * Checks whether requested face present and project is initialized
+     * @returns {Boolean}
+     */
     function isFaceAndCanvasPresent(faceId) {
       if (
         faceId &&
@@ -433,7 +479,9 @@
     }
 
     /**
-     * function addImage
+     * Add Image object to given face
+     * @param [imageConfig] object containing information related to image
+     * @returns {String | Null} if add image successfull return object name of image
      */
     function addImage(
       imageConfig = {
@@ -744,6 +792,11 @@
       return null;
     }
 
+    /**
+     * Add text object to given face
+     * @param [textConfig] object containing information related to text obj
+     * @returns {String | Null} if add text obj successfull return object name
+     */
     function addText(
       textConfig = {
         faceId: 1,
