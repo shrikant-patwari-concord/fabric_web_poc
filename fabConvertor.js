@@ -137,6 +137,21 @@
       logger.debug('Done');
     }
 
+    function deepCopy(inObject) {
+      if (typeof inObject !== 'object' || inObject === null) {
+        return inObject;
+      }
+
+      const outObject = Array.isArray(inObject) ? [] : {};
+
+      Object.keys(inObject).forEach((key) => {
+        const val = inObject[`${key}`];
+        outObject[`${key}`] = deepCopy(val);
+      });
+
+      return outObject;
+    }
+
     function initializeProject(initialData) {
       logger.debug(
         JSON.parse(JSON.stringify({ msg: 'initialData', initialData }))
@@ -170,7 +185,11 @@
               objects: [],
             },
             UserImages: [],
-            canvasDimensions: face.Dimensions,
+            CanvasDimensions: face.Dimensions,
+            CardFormat: initialData.variables.template_data.CardFormat,
+            CardSize: initialData.variables.template_data.CardSize,
+            CardType: initialData.variables.template_data.CardType,
+            Type: face.Type,
           };
           if (face.BackgroundUrl) {
             personalizedFace.CanvasJson.backgroundImage = {
@@ -363,13 +382,54 @@
       }
     }
 
+    function showBackgroundImage(cardType, faceType) {
+      if (faceType === 'front') {
+        return !(
+          cardType === 'photo' ||
+          cardType === 'woodenphoto' ||
+          cardType === 'chocophoto' ||
+          cardType === 'vederephoto'
+        );
+      }
+
+      if (faceType === 'back') {
+        return !(cardType === 'vedere' || cardType === 'vederephoto');
+      }
+
+      return true;
+    }
+
+    function buildPrintJson() {
+      projectObj.personalization.forEach((face) => {
+        face.PrintJson = deepCopy(face.CanvasJson);
+        if (face.PrintJson.backgroundImage) {
+          face.PrintJson.backgroundImage.visible = showBackgroundImage(
+            face.CardType,
+            face.Type
+          );
+        }
+      });
+    }
+
     function getProjectData() {
       logger.debug('');
       try {
+        buildPrintJson();
         return JSON.parse(JSON.stringify(projectObj));
       } catch (e) {
         logger.error(e);
       }
+    }
+
+    function isFaceAndCanvasPresent(faceId) {
+      if (
+        faceId &&
+        projectObj.personalization.length &&
+        projectObj.personalization[faceId - 1]
+      ) {
+        return true;
+      }
+      return false;
     }
 
     /**
@@ -387,6 +447,10 @@
       logger.debug(
         JSON.parse(JSON.stringify({ msg: 'config', config: imageConfig }))
       );
+      if (!isFaceAndCanvasPresent(imageConfig.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return null;
+      }
       imageConfig = Object.assign(
         {
           faceId: 1,
@@ -576,12 +640,15 @@
             logger.debug(imageObj.name);
             return imageObj.name;
           } else {
+            logger.error(
+              'No photozone rect found with provided details to add image'
+            );
             return null;
           }
         }
         if (imageConfig.userDefined) {
-          const canvasWidth = faceObj.canvasDimensions.Width || 0,
-            canvasHeight = faceObj.canvasDimensions.Height || 0;
+          const canvasWidth = faceObj.CanvasDimensions.Width || 0,
+            canvasHeight = faceObj.CanvasDimensions.Height || 0;
           let scaleX = 1,
             scaleY = 1,
             left = 0,
@@ -689,6 +756,10 @@
       logger.debug(
         JSON.parse(JSON.stringify({ msg: 'config', config: textConfig }))
       );
+      if (!isFaceAndCanvasPresent(textConfig.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return null;
+      }
       textConfig = Object.assign(
         {
           faceId: 1,
@@ -833,6 +904,10 @@
       config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
     ) {
       logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
+      if (!isFaceAndCanvasPresent(config.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return false;
+      }
       config = Object.assign(
         { faceId: 1, type: '', objectName: null, objectIndex: -1, angle: null },
         config
@@ -841,8 +916,7 @@
         JSON.parse(JSON.stringify({ msg: 'updated-config', config }))
       );
       if (
-        config.objectName === null &&
-        config.objectIndex === -1 &&
+        (!config.objectName && config.type !== 'text') ||
         config.type === ''
       ) {
         logger.error('required attributes are unavailble, operation failed');
@@ -924,6 +998,7 @@
 
         return true;
       } else {
+        logger.error('No object found with provided details');
         return false;
       }
     }
@@ -939,6 +1014,10 @@
       }
     ) {
       logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
+      if (!isFaceAndCanvasPresent(config.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return false;
+      }
       config = Object.assign(
         {
           faceId: 1,
@@ -954,8 +1033,7 @@
         JSON.parse(JSON.stringify({ msg: 'updated-config', config }))
       );
       if (
-        config.objectName === null &&
-        config.objectIndex === -1 &&
+        (!config.objectName && config.type !== 'text') ||
         config.type === ''
       ) {
         logger.error('required attributes are unavailble, operation failed');
@@ -1046,6 +1124,7 @@
         }
         return true;
       } else {
+        logger.error('No object found with provided details');
         return false;
       }
     }
@@ -1063,6 +1142,10 @@
       }
     ) {
       logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
+      if (!isFaceAndCanvasPresent(config.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return false;
+      }
       config = Object.assign(
         {
           faceId: 1,
@@ -1080,8 +1163,7 @@
         JSON.parse(JSON.stringify({ msg: 'updated-config', config }))
       );
       if (
-        config.objectName === null &&
-        config.objectIndex === -1 &&
+        (!config.objectName && config.type !== 'text') ||
         config.type === ''
       ) {
         logger.error('required attributes are unavailble, operation failed');
@@ -1170,6 +1252,7 @@
         );
         return true;
       } else {
+        logger.error('No object found with provided details');
         return false;
       }
     }
@@ -1190,6 +1273,10 @@
       }
     ) {
       logger.debug(['config', JSON.stringify(config)]);
+      if (!isFaceAndCanvasPresent(config.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return false;
+      }
       config = Object.assign(
         {
           faceId: 1,
@@ -1208,7 +1295,7 @@
       );
       logger.debug(['updatedConfig', JSON.stringify(config)]);
       if (
-        config.objectName === null &&
+        !config.objectName &&
         config.objectIndex === -1 &&
         config.type !== 'text'
       ) {
@@ -1257,6 +1344,66 @@
         Object.assign(activeObj, updates);
         return true;
       } else {
+        logger.error('No object found with provided details');
+        return false;
+      }
+    }
+
+    function deleteObj(
+      config = {
+        faceId: 1,
+        type: '',
+        objectName: null,
+        objectIndex: -1,
+      }
+    ) {
+      logger.debug(JSON.parse(JSON.stringify({ msg: 'config', config })));
+      if (!isFaceAndCanvasPresent(config.faceId)) {
+        logger.error('Requested face not present, Operation failed');
+        return false;
+      }
+      config = Object.assign(
+        {
+          faceId: 1,
+          type: '',
+          objectName: null,
+          objectIndex: -1,
+        },
+        config
+      );
+      if (
+        (!config.objectName && config.type !== 'text') ||
+        config.type === ''
+      ) {
+        logger.error('required attributes are unavailble, operation failed');
+        return false;
+      }
+      const faceObj = projectObj.personalization[config.faceId - 1];
+      const canvasjson = faceObj.CanvasJson;
+      let activeObjIndex = -1;
+      if (config.objectName) {
+        activeObjIndex = canvasjson.objects.findIndex(
+          (obj) => obj.name === config.objectName
+        );
+      } else if (config.objectIndex !== -1 && config.type == 'text') {
+        activeObjIndex = canvasjson.objects.findIndex(
+          (obj) =>
+            obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
+        );
+      }
+      if (activeObjIndex !== -1) {
+        logger.debug(
+          JSON.parse(
+            JSON.stringify({
+              msg: 'found active obj',
+              type: canvasjson.objects[activeObjIndex].type,
+            })
+          )
+        );
+        canvasjson.objects.splice(activeObjIndex, 1);
+        return true;
+      } else {
+        logger.error('No object found with provided details');
         return false;
       }
     }
@@ -1264,7 +1411,6 @@
     return {
       initializeProject,
       getProjectData,
-      projectDataDebounce: helperStore.debounce(getProjectData, 500),
       addImage,
       addText,
       applyPan,
@@ -1277,6 +1423,7 @@
       setLogLevel,
       updateTextProperties,
       textDebounce: helperStore.debounce(updateTextProperties, 500),
+      deleteObj,
     };
   })();
 
@@ -1807,13 +1954,13 @@
     //   multiplierY: 0.22138126773888364,
     // });
 
-    const finalProjectData = generateCanvasJSONUtil.getProjectData();
+    const finalProjectData = generateCanvasJSONUtil.projectDataDebounce();
 
     finalProjectData.personalization.forEach((finalJson, index) => {
       // if (index == 0) {
       //   const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
-      //     width: finalJson.canvasDimensions.Width,
-      //     height: finalJson.canvasDimensions.Height,
+      //     width: finalJson.CanvasDimensions.Width,
+      //     height: finalJson.CanvasDimensions.Height,
       //   });
       //   // console.log(finalJson);
       //   fcanvas.loadFromJSON(finalJson.CanvasJson, () => {
@@ -1824,8 +1971,8 @@
       if (index == 1) {
         const icanvasEle = document.querySelector('#iCanvas');
         const icanvas = new fabric.Canvas(icanvasEle, {
-          width: finalJson.canvasDimensions.Width,
-          height: finalJson.canvasDimensions.Height,
+          width: finalJson.CanvasDimensions.Width,
+          height: finalJson.CanvasDimensions.Height,
         });
         console.log(finalJson);
         icanvas.loadFromJSON(finalJson.CanvasJson, () => {
@@ -1840,8 +1987,8 @@
       }
       // if (index == 2) {
       //   const bcanvas = new fabric.Canvas(document.querySelector('#bCanvas'), {
-      //     width: finalJson.canvasDimensions.Width,
-      //     height: finalJson.canvasDimensions.Height,
+      //     width: finalJson.CanvasDimensions.Width,
+      //     height: finalJson.CanvasDimensions.Height,
       //   });
       //   // console.log(finalJson);
       //   bcanvas.loadFromJSON(finalJson.CanvasJson, () => {
