@@ -18,7 +18,7 @@
       },
       debug: function (data) {
         if (!this.logLevel.debug) return;
-        const calledFrom = getFncName();
+        const calledFrom = getFncName()
         console.log(this.format('debug', calledFrom), data);
       },
       warn: function (data) {
