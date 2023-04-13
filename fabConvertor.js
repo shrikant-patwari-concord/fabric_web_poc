@@ -1,13 +1,16 @@
 (function () {
   const generateCanvasJSONUtil = (function () {
     let projectObj = { personalization: [] };
+    /**
+     * Logger utility to show logs
+     */
     const logger = {
       logLevel: {
         error: true,
         warn: false,
         debug: false,
       },
-      prefix: 'GCJU-V1.0.14',
+      prefix: 'GCJU-V1.1.0',
       format: function (level = 'info', calledFrom = '') {
         return `${new Date().toISOString()} - ${
           this.prefix
@@ -32,6 +35,10 @@
       },
     };
 
+    /**
+     * @private
+     * Returns function name which is currently executing
+     */
     function getFncName() {
       const stackLine = new Error().stack.split('\n')[3].trim();
       const fncName = stackLine.match(/at Object.([^ ]+)/)?.[1];
@@ -953,6 +960,11 @@
       return null;
     }
 
+    /**
+     * Apply rotation from 0 radian to object from current center point of object
+     * @param [config] object containing information related about face to use, object identification and angle in radian
+     * @returns {Boolean} action applied status true or false
+     */
     function applyRotation(
       config = { faceId: 1, type: '', objectName: null, objectIndex: -1, angle }
     ) {
@@ -1056,6 +1068,11 @@
       }
     }
 
+    /**
+     * Apply scale to object from current center point of object
+     * @param [config] object containing information related about face to use, object identification and new scaleX, ScaleY.
+     * @returns {Boolean} action applied status true or false
+     */
     function applyScale(
       config = {
         faceId: 1,
@@ -1182,6 +1199,11 @@
       }
     }
 
+    /**
+     * Apply pan to object from canvas center point
+     * @param [config] object containing information related about face to use, object identification, multiplier factor and transalete distance.
+     * @returns {Boolean} action applied status true or false
+     */
     function applyPan(
       config = {
         faceId: 1,
@@ -1310,6 +1332,11 @@
       }
     }
 
+    /**
+     * Apply updates to text object
+     * @param [config] object containing information related about face to use, object identification and text properties.
+     * @returns {Boolean} action applied status true or false
+     */
     function updateTextProperties(
       config = {
         faceId: 1,
@@ -1402,6 +1429,11 @@
       }
     }
 
+    /**
+     * Removes the object json from given face
+     * @param [config] object containing information related about face to use, object identification.
+     * @returns {Boolean} action applied status true or false
+     */
     function deleteObj(
       config = {
         faceId: 1,
