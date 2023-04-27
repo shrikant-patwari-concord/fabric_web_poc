@@ -217,16 +217,6 @@
           project_type_code: initialData.project_type_code,
           project_status_code: initialData.project_status_code,
           created_at: initialData.created_at,
-          CardWidthDivisionFactor:
-            initialData.variables.template_data.CardFormat.toLowerCase() ===
-            'portrait'
-              ? 2
-              : 1,
-          CanvasHeightDivisionFactor:
-            initialData.variables.template_data.CardFormat.toLowerCase() ===
-            'portrait'
-              ? 1
-              : 2,
         });
         initialData.variables.template_data.Faces.forEach((face, faceindex) => {
           const personalizedFace = {
@@ -721,7 +711,11 @@
         }
         if (imageConfig.userDefined) {
           const canvasWidth = faceObj.CanvasDimensions.Width || 0,
-            canvasHeight = faceObj.CanvasDimensions.Height || 0;
+            canvasHeight = faceObj.CanvasDimensions.Height || 0,
+            CardWidthDivisionFactor =
+              faceObj.CardFormat.toLowerCase() === 'portrait' ? 2 : 1,
+            CardHeightDivisionFactor =
+              faceObj.CardFormat.toLowerCase() === 'portrait' ? 1 : 2;
           let scaleX = 1,
             scaleY = 1,
             left = 0,
@@ -732,13 +726,10 @@
             (1 / imageConfig.config.multiplierX);
           left =
             (imageConfig.config.insideWidth || 0) +
-            (canvasWidth / projectObj.CardWidthDivisionFactor -
-              imageWidth * scaleX) /
-              2;
+            (canvasWidth / CardWidthDivisionFactor - imageWidth * scaleX) / 2;
           top =
             (imageConfig.config.insideHeight || 0) +
-            (canvasHeight / projectObj.CardHeightDivisionFactor -
-              imageHeight * scaleY) /
+            (canvasHeight / CardHeightDivisionFactor - imageHeight * scaleY) /
               2;
           const centerPoint = {
             x: left + (imageWidth * scaleX) / 2,
@@ -1544,324 +1535,19 @@
     return (deg || 0) * piBy180;
   };
 
-  const initialProjectData = {
-    project_id: 'd6eea687-879b-4d3f-8162-8cade0b365ee',
-    account_id: '2125543278',
-    name: 'POD Project',
-    product_id: '2PGM1243',
-    scan_code: '0002397727',
-    version: 1,
-    is_digital_fulfillment: false,
-    expiration_date: '2023-05-04T10:30:44.585018807Z',
-    project_type_code: 'P',
-    project_status_code: 'C',
-    created_at: '2023-04-27T10:30:44.585043145Z',
-    last_updated_at: '2023-04-27T10:30:44.585044254Z',
-    font_collection: {
-      default_size: 55,
-      default_color: '#000000',
-      fonts: [
-        {
-          id: 101,
-          name: 'Simply Yours',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/108317.ttf',
-        },
-        {
-          id: 102,
-          name: 'Grateful for You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/126056.ttf',
-        },
-        {
-          id: 103,
-          name: 'Warmest Wishes',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BerdingScript.ttf',
-        },
-        {
-          id: 104,
-          name: 'Yours Always',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/TuesdayHMK-MGE.ttf',
-        },
-        {
-          id: 105,
-          name: 'All My Best',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/KrickHMK-Regular.ttf',
-        },
-        {
-          id: 106,
-          name: 'Take It Easy',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonBallpointPen.ttf',
-        },
-        {
-          id: 107,
-          name: 'Hey Sunshine',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AnnettePrintMGE-Regular.ttf',
-        },
-        {
-          id: 108,
-          name: 'Stay Strong',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JasonPrint.ttf',
-        },
-        {
-          id: 109,
-          name: "'Til Next Time",
-          url: 'https://content.dev.hallmark.com/POD_Fonts/126059.ttf',
-        },
-        {
-          id: 110,
-          name: 'Catch You Later',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonPrint.ttf',
-        },
-        {
-          id: 111,
-          name: 'Keep in Touch',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/JenniferPrintLight.ttf',
-        },
-        {
-          id: 112,
-          name: 'Hugs to You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BrentPrint.ttf',
-        },
-        {
-          id: 113,
-          name: 'Kind Regards',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/TypewriteWornOneHMK.ttf',
-        },
-        {
-          id: 114,
-          name: 'Buh-Bye',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AmbergerSansTextA.ttf',
-        },
-        {
-          id: 115,
-          name: 'Cheers to You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Regular.ttf',
-        },
-        {
-          id: 116,
-          name: 'Later Gator',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/CrayottBookKB.ttf',
-        },
-        {
-          id: 117,
-          name: 'WHAT’S UP',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AlmondMilkHMK-Regular.ttf',
-        },
-        {
-          id: 119,
-          name: 'Just Saying',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/SarahndipityHMK-Smooth.ttf',
-        },
-        {
-          id: 120,
-          name: 'OMG Hi',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Bold.ttf',
-        },
-        {
-          id: 121,
-          name: "How Ya Doin'",
-          url: 'https://content.dev.hallmark.com/POD_Fonts/HelloOne-HMK.ttf',
-        },
-        {
-          id: 122,
-          name: 'Just a Note',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/AstaSlabHMK-Medium.ttf',
-        },
-        {
-          id: 123,
-          name: 'Keep Smiling',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/MiziletteHMK-SemiBoldUpright.ttf',
-        },
-        {
-          id: 124,
-          name: 'Sincerely',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/QueensHatHMK-Italic.ttf',
-        },
-        {
-          id: 125,
-          name: 'Hiya Pal',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/MichaelaVFHMK.ttf',
-        },
-        {
-          id: 126,
-          name: 'Be Seeing You',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/FieldnotesHMK-Rough.ttf',
-        },
-        {
-          id: 127,
-          name: 'Good Vibes',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/GretaHMK-Regular.ttf',
-        },
-        {
-          id: 128,
-          name: 'Best Wishes',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BernhardFashionOnePKA.ttf',
-        },
-        {
-          id: 129,
-          name: 'Hang Loose',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/RittenPrintLowRiseHMK-Regular.ttf',
-        },
-        {
-          id: 130,
-          name: 'Much Appreciated',
-          url: 'https://content.dev.hallmark.com/POD_Fonts/BethelHMK-Regular.ttf',
-        },
-      ],
-    },
-    product: {
-      product_id: '2PGM1243',
-      template_id: 'PGM1243',
-      product_name: 'Personalized Create Your Own Photo Collage Photo Card',
-      vendor_lead_time: 1,
-      envelope_color: '#FFFFF',
-    },
-    fulfillment: {},
-    variables: {
-      template_data: {
-        CardFormat: 'portrait',
-        CardSize: '49',
-        CardType: 'photo',
-        Dimensions: {
-          Height: 179,
-          Width: 125,
-        },
-        Faces: [
-          {
-            BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Background.png',
-            CanvasJson: null,
-            Dimensions: {
-              Height: 2114,
-              Width: 1476,
-            },
-            EditableAreas: [],
-            FaceId: 1,
-            FrameUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Frame.png',
-            IsEditable: true,
-            OverlayBackgroundUrl: '',
-            PhotoZones: [
-              {
-                Height: 592.9984,
-                LeftPosition: 707.5651,
-                Rotation: 0,
-                TopPosition: 798.5653,
-                Width: 594.9992,
-              },
-              {
-                Height: 592.9984,
-                LeftPosition: 102.56673,
-                Rotation: 0,
-                TopPosition: 798.5653,
-                Width: 596.99884,
-              },
-              {
-                Height: 592.99963,
-                LeftPosition: 707.5651,
-                Rotation: 0,
-                TopPosition: 197.56615,
-                Width: 594.9992,
-              },
-              {
-                Height: 592.99963,
-                LeftPosition: 102.56673,
-                Rotation: 0,
-                TopPosition: 197.56615,
-                Width: 596.99884,
-              },
-            ],
-            PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Preview.png',
-            ReplaceBackgroundUrl: '',
-            Texts: [
-              {
-                FontFamily: 'Just a Note',
-                FontId: 122,
-                FontSize: 17,
-                Height: 141.22295,
-                IsFixed: true,
-                IsHybrid: false,
-                IsMultiline: false,
-                LeftPosition: 113.56631,
-                Rotation: 0,
-                Text: 'H I .  H E L L O .',
-                TextAlign: 'center',
-                TextColor: '#3E3B3A',
-                TopPosition: 1462.6306,
-                Width: 1177.9984,
-              },
-            ],
-            Type: 'front',
-            UserImages: null,
-            UserTextZones: [],
-          },
-          {
-            BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P2-3_Background.png',
-            CanvasJson: null,
-            Dimensions: {
-              Height: 2114,
-              Width: 2870,
-            },
-            EditableAreas: [],
-            FaceId: 2,
-            FrameUrl: '',
-            IsEditable: true,
-            OverlayBackgroundUrl: '',
-            PhotoZones: [],
-            PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P2-3_Preview.png',
-            ReplaceBackgroundUrl: '',
-            Texts: [],
-            Type: 'inside',
-            UserImages: null,
-            UserTextZones: [],
-          },
-          {
-            BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P4_Background.png',
-            CanvasJson: null,
-            Dimensions: {
-              Height: 2114,
-              Width: 1394,
-            },
-            EditableAreas: [],
-            FaceId: 3,
-            FrameUrl: '',
-            IsEditable: false,
-            OverlayBackgroundUrl: '',
-            PhotoZones: [],
-            PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P4_Preview.png',
-            ReplaceBackgroundUrl: '',
-            Texts: [],
-            Type: 'back',
-            UserImages: null,
-            UserTextZones: [],
-          },
-        ],
-        Name: 'PGM1243',
-        OpenOrientation: 'right',
-        ParentDimensions: {
-          Height: 179,
-          Width: 125,
-        },
-      },
-    },
-  };
   // const initialProjectData = {
-  //   project_id: '77267321-fd45-4622-9f7e-72f719afe273',
-  //   account_id: '2125542841',
+  //   project_id: 'd6eea687-879b-4d3f-8162-8cade0b365ee',
+  //   account_id: '2125543278',
   //   name: 'POD Project',
-  //   product_id: '2PGM1209',
-  //   scan_code: '0002397650',
+  //   product_id: '2PGM1243',
+  //   scan_code: '0002397727',
   //   version: 1,
   //   is_digital_fulfillment: false,
-  //   expiration_date: '2023-05-04T07:38:45.890926809Z',
+  //   expiration_date: '2023-05-04T10:30:44.585018807Z',
   //   project_type_code: 'P',
   //   project_status_code: 'C',
-  //   created_at: '2023-04-27T07:38:45.890947359Z',
-  //   last_updated_at: '2023-04-27T07:38:45.890948233Z',
+  //   created_at: '2023-04-27T10:30:44.585043145Z',
+  //   last_updated_at: '2023-04-27T10:30:44.585044254Z',
   //   font_collection: {
   //     default_size: 55,
   //     default_color: '#000000',
@@ -2014,61 +1700,99 @@
   //     ],
   //   },
   //   product: {
-  //     product_id: '2PGM1209',
-  //     template_id: 'PGM1209',
-  //     product_name: 'Personalized Celebration Confetti Birthday Photo Card',
+  //     product_id: '2PGM1243',
+  //     template_id: 'PGM1243',
+  //     product_name: 'Personalized Create Your Own Photo Collage Photo Card',
   //     vendor_lead_time: 1,
   //     envelope_color: '#FFFFF',
   //   },
   //   fulfillment: {},
   //   variables: {
   //     template_data: {
-  //       CardFormat: 'landscape',
+  //       CardFormat: 'portrait',
   //       CardSize: '49',
   //       CardType: 'photo',
   //       Dimensions: {
-  //         Height: 125,
-  //         Width: 179,
+  //         Height: 179,
+  //         Width: 125,
   //       },
   //       Faces: [
   //         {
   //           BackgroundUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Background.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Background.png',
   //           CanvasJson: null,
   //           Dimensions: {
-  //             Height: 1476,
-  //             Width: 2114,
+  //             Height: 2114,
+  //             Width: 1476,
   //           },
   //           EditableAreas: [],
   //           FaceId: 1,
   //           FrameUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Frame.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Frame.png',
   //           IsEditable: true,
   //           OverlayBackgroundUrl: '',
   //           PhotoZones: [
   //             {
-  //               Height: 1476.9974,
-  //               LeftPosition: 911.5647,
+  //               Height: 592.9984,
+  //               LeftPosition: 707.5651,
   //               Rotation: 0,
-  //               TopPosition: -35.433,
-  //               Width: 1166.9977,
+  //               TopPosition: 798.5653,
+  //               Width: 594.9992,
+  //             },
+  //             {
+  //               Height: 592.9984,
+  //               LeftPosition: 102.56673,
+  //               Rotation: 0,
+  //               TopPosition: 798.5653,
+  //               Width: 596.99884,
+  //             },
+  //             {
+  //               Height: 592.99963,
+  //               LeftPosition: 707.5651,
+  //               Rotation: 0,
+  //               TopPosition: 197.56615,
+  //               Width: 594.9992,
+  //             },
+  //             {
+  //               Height: 592.99963,
+  //               LeftPosition: 102.56673,
+  //               Rotation: 0,
+  //               TopPosition: 197.56615,
+  //               Width: 596.99884,
   //             },
   //           ],
   //           PreviewUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Preview.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Preview.png',
   //           ReplaceBackgroundUrl: '',
-  //           Texts: [],
+  //           Texts: [
+  //             {
+  //               FontFamily: 'Just a Note',
+  //               FontId: 122,
+  //               FontSize: 17,
+  //               Height: 141.22295,
+  //               IsFixed: true,
+  //               IsHybrid: false,
+  //               IsMultiline: false,
+  //               LeftPosition: 113.56631,
+  //               Rotation: 0,
+  //               Text: 'H I .  H E L L O .',
+  //               TextAlign: 'center',
+  //               TextColor: '#3E3B3A',
+  //               TopPosition: 1462.6306,
+  //               Width: 1177.9984,
+  //             },
+  //           ],
   //           Type: 'front',
   //           UserImages: null,
   //           UserTextZones: [],
   //         },
   //         {
   //           BackgroundUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P2-3_Background.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P2-3_Background.png',
   //           CanvasJson: null,
   //           Dimensions: {
-  //             Height: 2870,
-  //             Width: 2114,
+  //             Height: 2114,
+  //             Width: 2870,
   //           },
   //           EditableAreas: [],
   //           FaceId: 2,
@@ -2077,7 +1801,7 @@
   //           OverlayBackgroundUrl: '',
   //           PhotoZones: [],
   //           PreviewUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P2-3_Preview.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P2-3_Preview.png',
   //           ReplaceBackgroundUrl: '',
   //           Texts: [],
   //           Type: 'inside',
@@ -2086,11 +1810,11 @@
   //         },
   //         {
   //           BackgroundUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P4_Background.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P4_Background.png',
   //           CanvasJson: null,
   //           Dimensions: {
-  //             Height: 1394,
-  //             Width: 2114,
+  //             Height: 2114,
+  //             Width: 1394,
   //           },
   //           EditableAreas: [],
   //           FaceId: 3,
@@ -2099,7 +1823,7 @@
   //           OverlayBackgroundUrl: '',
   //           PhotoZones: [],
   //           PreviewUrl:
-  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P4_Preview.png',
+  //             'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P4_Preview.png',
   //           ReplaceBackgroundUrl: '',
   //           Texts: [],
   //           Type: 'back',
@@ -2107,15 +1831,282 @@
   //           UserTextZones: [],
   //         },
   //       ],
-  //       Name: 'PGM1209',
-  //       OpenOrientation: 'down',
+  //       Name: 'PGM1243',
+  //       OpenOrientation: 'right',
   //       ParentDimensions: {
-  //         Height: 125,
-  //         Width: 179,
+  //         Height: 179,
+  //         Width: 125,
   //       },
   //     },
   //   },
   // };
+  const initialProjectData = {
+    project_id: '77267321-fd45-4622-9f7e-72f719afe273',
+    account_id: '2125542841',
+    name: 'POD Project',
+    product_id: '2PGM1209',
+    scan_code: '0002397650',
+    version: 1,
+    is_digital_fulfillment: false,
+    expiration_date: '2023-05-04T07:38:45.890926809Z',
+    project_type_code: 'P',
+    project_status_code: 'C',
+    created_at: '2023-04-27T07:38:45.890947359Z',
+    last_updated_at: '2023-04-27T07:38:45.890948233Z',
+    font_collection: {
+      default_size: 55,
+      default_color: '#000000',
+      fonts: [
+        {
+          id: 101,
+          name: 'Simply Yours',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/108317.ttf',
+        },
+        {
+          id: 102,
+          name: 'Grateful for You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/126056.ttf',
+        },
+        {
+          id: 103,
+          name: 'Warmest Wishes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BerdingScript.ttf',
+        },
+        {
+          id: 104,
+          name: 'Yours Always',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/TuesdayHMK-MGE.ttf',
+        },
+        {
+          id: 105,
+          name: 'All My Best',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/KrickHMK-Regular.ttf',
+        },
+        {
+          id: 106,
+          name: 'Take It Easy',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonBallpointPen.ttf',
+        },
+        {
+          id: 107,
+          name: 'Hey Sunshine',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AnnettePrintMGE-Regular.ttf',
+        },
+        {
+          id: 108,
+          name: 'Stay Strong',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JasonPrint.ttf',
+        },
+        {
+          id: 109,
+          name: "'Til Next Time",
+          url: 'https://content.dev.hallmark.com/POD_Fonts/126059.ttf',
+        },
+        {
+          id: 110,
+          name: 'Catch You Later',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonPrint.ttf',
+        },
+        {
+          id: 111,
+          name: 'Keep in Touch',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/JenniferPrintLight.ttf',
+        },
+        {
+          id: 112,
+          name: 'Hugs to You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BrentPrint.ttf',
+        },
+        {
+          id: 113,
+          name: 'Kind Regards',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/TypewriteWornOneHMK.ttf',
+        },
+        {
+          id: 114,
+          name: 'Buh-Bye',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AmbergerSansTextA.ttf',
+        },
+        {
+          id: 115,
+          name: 'Cheers to You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Regular.ttf',
+        },
+        {
+          id: 116,
+          name: 'Later Gator',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/CrayottBookKB.ttf',
+        },
+        {
+          id: 117,
+          name: 'WHAT’S UP',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AlmondMilkHMK-Regular.ttf',
+        },
+        {
+          id: 119,
+          name: 'Just Saying',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/SarahndipityHMK-Smooth.ttf',
+        },
+        {
+          id: 120,
+          name: 'OMG Hi',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Bold.ttf',
+        },
+        {
+          id: 121,
+          name: "How Ya Doin'",
+          url: 'https://content.dev.hallmark.com/POD_Fonts/HelloOne-HMK.ttf',
+        },
+        {
+          id: 122,
+          name: 'Just a Note',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/AstaSlabHMK-Medium.ttf',
+        },
+        {
+          id: 123,
+          name: 'Keep Smiling',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/MiziletteHMK-SemiBoldUpright.ttf',
+        },
+        {
+          id: 124,
+          name: 'Sincerely',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/QueensHatHMK-Italic.ttf',
+        },
+        {
+          id: 125,
+          name: 'Hiya Pal',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/MichaelaVFHMK.ttf',
+        },
+        {
+          id: 126,
+          name: 'Be Seeing You',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/FieldnotesHMK-Rough.ttf',
+        },
+        {
+          id: 127,
+          name: 'Good Vibes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/GretaHMK-Regular.ttf',
+        },
+        {
+          id: 128,
+          name: 'Best Wishes',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BernhardFashionOnePKA.ttf',
+        },
+        {
+          id: 129,
+          name: 'Hang Loose',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/RittenPrintLowRiseHMK-Regular.ttf',
+        },
+        {
+          id: 130,
+          name: 'Much Appreciated',
+          url: 'https://content.dev.hallmark.com/POD_Fonts/BethelHMK-Regular.ttf',
+        },
+      ],
+    },
+    product: {
+      product_id: '2PGM1209',
+      template_id: 'PGM1209',
+      product_name: 'Personalized Celebration Confetti Birthday Photo Card',
+      vendor_lead_time: 1,
+      envelope_color: '#FFFFF',
+    },
+    fulfillment: {},
+    variables: {
+      template_data: {
+        CardFormat: 'landscape',
+        CardSize: '49',
+        CardType: 'photo',
+        Dimensions: {
+          Height: 125,
+          Width: 179,
+        },
+        Faces: [
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Background.png',
+            CanvasJson: null,
+            Dimensions: {
+              Height: 1476,
+              Width: 2114,
+            },
+            EditableAreas: [],
+            FaceId: 1,
+            FrameUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Frame.png',
+            IsEditable: true,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [
+              {
+                Height: 1476.9974,
+                LeftPosition: 911.5647,
+                Rotation: 0,
+                TopPosition: -35.433,
+                Width: 1166.9977,
+              },
+            ],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'front',
+            UserImages: null,
+            UserTextZones: [],
+          },
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P2-3_Background.png',
+            CanvasJson: null,
+            Dimensions: {
+              Height: 2870,
+              Width: 2114,
+            },
+            EditableAreas: [],
+            FaceId: 2,
+            FrameUrl: '',
+            IsEditable: true,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P2-3_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'inside',
+            UserImages: null,
+            UserTextZones: [],
+          },
+          {
+            BackgroundUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P4_Background.png',
+            CanvasJson: null,
+            Dimensions: {
+              Height: 1394,
+              Width: 2114,
+            },
+            EditableAreas: [],
+            FaceId: 3,
+            FrameUrl: '',
+            IsEditable: false,
+            OverlayBackgroundUrl: '',
+            PhotoZones: [],
+            PreviewUrl:
+              'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P4_Preview.png',
+            ReplaceBackgroundUrl: '',
+            Texts: [],
+            Type: 'back',
+            UserImages: null,
+            UserTextZones: [],
+          },
+        ],
+        Name: 'PGM1209',
+        OpenOrientation: 'down',
+        ParentDimensions: {
+          Height: 125,
+          Width: 179,
+        },
+      },
+    },
+  };
 
   const loadFont = () => {
     const fontLoadPromises = [];
@@ -2380,9 +2371,20 @@
         icanvas.loadFromJSON(finalJson.CanvasJson, () => {
           console.log(icanvas);
           icanvas.renderAll.bind(icanvas);
-          if (!icanvasEle.parentElement.querySelector('.divider')) {
+          if (
+            finalJson.CardFormat === 'portrait' &&
+            !icanvasEle.parentElement.querySelector('.dividerV')
+          ) {
             const ele = document.createElement('div');
-            ele.setAttribute('class', 'divider');
+            ele.setAttribute('class', 'dividerV');
+            icanvasEle.parentElement.appendChild(ele);
+          }
+          if (
+            finalJson.CardFormat !== 'portrait' &&
+            !icanvasEle.parentElement.querySelector('.dividerH')
+          ) {
+            const ele = document.createElement('div');
+            ele.setAttribute('class', 'dividerH');
             icanvasEle.parentElement.appendChild(ele);
           }
         });
