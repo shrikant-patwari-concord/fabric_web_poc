@@ -1018,7 +1018,7 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
-      if (activeObj) {
+      if (activeObj && Number.isFinite(config.angle)) {
         logger.debug(
           JSON.parse(
             JSON.stringify({
@@ -1140,7 +1140,11 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
-      if (activeObj) {
+      if (
+        activeObj &&
+        Number.isFinite(config.scaleX) &&
+        Number.isFinite(config.scaleY)
+      ) {
         logger.debug(
           JSON.parse(
             JSON.stringify({ msg: 'found active obj', type: activeObj.type })
@@ -1275,7 +1279,13 @@
             obj.name === `userTextbox-${faceObj.FaceId}-${config.objectIndex}`
         );
       }
-      if (activeObj) {
+      if (
+        activeObj &&
+        Number.isFinite(translateX) &&
+        Number.isFinite(translateY) &&
+        Number.isFinite(multiplierX) &&
+        Number.isFinite(multiplierY)
+      ) {
         logger.debug(
           JSON.parse(
             JSON.stringify({ msg: 'found active obj', type: activeObj.type })
