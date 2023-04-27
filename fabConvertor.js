@@ -18,7 +18,7 @@
       },
       debug: function (data) {
         if (!this.logLevel.debug) return;
-        const calledFrom = getFncName()
+        const calledFrom = getFncName();
         console.log(this.format('debug', calledFrom), data);
       },
       warn: function (data) {
@@ -54,9 +54,16 @@
     const helperStore = (function () {
       const piBy2 = Math.PI / 2;
       const piBy180 = Math.PI / 180;
-      const defaultUserDefinedImageWidth = 200;
+      const defaultUserDefinedImagePortraitWidth = 200;
+      const defaultUserDefinedLandscapeWidth = 100;
       return {
-        defaultUserDefinedImageWidth: defaultUserDefinedImageWidth,
+        getDefaultUserDefinedImageWidth: function (cardFormat) {
+          return cardFormat &&
+            typeof cardFormat === 'string' &&
+            cardFormat.toLowerCase() === 'landscape'
+            ? defaultUserDefinedLandscapeWidth
+            : defaultUserDefinedImagePortraitWidth;
+        },
         cos: function (angle) {
           if (angle === 0) {
             return 1;
@@ -210,6 +217,16 @@
           project_type_code: initialData.project_type_code,
           project_status_code: initialData.project_status_code,
           created_at: initialData.created_at,
+          CardWidthDivisionFactor:
+            initialData.variables.template_data.CardFormat.toLowerCase() ===
+            'portrait'
+              ? 2
+              : 1,
+          CanvasHeightDivisionFactor:
+            initialData.variables.template_data.CardFormat.toLowerCase() ===
+            'portrait'
+              ? 1
+              : 2,
         });
         initialData.variables.template_data.Faces.forEach((face, faceindex) => {
           const personalizedFace = {
@@ -521,6 +538,7 @@
           height: 0,
           uri: null,
           insideWidth: 0,
+          insideHeight: 0,
           angle: 0,
           multiplierX: 1,
         },
@@ -709,12 +727,19 @@
             left = 0,
             top = 0;
           scaleX = scaleY =
-            (helperStore.defaultUserDefinedImageWidth / imageWidth) *
+            (helperStore.getDefaultUserDefinedImageWidth(faceObj.CardFormat) /
+              imageWidth) *
             (1 / imageConfig.config.multiplierX);
           left =
             (imageConfig.config.insideWidth || 0) +
-            (canvasWidth / 2 - imageWidth * scaleX) / 2;
-          top = (canvasHeight - imageHeight * scaleY) / 2;
+            (canvasWidth / projectObj.CardWidthDivisionFactor -
+              imageWidth * scaleX) /
+              2;
+          top =
+            (imageConfig.config.insideHeight || 0) +
+            (canvasHeight / projectObj.CardHeightDivisionFactor -
+              imageHeight * scaleY) /
+              2;
           const centerPoint = {
             x: left + (imageWidth * scaleX) / 2,
             y: top + (imageHeight * scaleY) / 2,
@@ -836,6 +861,7 @@
           width: 1000,
           height: 180,
           insideWidth: 0,
+          insideHeight: 0,
           angle: 0,
           textColor: '#000',
           fontId: 107,
@@ -857,8 +883,9 @@
       try {
         const faceObj = projectObj.personalization[textConfig.faceId - 1];
         const canvasjson = faceObj.CanvasJson;
-        let left = textConfig.config.left,
-          top = textConfig.config.top,
+        let left =
+            textConfig.config.left + (textConfig.config.insideWidth || 0),
+          top = textConfig.config.top + (textConfig.config.insideHeight || 0),
           width = textConfig.config.width,
           height = textConfig.config.height,
           angle = textConfig.config.angle || 0,
@@ -1518,18 +1545,18 @@
   };
 
   const initialProjectData = {
-    project_id: '9800aeee-e625-4845-b7b5-f3aeb0213c72',
-    account_id: '2125518756',
+    project_id: 'd6eea687-879b-4d3f-8162-8cade0b365ee',
+    account_id: '2125543278',
     name: 'POD Project',
-    product_id: '2PGM1285',
-    scan_code: '0002394076',
+    product_id: '2PGM1243',
+    scan_code: '0002397727',
     version: 1,
     is_digital_fulfillment: false,
-    expiration_date: '2023-04-17T06:23:03.474659321Z',
+    expiration_date: '2023-05-04T10:30:44.585018807Z',
     project_type_code: 'P',
     project_status_code: 'C',
-    created_at: '2023-04-10T06:23:03.474677721Z',
-    last_updated_at: '2023-04-10T06:23:03.474678512Z',
+    created_at: '2023-04-27T10:30:44.585043145Z',
+    last_updated_at: '2023-04-27T10:30:44.585044254Z',
     font_collection: {
       default_size: 55,
       default_color: '#000000',
@@ -1682,9 +1709,9 @@
       ],
     },
     product: {
-      product_id: '2PGM1285',
-      template_id: 'PGM1285',
-      product_name: 'Personalized Elegant Merry Christmas Photo Card',
+      product_id: '2PGM1243',
+      template_id: 'PGM1243',
+      product_name: 'Personalized Create Your Own Photo Collage Photo Card',
       vendor_lead_time: 1,
       envelope_color: '#FFFFF',
     },
@@ -1701,7 +1728,7 @@
         Faces: [
           {
             BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Background.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Background.png',
             CanvasJson: null,
             Dimensions: {
               Height: 2114,
@@ -1710,37 +1737,58 @@
             EditableAreas: [],
             FaceId: 1,
             FrameUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Frame.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Frame.png',
             IsEditable: true,
             OverlayBackgroundUrl: '',
             PhotoZones: [
               {
-                Height: 1547.4347,
-                LeftPosition: -47.244,
+                Height: 592.9984,
+                LeftPosition: 707.5651,
                 Rotation: 0,
-                TopPosition: -50.7873,
-                Width: 1504.7214,
+                TopPosition: 798.5653,
+                Width: 594.9992,
+              },
+              {
+                Height: 592.9984,
+                LeftPosition: 102.56673,
+                Rotation: 0,
+                TopPosition: 798.5653,
+                Width: 596.99884,
+              },
+              {
+                Height: 592.99963,
+                LeftPosition: 707.5651,
+                Rotation: 0,
+                TopPosition: 197.56615,
+                Width: 594.9992,
+              },
+              {
+                Height: 592.99963,
+                LeftPosition: 102.56673,
+                Rotation: 0,
+                TopPosition: 197.56615,
+                Width: 596.99884,
               },
             ],
             PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P1_Preview.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P1_Preview.png',
             ReplaceBackgroundUrl: '',
             Texts: [
               {
-                FontFamily: 'Sincerely',
-                FontId: 124,
-                FontSize: 18,
-                Height: 145.86702,
+                FontFamily: 'Just a Note',
+                FontId: 122,
+                FontSize: 17,
+                Height: 141.22295,
                 IsFixed: true,
                 IsHybrid: false,
                 IsMultiline: false,
-                LeftPosition: 703.5659,
+                LeftPosition: 113.56631,
                 Rotation: 0,
-                Text: 'Cameron',
+                Text: 'H I .  H E L L O .',
                 TextAlign: 'center',
-                TextColor: '#A48A47',
-                TopPosition: 1740.8751,
-                Width: 575.99884,
+                TextColor: '#3E3B3A',
+                TopPosition: 1462.6306,
+                Width: 1177.9984,
               },
             ],
             Type: 'front',
@@ -1749,7 +1797,7 @@
           },
           {
             BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P2-3_Background.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P2-3_Background.png',
             CanvasJson: null,
             Dimensions: {
               Height: 2114,
@@ -1762,7 +1810,7 @@
             OverlayBackgroundUrl: '',
             PhotoZones: [],
             PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P2-3_Preview.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P2-3_Preview.png',
             ReplaceBackgroundUrl: '',
             Texts: [],
             Type: 'inside',
@@ -1771,7 +1819,7 @@
           },
           {
             BackgroundUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P4_Background.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P4_Background.png',
             CanvasJson: null,
             Dimensions: {
               Height: 2114,
@@ -1784,7 +1832,7 @@
             OverlayBackgroundUrl: '',
             PhotoZones: [],
             PreviewUrl:
-              'https://content.dev.hallmark.com/webassets/PGM1285/PGM1285_P4_Preview.png',
+              'https://content.dev.hallmark.com/webassets/PGM1243/PGM1243_P4_Preview.png',
             ReplaceBackgroundUrl: '',
             Texts: [],
             Type: 'back',
@@ -1792,7 +1840,7 @@
             UserTextZones: [],
           },
         ],
-        Name: 'PGM1285',
+        Name: 'PGM1243',
         OpenOrientation: 'right',
         ParentDimensions: {
           Height: 179,
@@ -1801,6 +1849,273 @@
       },
     },
   };
+  // const initialProjectData = {
+  //   project_id: '77267321-fd45-4622-9f7e-72f719afe273',
+  //   account_id: '2125542841',
+  //   name: 'POD Project',
+  //   product_id: '2PGM1209',
+  //   scan_code: '0002397650',
+  //   version: 1,
+  //   is_digital_fulfillment: false,
+  //   expiration_date: '2023-05-04T07:38:45.890926809Z',
+  //   project_type_code: 'P',
+  //   project_status_code: 'C',
+  //   created_at: '2023-04-27T07:38:45.890947359Z',
+  //   last_updated_at: '2023-04-27T07:38:45.890948233Z',
+  //   font_collection: {
+  //     default_size: 55,
+  //     default_color: '#000000',
+  //     fonts: [
+  //       {
+  //         id: 101,
+  //         name: 'Simply Yours',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/108317.ttf',
+  //       },
+  //       {
+  //         id: 102,
+  //         name: 'Grateful for You',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/126056.ttf',
+  //       },
+  //       {
+  //         id: 103,
+  //         name: 'Warmest Wishes',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/BerdingScript.ttf',
+  //       },
+  //       {
+  //         id: 104,
+  //         name: 'Yours Always',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/TuesdayHMK-MGE.ttf',
+  //       },
+  //       {
+  //         id: 105,
+  //         name: 'All My Best',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/KrickHMK-Regular.ttf',
+  //       },
+  //       {
+  //         id: 106,
+  //         name: 'Take It Easy',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonBallpointPen.ttf',
+  //       },
+  //       {
+  //         id: 107,
+  //         name: 'Hey Sunshine',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/AnnettePrintMGE-Regular.ttf',
+  //       },
+  //       {
+  //         id: 108,
+  //         name: 'Stay Strong',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/JasonPrint.ttf',
+  //       },
+  //       {
+  //         id: 109,
+  //         name: "'Til Next Time",
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/126059.ttf',
+  //       },
+  //       {
+  //         id: 110,
+  //         name: 'Catch You Later',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/JohnsonPrint.ttf',
+  //       },
+  //       {
+  //         id: 111,
+  //         name: 'Keep in Touch',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/JenniferPrintLight.ttf',
+  //       },
+  //       {
+  //         id: 112,
+  //         name: 'Hugs to You',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/BrentPrint.ttf',
+  //       },
+  //       {
+  //         id: 113,
+  //         name: 'Kind Regards',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/TypewriteWornOneHMK.ttf',
+  //       },
+  //       {
+  //         id: 114,
+  //         name: 'Buh-Bye',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/AmbergerSansTextA.ttf',
+  //       },
+  //       {
+  //         id: 115,
+  //         name: 'Cheers to You',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Regular.ttf',
+  //       },
+  //       {
+  //         id: 116,
+  //         name: 'Later Gator',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/CrayottBookKB.ttf',
+  //       },
+  //       {
+  //         id: 117,
+  //         name: 'WHAT’S UP',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/AlmondMilkHMK-Regular.ttf',
+  //       },
+  //       {
+  //         id: 119,
+  //         name: 'Just Saying',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/SarahndipityHMK-Smooth.ttf',
+  //       },
+  //       {
+  //         id: 120,
+  //         name: 'OMG Hi',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/BeamNewHMK-Bold.ttf',
+  //       },
+  //       {
+  //         id: 121,
+  //         name: "How Ya Doin'",
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/HelloOne-HMK.ttf',
+  //       },
+  //       {
+  //         id: 122,
+  //         name: 'Just a Note',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/AstaSlabHMK-Medium.ttf',
+  //       },
+  //       {
+  //         id: 123,
+  //         name: 'Keep Smiling',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/MiziletteHMK-SemiBoldUpright.ttf',
+  //       },
+  //       {
+  //         id: 124,
+  //         name: 'Sincerely',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/QueensHatHMK-Italic.ttf',
+  //       },
+  //       {
+  //         id: 125,
+  //         name: 'Hiya Pal',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/MichaelaVFHMK.ttf',
+  //       },
+  //       {
+  //         id: 126,
+  //         name: 'Be Seeing You',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/FieldnotesHMK-Rough.ttf',
+  //       },
+  //       {
+  //         id: 127,
+  //         name: 'Good Vibes',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/GretaHMK-Regular.ttf',
+  //       },
+  //       {
+  //         id: 128,
+  //         name: 'Best Wishes',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/BernhardFashionOnePKA.ttf',
+  //       },
+  //       {
+  //         id: 129,
+  //         name: 'Hang Loose',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/RittenPrintLowRiseHMK-Regular.ttf',
+  //       },
+  //       {
+  //         id: 130,
+  //         name: 'Much Appreciated',
+  //         url: 'https://content.dev.hallmark.com/POD_Fonts/BethelHMK-Regular.ttf',
+  //       },
+  //     ],
+  //   },
+  //   product: {
+  //     product_id: '2PGM1209',
+  //     template_id: 'PGM1209',
+  //     product_name: 'Personalized Celebration Confetti Birthday Photo Card',
+  //     vendor_lead_time: 1,
+  //     envelope_color: '#FFFFF',
+  //   },
+  //   fulfillment: {},
+  //   variables: {
+  //     template_data: {
+  //       CardFormat: 'landscape',
+  //       CardSize: '49',
+  //       CardType: 'photo',
+  //       Dimensions: {
+  //         Height: 125,
+  //         Width: 179,
+  //       },
+  //       Faces: [
+  //         {
+  //           BackgroundUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Background.png',
+  //           CanvasJson: null,
+  //           Dimensions: {
+  //             Height: 1476,
+  //             Width: 2114,
+  //           },
+  //           EditableAreas: [],
+  //           FaceId: 1,
+  //           FrameUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Frame.png',
+  //           IsEditable: true,
+  //           OverlayBackgroundUrl: '',
+  //           PhotoZones: [
+  //             {
+  //               Height: 1476.9974,
+  //               LeftPosition: 911.5647,
+  //               Rotation: 0,
+  //               TopPosition: -35.433,
+  //               Width: 1166.9977,
+  //             },
+  //           ],
+  //           PreviewUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P1_Preview.png',
+  //           ReplaceBackgroundUrl: '',
+  //           Texts: [],
+  //           Type: 'front',
+  //           UserImages: null,
+  //           UserTextZones: [],
+  //         },
+  //         {
+  //           BackgroundUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P2-3_Background.png',
+  //           CanvasJson: null,
+  //           Dimensions: {
+  //             Height: 2870,
+  //             Width: 2114,
+  //           },
+  //           EditableAreas: [],
+  //           FaceId: 2,
+  //           FrameUrl: '',
+  //           IsEditable: true,
+  //           OverlayBackgroundUrl: '',
+  //           PhotoZones: [],
+  //           PreviewUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P2-3_Preview.png',
+  //           ReplaceBackgroundUrl: '',
+  //           Texts: [],
+  //           Type: 'inside',
+  //           UserImages: null,
+  //           UserTextZones: [],
+  //         },
+  //         {
+  //           BackgroundUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P4_Background.png',
+  //           CanvasJson: null,
+  //           Dimensions: {
+  //             Height: 1394,
+  //             Width: 2114,
+  //           },
+  //           EditableAreas: [],
+  //           FaceId: 3,
+  //           FrameUrl: '',
+  //           IsEditable: false,
+  //           OverlayBackgroundUrl: '',
+  //           PhotoZones: [],
+  //           PreviewUrl:
+  //             'https://content.dev.hallmark.com/webassets/PGM1209/PGM1209_P4_Preview.png',
+  //           ReplaceBackgroundUrl: '',
+  //           Texts: [],
+  //           Type: 'back',
+  //           UserImages: null,
+  //           UserTextZones: [],
+  //         },
+  //       ],
+  //       Name: 'PGM1209',
+  //       OpenOrientation: 'down',
+  //       ParentDimensions: {
+  //         Height: 125,
+  //         Width: 179,
+  //       },
+  //     },
+  //   },
+  // };
 
   const loadFont = () => {
     const fontLoadPromises = [];
@@ -1840,6 +2155,7 @@
     });
     generateCanvasJSONUtil.initializeProject(initialProjectData);
 
+    console.log(generateCanvasJSONUtil.getProjectData());
     const imageNameFace2 = generateCanvasJSONUtil.addImage({
       faceId: 2,
       photoZoneId: 0,
@@ -1847,12 +2163,12 @@
       objectId: 'eca3bb28-6e05-47da-bdc1-6a62831fc753',
       config: {
         playableDuration: null,
-        height: 4032,
-        width: 3024,
+        height: 543,
+        width: 460,
         filename: 'IMG_4241.JPG',
-        extension: 'jpg',
+        extension: 'png',
         fileSize: 2053949,
-        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/34441d80-9f89-4b6e-bf9a-187bf61853137294260850053058250.JPG',
+        uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-dev-us-west-2-consumer-images/images/48a49307-5c7a-4ef3-9b32-16237f6fa7c39158535993642250996.png',
         type: 'image',
         localUrl: 'ph://3134E70B-EFEE-48D3-A01B-5EFCAFD6B393/L0/001',
         multiplierX: 0.2269647696476965,
@@ -1869,96 +2185,97 @@
     //   type: 'image',
     // });
 
-    const opPan = generateCanvasJSONUtil.applyPan({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      translateX: -35.5,
-      translateY: -78,
-      multiplierX: 0.22154471544715448,
-      multiplierY: 0.22138126773888364,
-    });
+    // const opPan = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: -35.5,
+    //   translateY: -78,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
 
-    const opRotate1 = generateCanvasJSONUtil.applyRotation({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      angle: degreesToRadians(-31),
-    });
+    console.log(generateCanvasJSONUtil.getProjectData());
+    // const opRotate1 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: degreesToRadians(-31),
+    // });
 
-    const opPan1 = generateCanvasJSONUtil.applyPan({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      translateX: 5.500000000000028,
-      translateY: -47.5,
-      multiplierX: 0.22154471544715448,
-      multiplierY: 0.22138126773888364,
-    });
+    // const opPan1 = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: 5.500000000000028,
+    //   translateY: -47.5,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
 
-    const opRotate2 = generateCanvasJSONUtil.applyRotation({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      angle: degreesToRadians(45),
-    });
+    // const opRotate2 = generateCanvasJSONUtil.applyRotation({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   angle: degreesToRadians(45),
+    // });
 
-    const opPan2 = generateCanvasJSONUtil.applyPan({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      translateX: -35.5,
-      translateY: 78,
-      multiplierX: 0.22154471544715448,
-      multiplierY: 0.22138126773888364,
-    });
+    // const opPan2 = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: -35.5,
+    //   translateY: 78,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
 
-    const opScale1 = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      scaleX: 0.5,
-      scaleY: 0.5,
-    });
+    // const opScale1 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 0.5,
+    //   scaleY: 0.5,
+    // });
 
-    console.log('debounce check');
-    for (let i = 1; i <= 90; i++) {
-      console.log(
-        generateCanvasJSONUtil.rotateDebounce({
-          faceId: 2,
-          type: 'image',
-          objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-          objectIndex: 0,
-          angle: degreesToRadians(i),
-        })
-      );
-    }
+    // console.log('debounce check');
+    // for (let i = 1; i <= 90; i++) {
+    //   console.log(
+    //     generateCanvasJSONUtil.rotateDebounce({
+    //       faceId: 2,
+    //       type: 'image',
+    //       objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //       objectIndex: 0,
+    //       angle: degreesToRadians(i),
+    //     })
+    //   );
+    // }
 
-    const opPan3 = generateCanvasJSONUtil.applyPan({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      translateX: 0,
-      translateY: -39,
-      multiplierX: 0.22154471544715448,
-      multiplierY: 0.22138126773888364,
-    });
+    // const opPan3 = generateCanvasJSONUtil.applyPan({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   translateX: 0,
+    //   translateY: -39,
+    //   multiplierX: 0.22154471544715448,
+    //   multiplierY: 0.22138126773888364,
+    // });
 
-    const opScale2 = generateCanvasJSONUtil.applyScale({
-      faceId: 2,
-      type: 'image',
-      objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
-      objectIndex: 0,
-      scaleX: 1,
-      scaleY: 0.5,
-    });
+    // const opScale2 = generateCanvasJSONUtil.applyScale({
+    //   faceId: 2,
+    //   type: 'image',
+    //   objectName: 'userImage-2-eca3bb28-6e05-47da-bdc1-6a62831fc753',
+    //   objectIndex: 0,
+    //   scaleX: 1,
+    //   scaleY: 0.5,
+    // });
 
     // const opScale2 = generateCanvasJSONUtil.applyScale({
     //   faceId: 2,
@@ -2039,7 +2356,7 @@
     //   multiplierY: 0.22138126773888364,
     // });
 
-    const finalProjectData = generateCanvasJSONUtil.projectDataDebounce();
+    const finalProjectData = generateCanvasJSONUtil.getProjectData();
 
     finalProjectData.personalization.forEach((finalJson, index) => {
       // if (index == 0) {
