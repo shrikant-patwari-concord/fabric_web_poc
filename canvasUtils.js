@@ -793,6 +793,8 @@ const prjDt = {
   project_status_code: 'C',
   created_at: '2023-05-29T09:18:56.265380042Z',
   last_updated_at: '2023-05-29T09:18:56.265380863Z',
+  layoutWidth: 290.66668701171875,
+  layoutHeight: 416,
   font_collection: {
     default_size: 55,
     default_color: '#000000',
