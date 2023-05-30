@@ -550,6 +550,10 @@ const canvasUtil = (function () {
       top = textZone.insideHeight || 0;
 
     let textAngle = 0;
+    const textLeft = textZone.left * activeFace.multiplierX,
+      textTop = textZone.top * activeFace.multiplierY,
+      textWidth = textZone.width * activeFace.multiplierX,
+      textHeight = textZone.height * activeFace.multiplierY;
     const isPredefinedText = typeof textZone['userDefined'] === 'undefined';
     if (isPredefinedText) {
       textAngle = textZone.angle || 0;
@@ -568,8 +572,8 @@ const canvasUtil = (function () {
 
     if (typeof textZone.centerPoint === 'undefined') {
       textZone.centerPoint = {
-        x: (textZone.left + textZone.width / 2) / activeFace.multiplierX,
-        y: (textZone.top + textZone.height / 2) / activeFace.multiplierY,
+        x: textLeft + textWidth / 2,
+        y: textTop + textHeight / 2,
       };
     }
 
@@ -579,8 +583,8 @@ const canvasUtil = (function () {
     };
 
     const objLeftTop = {
-      x: textCenterPoint.x - (textZone.width * scaleX) / 2,
-      y: textCenterPoint.y - (textZone.height * scaleY) / 2,
+      x: textCenterPoint.x - (textWidth * scaleX) / 2,
+      y: textCenterPoint.y - (textHeight * scaleY) / 2,
     };
     if (textAngle) {
       const rotatePoint = helperStore.rotatePoint(
@@ -598,8 +602,8 @@ const canvasUtil = (function () {
       originY: 'top',
       left: objLeftTop.x + (isPredefinedText ? 18 : 0),
       top: objLeftTop.y + (isPredefinedText ? 18 : 0),
-      width: textZone.width + (isPredefinedText ? 18 : 0),
-      height: textZone.height + (isPredefinedText ? 18 : 0),
+      width: textWidth + (isPredefinedText ? 18 : 0),
+      height: textHeight + (isPredefinedText ? 18 : 0),
       fill: textZone.textColor,
       stroke: null,
       strokeWidth: 1,
