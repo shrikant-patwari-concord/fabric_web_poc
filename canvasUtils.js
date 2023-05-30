@@ -550,6 +550,10 @@ const canvasUtil = (function () {
       top = textZone.insideHeight || 0;
 
     let textAngle = 0;
+    const textLeft = textZone.left * activeFace.multiplierX,
+      textTop = textZone.top * activeFace.multiplierY,
+      textWidth = textZone.width * activeFace.multiplierX,
+      textHeight = textZone.height * activeFace.multiplierY;
     const isPredefinedText = typeof textZone['userDefined'] === 'undefined';
     if (isPredefinedText) {
       textAngle = textZone.angle || 0;
@@ -568,8 +572,8 @@ const canvasUtil = (function () {
 
     if (typeof textZone.centerPoint === 'undefined') {
       textZone.centerPoint = {
-        x: (textZone.left + textZone.width / 2) / activeFace.multiplierX,
-        y: (textZone.top + textZone.height / 2) / activeFace.multiplierY,
+        x: textLeft + textWidth / 2,
+        y: textTop + textHeight / 2,
       };
     }
 
@@ -579,8 +583,8 @@ const canvasUtil = (function () {
     };
 
     const objLeftTop = {
-      x: textCenterPoint.x - (textZone.width * scaleX) / 2,
-      y: textCenterPoint.y - (textZone.height * scaleY) / 2,
+      x: textCenterPoint.x - (textWidth * scaleX) / 2,
+      y: textCenterPoint.y - (textHeight * scaleY) / 2,
     };
     if (textAngle) {
       const rotatePoint = helperStore.rotatePoint(
@@ -598,8 +602,8 @@ const canvasUtil = (function () {
       originY: 'top',
       left: objLeftTop.x + (isPredefinedText ? 18 : 0),
       top: objLeftTop.y + (isPredefinedText ? 18 : 0),
-      width: textZone.width + (isPredefinedText ? 18 : 0),
-      height: textZone.height + (isPredefinedText ? 18 : 0),
+      width: textWidth + (isPredefinedText ? 18 : 0),
+      height: textHeight + (isPredefinedText ? 18 : 0),
       fill: textZone.textColor,
       stroke: null,
       strokeWidth: 1,
@@ -781,18 +785,18 @@ const getCanvasJSON = function (projectData) {
 };
 
 const prjDt = {
-  project_id: '34a538ab-ed1c-4710-9e6d-5307e2c72c5f',
-  account_id: '2118390121',
+  project_id: 'e5a58f2b-f3e2-4959-802e-1989c6553d51',
+  account_id: '2118355992',
   name: 'test',
-  product_id: '2PGM1426',
-  scan_code: '0006845398',
+  product_id: '2PGM1253',
+  scan_code: '0006845647',
   version: 1,
   is_digital_fulfillment: false,
-  expiration_date: '2023-06-05T09:18:56.265361873Z',
+  expiration_date: '2023-06-06T10:07:38.523521846Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-05-29T09:18:56.265380042Z',
-  last_updated_at: '2023-05-29T09:18:56.265380863Z',
+  created_at: '2023-05-30T10:07:38.523539905Z',
+  last_updated_at: '2023-05-30T10:07:38.523540666Z',
   layoutWidth: 290.66668701171875,
   layoutHeight: 416,
   font_collection: {
@@ -947,9 +951,9 @@ const prjDt = {
     ],
   },
   product: {
-    product_id: '2PGM1426',
-    template_id: 'PGM1426',
-    product_name: 'Personalized Snapshots on Abstract Photo Card',
+    product_id: '2PGM1253',
+    template_id: 'PGM1253',
+    product_name: 'Personalized Blue and Purple Watercolor Design Card',
     vendor_lead_time: 1,
     envelope_color: '#FFFFF',
   },
@@ -958,7 +962,7 @@ const prjDt = {
     template_data: {
       cardFormat: 'portrait',
       cardSize: '49',
-      cardType: 'photo',
+      cardType: 'paper',
       dimensions: {
         height: 179,
         width: 125,
@@ -966,7 +970,7 @@ const prjDt = {
       faces: [
         {
           backgroundUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P1_Background.png',
+            'https://content.stage.hallmark.com/webassets/PGM1253/PGM1253_P1_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -974,62 +978,65 @@ const prjDt = {
           },
           editableAreas: [],
           faceId: 1,
-          frameUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P1_Frame.png',
+          frameUrl: '',
           isEditable: true,
           overlayBackgroundUrl: '',
-          photoZones: [
-            {
-              height: 684.8136,
-              left: 157.48906,
-              angle: 355,
-              top: 229.56567,
-              width: 789.7448,
-            },
-            {
-              height: 686.1411,
-              left: 455.06128,
-              angle: 5,
-              top: 1008.63464,
-              width: 791.50586,
-            },
-          ],
+          photoZones: [],
           previewUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P1_Preview.png',
+            'https://content.stage.hallmark.com/webassets/PGM1253/PGM1253_P1_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
           texts: [
             {
-              fontFamily: 'Hey Sunshine',
-              fontId: 107,
-              fontSize: 19,
-              height: 127.407616,
+              fontFamily: 'Much Appreciated',
+              fontId: 130,
+              fontSize: 32,
+              height: 30.41621585619679,
               isFixed: true,
               isHybrid: false,
               isMultiline: false,
-              left: 402.5862,
-              angle: 5,
-              text: 'Like son',
-              textAlign: 'center',
-              textColor: '#000000',
-              top: 1664.9022,
-              width: 783.59015,
+              left: 145.22582433301798,
+              angle: 0,
+              text: ' no words.',
+              textAlign: 'left',
+              textColor: '#146779',
+              top: 163.44992242194894,
+              width: 127.0187230730796,
+              sliderIndex: 2,
             },
             {
-              fontFamily: 'Hey Sunshine',
-              fontId: 107,
-              fontSize: 19,
-              height: 121.73125,
+              fontFamily: 'Much Appreciated',
+              fontId: 130,
+              fontSize: 32,
+              height: 23.584202989593187,
               isFixed: true,
               isHybrid: false,
               isMultiline: false,
-              left: 225.51096,
-              angle: 355,
-              text: 'Like father',
-              textAlign: 'center',
-              textColor: '#000000',
-              top: 884.7975,
-              width: 774.4461,
+              left: 145.22582433301798,
+              angle: 0,
+              text: '  thakkar',
+              textAlign: 'left',
+              textColor: '#146779',
+              top: 135.7660669820246,
+              width: 127.0187230730796,
+              sliderIndex: 2,
+            },
+            {
+              fontFamily: 'Much Appreciated',
+              fontId: 130,
+              fontSize: 32,
+              height: 32.540307133396404,
+              isFixed: true,
+              isHybrid: false,
+              isMultiline: false,
+              left: 145.22582433301798,
+              angle: 0,
+              text: 'Bhavik',
+              textAlign: 'left',
+              textColor: '#146779',
+              top: 99.12608181646169,
+              width: 127.0187230730796,
+              sliderIndex: 2,
             },
           ],
           type: 'front',
@@ -1038,7 +1045,7 @@ const prjDt = {
         },
         {
           backgroundUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P2-3_Background.png',
+            'https://content.stage.hallmark.com/webassets/PGM1253/PGM1253_P2-3_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -1051,53 +1058,53 @@ const prjDt = {
           overlayBackgroundUrl: '',
           photoZones: [],
           previewUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P2-3_Preview.png',
+            'https://content.stage.hallmark.com/webassets/PGM1253/PGM1253_P2-3_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
           texts: [
             {
-              fontFamily: 'Hey Sunshine',
-              fontId: 107,
-              fontSize: 19,
-              height: 649.6841,
+              fontFamily: 'Much Appreciated',
+              fontId: 130,
+              fontSize: 32,
+              height: 46.49973419110691,
               isFixed: true,
               isHybrid: false,
               isMultiline: false,
-              left: 1497.564,
+              left: 301.66828382213816,
               angle: 0,
-              text: 'And that’s alright with me.',
+              text: 'Only testing and wo',
               textAlign: 'center',
-              textColor: '#000000',
-              top: 434.56567,
-              width: 1211.9976,
+              textColor: '#146779',
+              top: 133.02860594134344,
+              width: 238.67705085240806,
               sliderIndex: 2,
             },
             {
               fontFamily: 'Just a Note',
               fontId: 125,
               fontSize: 16,
-              height: 162.53471,
+              height: 87.66666666666667,
               isFixed: false,
               isHybrid: false,
               isMultiline: true,
-              left: 338,
+              left: -0.9999847412109375,
               angle: 0,
-              text: '😌😌😌😌',
+              text: 'Hello\nThis is user defined ',
               textAlign: 'left',
               textColor: '#595959',
-              top: 976,
-              width: 1000,
+              top: 10.000000000000028,
+              width: 200,
               userDefined: true,
               insideWidth: 0,
               sliderIndex: 1,
               horizontalLayoutWidth: 0,
               centerPoint: {
-                x: 170.3595418128864,
-                y: 214.8728992977593,
+                x: 99.00001525878906,
+                y: 25.00000000000003,
               },
               originalCenterPoint: {
-                x: 170.3595418128864,
-                y: 214.8728992977593,
+                x: 99.00001525878906,
+                y: 25.00000000000003,
               },
             },
           ],
@@ -1107,7 +1114,7 @@ const prjDt = {
         },
         {
           backgroundUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P4_Background.png',
+            'https://content.stage.hallmark.com/webassets/PGM1253/PGM1253_P4_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -1120,7 +1127,7 @@ const prjDt = {
           overlayBackgroundUrl: '',
           photoZones: [],
           previewUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P4_Preview.png',
+            'https://content.stage.hallmark.com/webassets/PGM1253/PGM1253_P4_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
           texts: [],
@@ -1129,7 +1136,7 @@ const prjDt = {
           userTextZones: [],
         },
       ],
-      name: 'PGM1426',
+      name: 'PGM1253',
       openOrientation: 'right',
       parentDimensions: {
         height: 179,
@@ -1138,60 +1145,92 @@ const prjDt = {
     },
   },
 };
-const finalProjectData = getCanvasJSON(prjDt);
-console.log({ finalProjectData, prjDt });
-
-finalProjectData.personalization.forEach((finalJson, index) => {
-  if (index == 0) {
-    const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
-      width: finalJson.canvasDimensions.width,
-      height: finalJson.canvasDimensions.height,
-    });
-    console.log(finalJson);
-    fcanvas.loadFromJSON(finalJson.canvasJson, () => {
-      console.log(fcanvas);
-      fcanvas.renderAll.bind(fcanvas);
-    });
-  }
-
-  if (index == 1) {
-    const icanvasEle = document.querySelector('#iCanvas');
-    const icanvas = new fabric.Canvas(icanvasEle, {
-      width: finalJson.canvasDimensions.width,
-      height: finalJson.canvasDimensions.height,
-    });
-    console.log(finalJson);
-    icanvas.loadFromJSON(finalJson.canvasJson, () => {
-      console.log(icanvas);
-      icanvas.renderAll.bind(icanvas);
-      if (
-        finalJson.cardFormat === 'portrait' &&
-        !icanvasEle.parentElement.querySelector('.dividerV')
-      ) {
-        const ele = document.createElement('div');
-        ele.setAttribute('class', 'dividerV');
-        icanvasEle.parentElement.appendChild(ele);
+const loadFont = () => {
+  const fontLoadPromises = [];
+  prjDt.font_collection.fonts.forEach((font) => {
+    const ftl = new FontFace(`fontid-${font.id}`, `url(${font.url})`);
+    fontLoadPromises.push(ftl.load());
+  });
+  Promise.all(fontLoadPromises)
+    .then((r) => {
+      // console.log(r);
+      if (Array.isArray(r) && r.length) {
+        r.forEach((lFont) => {
+          document.fonts.add(lFont);
+        });
       }
-      if (
-        finalJson.cardFormat !== 'portrait' &&
-        !icanvasEle.parentElement.querySelector('.dividerH')
-      ) {
-        const ele = document.createElement('div');
-        ele.setAttribute('class', 'dividerH');
-        icanvasEle.parentElement.appendChild(ele);
-      }
+      document.fonts.ready.then(function (font_face_set) {
+        // all fonts have been loaded
+        console.log('all fonts have been loaded');
+        loadCanvasObj();
+      });
+    })
+    .catch((r) => {
+      // console.log(r);
+      document.fonts.ready.then(function (font_face_set) {
+        // all fonts have been loaded
+        // console.log(font_face_set);
+        loadCanvasObj();
+      });
     });
-  }
+};
+function loadCanvasObj() {
+  const finalProjectData = getCanvasJSON(prjDt);
+  console.log({ finalProjectData, prjDt });
 
-  // if (index == 2) {
-  //   const bcanvas = new fabric.Canvas(document.querySelector('#bCanvas'), {
-  //     width: finalJson.canvasDimensions.width,
-  //     height: finalJson.canvasDimensions.height,
-  //   });
-  //   console.log(finalJson);
-  //   bcanvas.loadFromJSON(finalJson.canvasJson, () => {
-  //     console.log(bcanvas);
-  //     bcanvas.renderAll.bind(bcanvas);
-  //   });
-  // }
-});
+  finalProjectData.personalization.forEach((finalJson, index) => {
+    if (index == 0) {
+      const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
+        width: finalJson.canvasDimensions.width,
+        height: finalJson.canvasDimensions.height,
+      });
+      console.log(finalJson);
+      fcanvas.loadFromJSON(finalJson.canvasJson, () => {
+        console.log(fcanvas);
+        fcanvas.renderAll.bind(fcanvas);
+      });
+    }
+
+    if (index == 1) {
+      const icanvasEle = document.querySelector('#iCanvas');
+      const icanvas = new fabric.Canvas(icanvasEle, {
+        width: finalJson.canvasDimensions.width,
+        height: finalJson.canvasDimensions.height,
+      });
+      console.log(finalJson);
+      icanvas.loadFromJSON(finalJson.canvasJson, () => {
+        console.log(icanvas);
+        icanvas.renderAll.bind(icanvas);
+        if (
+          finalJson.cardFormat === 'portrait' &&
+          !icanvasEle.parentElement.querySelector('.dividerV')
+        ) {
+          const ele = document.createElement('div');
+          ele.setAttribute('class', 'dividerV');
+          icanvasEle.parentElement.appendChild(ele);
+        }
+        if (
+          finalJson.cardFormat !== 'portrait' &&
+          !icanvasEle.parentElement.querySelector('.dividerH')
+        ) {
+          const ele = document.createElement('div');
+          ele.setAttribute('class', 'dividerH');
+          icanvasEle.parentElement.appendChild(ele);
+        }
+      });
+    }
+
+    // if (index == 2) {
+    //   const bcanvas = new fabric.Canvas(document.querySelector('#bCanvas'), {
+    //     width: finalJson.canvasDimensions.width,
+    //     height: finalJson.canvasDimensions.height,
+    //   });
+    //   console.log(finalJson);
+    //   bcanvas.loadFromJSON(finalJson.canvasJson, () => {
+    //     console.log(bcanvas);
+    //     bcanvas.renderAll.bind(bcanvas);
+    //   });
+    // }
+  });
+}
+loadFont();
