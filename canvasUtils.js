@@ -331,16 +331,14 @@ const canvasUtil = (function () {
           x: left,
           y: top,
         };
+        const imageCenterPoint = {
+          x: left + zone.image.centerPoint.x * activeFace.multiplierX,
+          y: top + zone.image.centerPoint.y * activeFace.multiplierY,
+        };
 
+        objLeftTop.x = imageCenterPoint.x - (imageWidth * scaleX) / 2;
+        objLeftTop.y = imageCenterPoint.y - (imageHeight * scaleY) / 2;
         if (zone.image.angle) {
-          const imageCenterPoint = {
-            x: left + zone.image.centerPoint.x * activeFace.multiplierX,
-            y: top + zone.image.centerPoint.y * activeFace.multiplierY,
-          };
-
-          objLeftTop.x = imageCenterPoint.x - (imageWidth * scaleX) / 2;
-          objLeftTop.y = imageCenterPoint.y - (imageHeight * scaleY) / 2;
-
           if (imageAngle) {
             const rotatePoint = helperStore.rotatePoint(
               objLeftTop,
@@ -592,7 +590,7 @@ const canvasUtil = (function () {
       originX: 'left',
       originY: 'top',
       left: objLeftTop.x + (isPredefinedText ? 18 : 0),
-      top: objLeftTop.y + (isPredefinedText ? 18 : 0),
+      top: objLeftTop.y + (isPredefinedText ? 70 : 0),
       width: textZone.width + (isPredefinedText ? 18 : 0),
       height: textZone.height + (isPredefinedText ? 18 : 0),
       fill: textZone.textColor,
@@ -623,7 +621,7 @@ const canvasUtil = (function () {
       fontSize: isPredefinedText
         ? textZone.fontSize * 4
         : textZone.fontSize * 5.33,
-      text: helperStore.stripEmojiesWithChar(textZone.text),
+      text: textZone.text,
       underline: false,
       overline: false,
       linethrough: false,
@@ -776,18 +774,18 @@ const getCanvasJSON = function (projectData) {
 };
 
 const prjDt = {
-  project_id: 'fb2e3363-115b-4843-a9ea-8f3226077e36',
-  account_id: '2118352756',
+  project_id: '4df4729d-629b-46fc-a32c-1ea3682d95ee',
+  account_id: '2118392187',
   name: 'test',
   product_id: '2PGM1401',
-  scan_code: '0006847022',
+  scan_code: '0006847682',
   version: 1,
   is_digital_fulfillment: false,
-  expiration_date: '2023-06-09T11:01:14.457246513Z',
+  expiration_date: '2023-06-13T07:41:43.666634002Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-06-02T11:01:14.457266626Z',
-  last_updated_at: '2023-06-02T11:01:14.457267439Z',
+  created_at: '2023-06-06T07:41:43.666652517Z',
+  last_updated_at: '2023-06-06T07:41:43.666653326Z',
   font_collection: {
     default_size: 55,
     default_color: '#000000',
@@ -952,13 +950,19 @@ const prjDt = {
       cardFormat: 'portrait',
       cardSize: '49',
       cardType: 'photo',
-      dimensions: { height: 179, width: 125 },
+      dimensions: {
+        height: 179,
+        width: 125,
+      },
       faces: [
         {
           backgroundUrl:
             'https://content.stage.hallmark.com/webassets/PGM1401/PGM1401_P1_Background.png',
           canvasJson: null,
-          dimensions: { height: 2114, width: 1476 },
+          dimensions: {
+            height: 2114,
+            width: 1476,
+          },
           editableAreas: [],
           faceId: 1,
           frameUrl:
@@ -979,18 +983,24 @@ const prjDt = {
                 filename: 'IMG_0071.JPG',
                 extension: 'jpg',
                 fileSize: 2137432,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/142561aa-35ee-4141-ab97-bb765cbdfdc63809321581101327534.JPG',
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/feaf8eef-11a1-4951-853d-7a064c3b0ff34247339982822226196.JPG',
                 type: 'image',
                 localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
-                imageId: '6ffea012-412c-4b52-bba6-0e86fa94052f',
-                photoTrayId: '7c4cd8a9-e386-4ea0-97fb-3da28f727a5c',
+                imageId: '6b424835-a0c1-4e67-8e94-d2078543f731',
+                photoTrayId: 'ed84ed03-c6c1-4145-8cd5-fd9e692afeee',
                 sliderIndex: 0,
-                centerPoint: { x: 48.24269443363097, y: 52.97381585619679 },
+                centerPoint: {
+                  x: 49.98713764516319,
+                  y: 54.71697195837275,
+                },
                 insideWidth: 0,
                 originalCenterPoint: {
-                  x: 48.24269443363097,
-                  y: 52.97381585619679,
+                  x: 49.98713764516319,
+                  y: 54.71697195837275,
                 },
+                angle: 0.9424777960769379,
+                scaleX: 1,
+                scaleY: 1,
               },
             },
             {
@@ -1001,26 +1011,26 @@ const prjDt = {
               width: 489.95218,
               image: {
                 playableDuration: null,
-                height: 2776,
-                width: 2082,
-                filename: 'IMG_0071.JPG',
+                height: 2048,
+                width: 1536,
+                filename: 'IMG_0070.JPG',
                 extension: 'jpg',
-                fileSize: 2137432,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/55d38548-d27a-4dfd-aeeb-83774d45147f8755288237895674925.JPG',
+                fileSize: 504292,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/2dde3d59-95a1-40e6-926d-e56e97d1ff5a78271105966517687.JPG',
                 type: 'image',
-                localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
-                imageId: 'e341efff-d0fd-4a75-868e-a385d787a579',
-                photoTrayId: 'e17c52ac-4c06-4729-b25a-0ccdb9a6783f',
+                localUrl: 'ph://8D7A4166-3C69-4D93-836E-A7B847F04D40/L0/001',
+                imageId: '6ea58b2c-0320-48ab-aa6d-04def082cf55',
+                photoTrayId: '8f330a42-35b3-4ac4-906b-12791d7946cb',
                 sliderIndex: 0,
-                centerPoint: { x: 48.24281062153431, y: 52.89828056764428 },
+                centerPoint: {
+                  x: 49.98725383306653,
+                  y: 54.64143666982025,
+                },
                 insideWidth: 0,
                 originalCenterPoint: {
-                  x: 48.24281062153431,
-                  y: 52.89828056764428,
+                  x: 49.98725383306653,
+                  y: 54.64143666982025,
                 },
-                angle: 0.7853981633974483,
-                scaleX: 1,
-                scaleY: 1,
               },
             },
             {
@@ -1031,26 +1041,26 @@ const prjDt = {
               width: 488.836,
               image: {
                 playableDuration: null,
-                height: 2776,
-                width: 2082,
-                filename: 'IMG_0071.JPG',
+                height: 1024,
+                width: 768,
+                filename: 'IMG_0068.JPG',
                 extension: 'jpg',
-                fileSize: 2137432,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/3421bee0-65a6-488b-9baa-33e887462ee28207581592180251794.JPG',
+                fileSize: 86129,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/4ee30fb7-db94-4888-bba1-2419cac63ba95886222524420527789.JPG',
                 type: 'image',
-                localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
-                imageId: '044fe50e-857d-44e2-b256-9671e657f2fc',
-                photoTrayId: 'b58bfebb-8244-41f2-b5bf-b8cc3712ffa6',
+                localUrl: 'ph://FD89DB47-7EF0-4313-AEA6-A4654207A447/L0/001',
+                imageId: '1ffa7f15-5293-49f8-aaaf-43d1b5886137',
+                photoTrayId: '71ee1b74-e4c8-43c8-9cab-3b80e225f33b',
                 sliderIndex: 0,
-                centerPoint: { x: 48.132906711402626, y: 52.97381585619679 },
+                centerPoint: {
+                  x: 49.87734992293485,
+                  y: 54.71697195837275,
+                },
                 insideWidth: 0,
                 originalCenterPoint: {
-                  x: 48.132906711402626,
-                  y: 52.97381585619679,
+                  x: 49.87734992293485,
+                  y: 54.71697195837275,
                 },
-                angle: 0,
-                scaleX: 1,
-                scaleY: 1,
               },
             },
             {
@@ -1061,23 +1071,29 @@ const prjDt = {
               width: 493.786,
               image: {
                 playableDuration: null,
-                height: 2776,
-                width: 2082,
-                filename: 'IMG_0071.JPG',
+                height: 125,
+                width: 200,
+                filename: 'IMG_0040.JPG',
                 extension: 'jpg',
-                fileSize: 2137432,
-                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/840883d4-db26-4d3b-b03d-83e6c259fb5a8797113866865511301.JPG',
+                fileSize: 33217,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/06992db9-a368-444d-adb0-c2c52d5b7b784045046674040144270.JPG',
                 type: 'image',
-                localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
-                imageId: '6b80239d-5a95-473d-99fb-e79383cc14e5',
-                photoTrayId: 'c21bb527-eed4-4061-90a0-dc0e84d3b3ad',
+                localUrl: 'ph://A67CDED8-8324-4EBE-A5EC-ABD523B27365/L0/001',
+                imageId: '4a1289ad-22dc-426b-a8f5-68b19f5e4466',
+                photoTrayId: 'a0ac0c96-1c82-426b-870a-da53daecc81c',
                 sliderIndex: 0,
-                centerPoint: { x: 48.620305119501545, y: 53.39461343424787 },
+                centerPoint: {
+                  x: 50.364748331033766,
+                  y: 55.13776953642384,
+                },
                 insideWidth: 0,
                 originalCenterPoint: {
-                  x: 48.620305119501545,
-                  y: 53.39461343424787,
+                  x: 50.364748331033766,
+                  y: 55.13776953642384,
                 },
+                angle: 0,
+                scaleX: 1,
+                scaleY: 1,
               },
             },
           ],
@@ -1094,7 +1110,10 @@ const prjDt = {
           backgroundUrl:
             'https://content.stage.hallmark.com/webassets/PGM1401/PGM1401_P2-3_Background.png',
           canvasJson: null,
-          dimensions: { height: 2114, width: 2870 },
+          dimensions: {
+            height: 2114,
+            width: 2870,
+          },
           editableAreas: [],
           faceId: 2,
           frameUrl: '',
@@ -1105,7 +1124,36 @@ const prjDt = {
             'https://content.stage.hallmark.com/webassets/PGM1401/PGM1401_P2-3_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
-          texts: [],
+          texts: [
+            {
+              fontFamily: 'Just a Note',
+              fontId: 125,
+              fontSize: 16,
+              height: 198.1875,
+              isFixed: false,
+              isHybrid: false,
+              isMultiline: true,
+              left: 238,
+              angle: 0,
+              text: 'Fggg ‘l’”',
+              textAlign: 'left',
+              textColor: '#595959',
+              top: 976,
+              width: 1000,
+              userDefined: true,
+              insideWidth: 0,
+              sliderIndex: 1,
+              horizontalLayoutWidth: 0,
+              centerPoint: {
+                x: 150.66667683919272,
+                y: 214.8728992977593,
+              },
+              originalCenterPoint: {
+                x: 150.66667683919272,
+                y: 214.8728992977593,
+              },
+            },
+          ],
           type: 'inside',
           userImages: null,
           userTextZones: [],
@@ -1114,7 +1162,10 @@ const prjDt = {
           backgroundUrl:
             'https://content.stage.hallmark.com/webassets/PGM1401/PGM1401_P4_Background.png',
           canvasJson: null,
-          dimensions: { height: 2114, width: 1394 },
+          dimensions: {
+            height: 2114,
+            width: 1394,
+          },
           editableAreas: [],
           faceId: 3,
           frameUrl: '',
@@ -1133,7 +1184,10 @@ const prjDt = {
       ],
       name: 'PGM1401',
       openOrientation: 'right',
-      parentDimensions: { height: 179, width: 125 },
+      parentDimensions: {
+        height: 179,
+        width: 125,
+      },
     },
   },
   layoutWidth: 290.66668701171875,
