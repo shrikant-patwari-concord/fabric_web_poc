@@ -332,22 +332,64 @@ const canvasUtil = (function () {
           y: top,
         };
         const imageCenterPoint = {
-          x: left + zone.image.centerPoint.x * activeFace.multiplierX,
-          y: top + zone.image.centerPoint.y * activeFace.multiplierY,
+          x: left + photoZoneWidth / 2,
+          y: top + photoZoneHeight / 2,
         };
 
-        objLeftTop.x = imageCenterPoint.x - (imageWidth * scaleX) / 2;
-        objLeftTop.y = imageCenterPoint.y - (imageHeight * scaleY) / 2;
-        if (zone.image.angle) {
-          if (imageAngle) {
-            const rotatePoint = helperStore.rotatePoint(
+        if (photoZoneAngle) {
+          const phtoZoneCenter = helperStore.rotatePoint(
+            imageCenterPoint,
+            objLeftTop,
+            helperStore.degreesToRadians(photoZoneAngle)
+          );
+          imageCenterPoint.x = phtoZoneCenter.x;
+          imageCenterPoint.y = phtoZoneCenter.y;
+          objLeftTop.x = imageCenterPoint.x - (imageWidth * scaleX) / 2;
+          objLeftTop.y = imageCenterPoint.y - (imageHeight * scaleY) / 2;
+          const rotatePoint = helperStore.rotatePoint(
+            objLeftTop,
+            imageCenterPoint,
+            helperStore.degreesToRadians(photoZoneAngle)
+          );
+          objLeftTop.x = rotatePoint.x;
+          objLeftTop.y = rotatePoint.y;
+        }
+
+        console.log(
+          JSON.parse(
+            JSON.stringify({
+              msg: 'before',
+              index,
+              photoZoneAngle,
+              photoZoneWidth,
+              photoZoneHeight,
+              scaleX,
+              scaleY,
+              left,
+              top,
+              imageWidth: imageWidth * scaleX,
+              imageHeight: imageHeight * scaleY,
               objLeftTop,
-              imageCenterPoint,
-              helperStore.degreesToRadians(imageAngle)
-            );
-            objLeftTop.x = rotatePoint.x;
-            objLeftTop.y = rotatePoint.y;
-          }
+              phtoZoneCenter: imageCenterPoint,
+              imageCenterPoint: {
+                x: left + photoZoneWidth / 2,
+                y: top + photoZoneHeight / 2,
+              },
+            })
+          )
+        );
+
+        if (zone.image.angle) {
+          const rotatePoint = helperStore.rotatePoint(
+            {
+              x: imageCenterPoint.x - (imageWidth * scaleX) / 2,
+              y: imageCenterPoint.y - (imageHeight * scaleY) / 2,
+            },
+            imageCenterPoint,
+            zone.image.angle
+          );
+          objLeftTop.x = rotatePoint.x;
+          objLeftTop.y = rotatePoint.y;
         }
         const imageObj = {
           type: 'image',
@@ -520,8 +562,8 @@ const canvasUtil = (function () {
       version: '5.2.1',
       originX: 'left',
       originY: 'top',
-      left: 0,
-      top: 0,
+      left: -18,
+      top: -18,
       width: activeFace.canvasDimensions.width,
       height: activeFace.canvasDimensions.height,
       fill: 'rgb(0,0,0)',
@@ -588,9 +630,9 @@ const canvasUtil = (function () {
       type: 'textbox',
       version: '5.2.1',
       originX: 'left',
-      originY: 'top',
+      originY: 'center',
       left: objLeftTop.x + (isPredefinedText ? 18 : 0),
-      top: objLeftTop.y + (isPredefinedText ? 70 : 0),
+      top: objLeftTop.y + textZone.height / 2 + (isPredefinedText ? 18 : 0),
       width: textZone.width + (isPredefinedText ? 18 : 0),
       height: textZone.height + (isPredefinedText ? 18 : 0),
       fill: textZone.textColor,
@@ -780,6 +822,8 @@ const prjDt = {
   product_id: '2PGM1401',
   scan_code: '0006847682',
   version: 1,
+  layoutWidth: 290,
+  layoutHeight: 416,
   is_digital_fulfillment: false,
   expiration_date: '2023-06-13T07:41:43.666634002Z',
   project_type_code: 'P',
@@ -1190,8 +1234,6 @@ const prjDt = {
       },
     },
   },
-  layoutWidth: 290.66668701171875,
-  layoutHeight: 416,
 };
 const loadFont = () => {
   const fontLoadPromises = [];
@@ -1233,7 +1275,7 @@ function loadCanvasObj() {
         height: finalJson.canvasDimensions.height,
       });
       console.log(finalJson);
-      fcanvas.loadFromJSON(finalJson.canvasJson, () => {
+      fcanvas.loadFromJSON(finalJson.printJson, () => {
         console.log(fcanvas);
         fcanvas.renderAll.bind(fcanvas);
       });
