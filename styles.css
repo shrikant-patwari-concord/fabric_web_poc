@@ -53,7 +53,7 @@ h1 {
 .dividerV {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   width: 50%;
   height: 100%;
   border-right: 1px dashed #000;
@@ -70,4 +70,10 @@ h1 {
 #iCanvas,
 #bCanvas {
   border: 1px solid #000;
+}
+#textBoxTest {
+  width: 1435px;
+  height: 300px;
+  font-family: 'fontid-122';
+  font-size: 48px;
 }

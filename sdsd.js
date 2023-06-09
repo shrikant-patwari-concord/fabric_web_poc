@@ -643,7 +643,7 @@ const canvasUtil = (function () {
       fontWeight: 'normal',
       fontSize: isPredefinedText
         ? textZone.fontSize * 4
-        : (textZone.fontSize - textZone.fontSize / activeFace.multiplierX) * 4,
+        : (textZone.fontSize - textZone.fontSize * activeFace.multiplierX) * 4,
       text: textZone.text,
       underline: false,
       overline: false,
