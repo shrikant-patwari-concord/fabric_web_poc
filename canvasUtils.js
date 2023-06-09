@@ -176,7 +176,6 @@ const canvasUtil = (function () {
         faceId === 2 && cardFormat.toLowerCase() === 'portrait' ? 2 : 1,
       heightDivisionFactor =
         faceId === 2 && cardFormat.toLowerCase() !== 'portrait' ? 2 : 1;
-    console.log({ widthDivisionFactor, heightDivisionFactor });
     projectObj.personalization.push({
       faceId: faceId,
       faceNumber: faceId,
@@ -253,8 +252,8 @@ const canvasUtil = (function () {
         version: '5.2.1',
         originX: 'left',
         originY: 'top',
-        left: zone.left + 18,
-        top: zone.top + 18,
+        left: zone.left + 18 + 9,
+        top: zone.top + 18 + 9,
         width: zone.width + 18,
         height: zone.height + 18,
         fill: '#838684',
@@ -543,8 +542,8 @@ const canvasUtil = (function () {
       version: '5.2.1',
       originX: 'left',
       originY: 'top',
-      left: -18,
-      top: -18,
+      left: 0,
+      top: 0,
       width: activeFace.canvasDimensions.width,
       height: activeFace.canvasDimensions.height,
       fill: 'rgb(0,0,0)',
@@ -613,7 +612,9 @@ const canvasUtil = (function () {
       originX: 'left',
       originY: isPredefinedText ? 'center' : 'top',
       left: objLeftTop.x + (isPredefinedText ? 18 : 0),
-      top: isPredefinedText ? objLeftTop.y + textZone.height / 2 : objLeftTop.y,
+      top: isPredefinedText
+        ? objLeftTop.y + textZone.height / 2 + 18
+        : objLeftTop.y,
       width: textZone.width + (isPredefinedText ? 18 : 0),
       height: textZone.height + (isPredefinedText ? 18 : 0),
       fill: textZone.textColor,
@@ -797,18 +798,20 @@ const getCanvasJSON = function (projectData) {
 };
 
 const prjDt = {
-  project_id: 'c1e9b69b-5780-4e90-b0e6-d96fee387c04',
-  account_id: '2118356165',
+  project_id: 'b9ea76ad-2129-4301-b696-f715bf6cdea3',
+  account_id: '2118412763',
   name: 'test',
-  product_id: '2PGM2195',
-  scan_code: '0006848488',
+  product_id: '2PGM1214',
+  scan_code: '0006848543',
   version: 1,
-  is_digital_fulfillment: true,
-  expiration_date: '2023-06-15T21:41:25.315885255Z',
+  layoutWidth: 290,
+  layoutHeight: 416,
+  is_digital_fulfillment: false,
+  expiration_date: '2023-06-16T10:21:39.453989631Z',
   project_type_code: 'P',
   project_status_code: 'C',
-  created_at: '2023-06-08T21:41:25.315908622Z',
-  last_updated_at: '2023-06-08T21:41:25.315909477Z',
+  created_at: '2023-06-09T10:21:39.454007871Z',
+  last_updated_at: '2023-06-09T10:21:39.45400884Z',
   font_collection: {
     default_size: 55,
     default_color: '#000000',
@@ -961,9 +964,9 @@ const prjDt = {
     ],
   },
   product: {
-    product_id: '2PGM2195',
-    template_id: 'PGM1426',
-    product_name: 'Personalized Snapshots on Abstract Photo Card',
+    product_id: '2PGM1214',
+    template_id: 'PGM1214',
+    product_name: 'Personalized All About Amazing You Birthday Photo Card',
     vendor_lead_time: 1,
     envelope_color: '#FFFFF',
   },
@@ -980,7 +983,7 @@ const prjDt = {
       faces: [
         {
           backgroundUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P1_Background.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P1_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -989,61 +992,124 @@ const prjDt = {
           editableAreas: [],
           faceId: 1,
           frameUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P1_Frame.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P1_Frame.png',
           isEditable: true,
           overlayBackgroundUrl: '',
           photoZones: [
             {
-              height: 684.8136,
-              left: 157.48906,
-              angle: 355,
-              top: 229.56567,
-              width: 789.7448,
+              height: 715.99817,
+              left: -35.433,
+              angle: 0,
+              top: 1362.5642,
+              width: 749.9985,
+              image: {
+                playableDuration: null,
+                height: 2776,
+                width: 2082,
+                filename: 'IMG_0071.JPG',
+                extension: 'jpg',
+                fileSize: 2137432,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/da678da0-589b-46a7-8aa3-e67dc764a1ed5623456527749708912.JPG',
+                type: 'image',
+                localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
+                imageId: '5a3794e3-d013-41b0-ad0a-45c4e3c67860',
+                photoTrayId: '66fa8b4e-2c73-4a9d-aabc-939005115c21',
+                sliderIndex: 0,
+                centerPoint: {
+                  x: 75.59253916639624,
+                  y: 72.19141502365184,
+                },
+                insideWidth: 0,
+                originalCenterPoint: {
+                  x: 75.59253916639624,
+                  y: 72.19141502365184,
+                },
+                angle: 0,
+                scaleX: 1,
+                scaleY: 1,
+              },
             },
             {
-              height: 686.1411,
-              left: 455.06128,
-              angle: 5,
-              top: 1008.63464,
-              width: 791.50586,
+              height: 660.999,
+              left: -35.433,
+              angle: 0,
+              top: 689.5652,
+              width: 746.9985,
+              image: {
+                playableDuration: null,
+                height: 2776,
+                width: 2082,
+                filename: 'IMG_0071.JPG',
+                extension: 'jpg',
+                fileSize: 2137432,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/da0dad92-c6a4-4fc9-b39a-e66369c60bc2408321712708014393.JPG',
+                type: 'image',
+                localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
+                imageId: '5a5cfe95-05f0-46fc-85a6-af46ecfe2513',
+                photoTrayId: '8abebc46-d636-45b5-8a19-67df00de7035',
+                sliderIndex: 0,
+                centerPoint: {
+                  x: 75.29714619179083,
+                  y: 66.77995458845791,
+                },
+                insideWidth: 0,
+                originalCenterPoint: {
+                  x: 75.29714619179083,
+                  y: 66.77995458845791,
+                },
+              },
+            },
+            {
+              height: 709.99817,
+              left: -35.433,
+              angle: 0,
+              top: -35.433,
+              width: 750.9989,
+              image: {
+                playableDuration: null,
+                height: 2776,
+                width: 2082,
+                filename: 'IMG_0071.JPG',
+                extension: 'jpg',
+                fileSize: 2137432,
+                uri: 'https://s3.us-west-2.amazonaws.com/hmklabs-dotcom-stage-us-west-2-consumer-images/images/0657fbaf-6bb0-4b4f-a322-6a309a8dbfac7638579893216122851.JPG',
+                type: 'image',
+                localUrl: 'ph://878A5DA8-5635-41B7-A032-1E0D3D282DD7/L0/001',
+                imageId: '724645a1-590a-45d1-8719-b24c116f3945',
+                photoTrayId: '4b174f4c-ca0a-451d-b0d4-222d07696536',
+                sliderIndex: 0,
+                centerPoint: {
+                  x: 75.69104287699464,
+                  y: 71.60106497634816,
+                },
+                insideWidth: 0,
+                originalCenterPoint: {
+                  x: 75.69104287699464,
+                  y: 71.60106497634816,
+                },
+              },
             },
           ],
           previewUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P1_Preview.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P1_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
           texts: [
             {
-              fontFamily: 'Hey Sunshine',
-              fontId: 107,
-              fontSize: 19,
-              height: 127.407616,
+              fontFamily: 'Be Seeing You',
+              fontId: 126,
+              fontSize: 47,
+              height: 205.6059,
               isFixed: true,
               isHybrid: false,
               isMultiline: false,
-              left: 402.5862,
-              angle: 5,
-              text: 'Like son',
+              left: 751.5658,
+              angle: 0,
+              text: 'Allison',
               textAlign: 'center',
-              textColor: '#000000',
-              top: 1664.9022,
-              width: 783.59015,
-            },
-            {
-              fontFamily: 'Hey Sunshine',
-              fontId: 107,
-              fontSize: 19,
-              height: 121.73125,
-              isFixed: true,
-              isHybrid: false,
-              isMultiline: false,
-              left: 225.51096,
-              angle: 355,
-              text: 'Like father',
-              textAlign: 'center',
-              textColor: '#000000',
-              top: 884.7975,
-              width: 774.4461,
+              textColor: '#416457',
+              top: 1689.7974,
+              width: 595.9984,
             },
           ],
           type: 'front',
@@ -1052,7 +1118,7 @@ const prjDt = {
         },
         {
           backgroundUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P2-3_Background.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P2-3_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -1065,63 +1131,17 @@ const prjDt = {
           overlayBackgroundUrl: '',
           photoZones: [],
           previewUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P2-3_Preview.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P2-3_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
-          texts: [
-            {
-              fontFamily: 'Hey Sunshine',
-              fontId: 107,
-              fontSize: 19,
-              height: 649.6841,
-              isFixed: true,
-              isHybrid: false,
-              isMultiline: false,
-              left: 1497.564,
-              angle: 0,
-              text: 'And that’s alright with me.',
-              textAlign: 'center',
-              textColor: '#000000',
-              top: 434.56567,
-              width: 1211.9976,
-              sliderIndex: 2,
-            },
-            {
-              fontFamily: 'Just a Note',
-              fontId: 125,
-              fontSize: 16,
-              height: 306.3170890188434,
-              isFixed: false,
-              isHybrid: false,
-              isMultiline: true,
-              left: 238,
-              angle: 0,
-              text: 'jkjkjjj nmnmnmnn jkjjjjk nmnnnnn jkjjjjk nmnnnn jkjjjkj nmnnnn jkjjjj nmnnn jkjjjj nmnmnnn',
-              textAlign: 'left',
-              textColor: '#595959',
-              top: 976,
-              width: 1000,
-              userDefined: true,
-              insideWidth: 0,
-              sliderIndex: 1,
-              horizontalLayoutWidth: 0,
-              centerPoint: {
-                x: 184.33333333333334,
-                y: 264.7708083265582,
-              },
-              originalCenterPoint: {
-                x: 184.33333333333334,
-                y: 264.7708083265582,
-              },
-            },
-          ],
+          texts: [],
           type: 'inside',
           userImages: null,
           userTextZones: [],
         },
         {
           backgroundUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P4_Background.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P4_Background.png',
           canvasJson: null,
           dimensions: {
             height: 2114,
@@ -1134,7 +1154,7 @@ const prjDt = {
           overlayBackgroundUrl: '',
           photoZones: [],
           previewUrl:
-            'https://content.stage.hallmark.com/webassets/PGM1426/PGM1426_P4_Preview.png',
+            'https://content.stage.hallmark.com/webassets/PGM1214/PGM1214_P4_Preview.png',
           printJson: null,
           replaceBackgroundUrl: '',
           texts: [],
@@ -1143,7 +1163,7 @@ const prjDt = {
           userTextZones: [],
         },
       ],
-      name: 'PGM1426',
+      name: 'PGM1214',
       openOrientation: 'right',
       parentDimensions: {
         height: 179,
@@ -1151,8 +1171,6 @@ const prjDt = {
       },
     },
   },
-  layoutWidth: 358,
-  layoutHeight: 513,
 };
 const loadFont = () => {
   const fontLoadPromises = [];
@@ -1188,59 +1206,59 @@ function loadCanvasObj() {
   console.log({ finalProjectData, prjDt });
 
   finalProjectData.personalization.forEach((finalJson, index) => {
-    // if (index == 0) {
-    //   const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
-    //     width: finalJson.canvasDimensions.width,
-    //     height: finalJson.canvasDimensions.height,
-    //   });
-    //   console.log(finalJson);
-    //   fcanvas.loadFromJSON(finalJson.printJson, () => {
-    //     console.log(fcanvas);
-    //     fcanvas.renderAll.bind(fcanvas);
-    //   });
-    // }
-
-    if (index == 1) {
-      const icanvasEle = document.querySelector('#iCanvas');
-      const icanvas = new fabric.Canvas(icanvasEle, {
+    if (index == 0) {
+      const fcanvas = new fabric.Canvas(document.querySelector('#fCanvas'), {
         width: finalJson.canvasDimensions.width,
         height: finalJson.canvasDimensions.height,
       });
       console.log(finalJson);
-      icanvas.loadFromJSON(finalJson.canvasJson, () => {
-        console.log(icanvas);
-        // const react = new fabric.Rect({
-        //   height: 527.1955815464588,
-        //   left: 238,
-        //   angle: 0,
-        //   top: 976,
-        //   width: 1000,
-        //   strokeWidth: 1,
-        //   fill: 'transparent',
-        //   stroke: 'black',
-        //   fillRule: 'nonzero',
-        //   paintFirst: 'fill',
-        // });
-        // icanvas.add(react);
-        icanvas.renderAll.bind(icanvas);
-        if (
-          finalJson.cardFormat === 'portrait' &&
-          !icanvasEle.parentElement.querySelector('.dividerV')
-        ) {
-          const ele = document.createElement('div');
-          ele.setAttribute('class', 'dividerV');
-          icanvasEle.parentElement.appendChild(ele);
-        }
-        if (
-          finalJson.cardFormat !== 'portrait' &&
-          !icanvasEle.parentElement.querySelector('.dividerH')
-        ) {
-          const ele = document.createElement('div');
-          ele.setAttribute('class', 'dividerH');
-          icanvasEle.parentElement.appendChild(ele);
-        }
+      fcanvas.loadFromJSON(finalJson.printJson, () => {
+        console.log(fcanvas);
+        fcanvas.renderAll.bind(fcanvas);
       });
     }
+
+    // if (index == 1) {
+    //   const icanvasEle = document.querySelector('#iCanvas');
+    //   const icanvas = new fabric.Canvas(icanvasEle, {
+    //     width: finalJson.canvasDimensions.width,
+    //     height: finalJson.canvasDimensions.height,
+    //   });
+    //   console.log(finalJson);
+    //   icanvas.loadFromJSON(finalJson.canvasJson, () => {
+    //     console.log(icanvas);
+    //     // const react = new fabric.Rect({
+    //     //   height: 527.1955815464588,
+    //     //   left: 238,
+    //     //   angle: 0,
+    //     //   top: 976,
+    //     //   width: 1000,
+    //     //   strokeWidth: 1,
+    //     //   fill: 'transparent',
+    //     //   stroke: 'black',
+    //     //   fillRule: 'nonzero',
+    //     //   paintFirst: 'fill',
+    //     // });
+    //     // icanvas.add(react);
+    //     icanvas.renderAll.bind(icanvas);
+    //     if (
+    //       finalJson.cardFormat === 'portrait' &&
+    //       !icanvasEle.parentElement.querySelector('.dividerV')
+    //     ) {
+    //       const ele = document.createElement('div');
+    //       ele.setAttribute('class', 'dividerV');
+    //       icanvasEle.parentElement.appendChild(ele);
+    //     }
+    //     if (
+    //       finalJson.cardFormat !== 'portrait' &&
+    //       !icanvasEle.parentElement.querySelector('.dividerH')
+    //     ) {
+    //       const ele = document.createElement('div');
+    //       ele.setAttribute('class', 'dividerH');
+    //       icanvasEle.parentElement.appendChild(ele);
+    //     }
+    //   });
+    // }
 
     // if (index == 2) {
     //   const bcanvas = new fabric.Canvas(document.querySelector('#bCanvas'), {
